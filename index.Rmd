@@ -46,21 +46,16 @@ knitr::include_graphics("img/00-presentacion/arturo.png")
 **LinkedIn:** [KaLizzyGam ](https://www.linkedin.com/in/kalizzygam/)
 **Email:**  lizzygamboa@ciencias.unam.mx
 
-Actuaria, egresada de la Facultad de Ciencias, UNAM, candidata a Maestra en
-Ciencia de Datos por el ITAM.
+Actuaria, egresada de la Facultad de Ciencias, UNAM, candidata a Maestra en Ciencia de Datos por el ITAM.
 
-Experiencia en áreas de analítica predictiva e inteligencia del negocio. Lead y Senior
-Data Scientist en consultoría en diferentes sectores como tecnología, asegurador,
-financiero y bancario. Experta en entendimiento de negocio para la correcta
-implementación de algoritmos de inteligencia y explotación de datos.
-Actualmente se desarrolla como Arquitecta de Soluciones Analíticas en Merama,
+Experiencia en áreas de analítica predictiva e inteligencia del negocio. **Lead y Senior Data Scientist** en consultoría en diferentes sectores como tecnología, asegurador, financiero y bancario. Experta en entendimiento de negocio para la correcta implementación de algoritmos de inteligencia y explotación de datos.
+Actualmente se desarrolla como **Arquitecta de Soluciones Analíticas** en Merama,
 startup mexicana clasificada como uno de los nuevos unicornios de Latinoamérica.
 Senior Data Science en CLOSTER y como profesora del diplomado de Metodología
 de la Investigación Social por la UNAM así como instructora de cursos de Ciencia de
 Datos en AMAT.
 
-Empresas anteriores: GNP, Activer Banco y Casa de Bolsa, PlayCity Casinos,
-RakenDataGroup Consulting, entre otros.
+Empresas anteriores: GNP, Activer Banco y Casa de Bolsa, PlayCity Casinos, RakenDataGroup Consulting, entre otros.
 
 ```{r echo=FALSE,fig.align='center',  out.width='250pt'}
 knitr::include_graphics("img/00-presentacion/lizzy.png")
