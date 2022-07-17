@@ -22,7 +22,9 @@ pre code {
   color: #00407d;
 }
 
-
+p {
+  text-align: justify;
+}
 
 table {
   cursor: pointer; 
