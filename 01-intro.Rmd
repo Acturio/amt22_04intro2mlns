@@ -484,7 +484,7 @@ En esta seccion del *scoping* queremos definir qué tipo de análisis necesitamo
 
 El análisis puede incluir métodos y herramientas de diferentes disciplinas: ciencias computacionales, ciencia de datos, machine learning, estadística, ciencias sociales.
 
-Existen distintos tipops de análisis, los 4 más comunes son:
+Existen distintos tipos de análisis, los 4 más comunes son:
 
 - **Descripción**: Centrado en entender eventos y comportamientos del pasado. Aunque puede confundirse con business intelligence, debido a que ya definimos objetivos y acciones vamos a desarrollar un producto de datos. Para este tipo de análisis podemos ocupar métodos de aprendizaje no supervisado: clustering.
 
@@ -494,8 +494,8 @@ Existen distintos tipops de análisis, los 4 más comunes son:
 
 - **Cambio en comportamiento**: Concentrado en entender las causas de cambios en comportamientos de personas eventos, organizaciones, vecindarios, etc.
 
-```{r, fig.align='center', out.height='400pt', out.width='500pt',echo=F}
-knitr::include_graphics("img/01-intro2ds-ciclo/15-elegir.jpg")
+```{r, fig.align='center', out.height='450pt', out.width='900pt',echo=F}
+knitr::include_graphics("img/01-intro2ds-ciclo/15-Tipos-de-Analisis.webp")
 ```
 
 

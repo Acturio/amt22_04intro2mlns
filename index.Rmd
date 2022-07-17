@@ -63,7 +63,7 @@ knitr::include_graphics("img/00-presentacion/lizzy.png")
 
 ## Ciencia de Datos en R {-}
 
-```{r echo=FALSE,fig.align='center',  out.width='600pt'}
+```{r echo=FALSE,fig.align='center',  out.width='800pt'}
 knitr::include_graphics("img/00-presentacion/DataScienceVerse.png")
 ```
  
