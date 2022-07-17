@@ -33,8 +33,8 @@ Brindar al participante un amplio conocimiento de los requisitos, alcances y tom
 **LinkedIn:** [arturo-bringas](https://www.linkedin.com/in/arturo-bringas/)
 **Email:** act.arturo.b@ciencias.unam.mx
 
-Actuario, egresado de la Facultad de Ciencias y Maestría en Ciencia de Datos, ITAM. 
-Experiencia en modelos predictivos y de clasificación de machine learning aplicado a seguros, deportes y movilidad internacional. Es jefe de departamento en Investigación Aplicada y Opinión de la UNAM, donde realiza estudios estadísticos de impacto social. Es consultor para empresas y organizaciones como GNP, El Universal, UNAM, Sinnia, la Organización de las Naciones Unidas Contra la Droga y el Delito (UNODC), entre otros. Actualmente es profesor de *ciencia de datos y machine learning* en AMAT y se desempeña como consultor independiente en diferentes proyectos contribuyendo a empresas en temas de machine learning, estadística, series de tiempo, visualización de datos y análisis geoespacial.
+Actuario egresado de la Facultad de Ciencias y Maestría en Ciencia de Datos por el ITAM. 
+Se especializa en modelos predictivos y de clasificación de *machine learning* aplicado a seguros, marketing, deportes y movilidad internacional. Es jefe de departamento en Investigación Aplicada y Opinión de la UNAM, donde realiza estudios estadísticos de impacto social. Ha sido consultor *Sinior Data Scientist* para empresas y organizaciones como GNP, El Universal, UNAM, Sinnia, Geekend, la Organización de las Naciones Unidas Contra la Droga y el Delito (UNODC), entre otros. Actualmente es profesor de *Ciencia de datos y Machine Learning* en AMAT y se desempeña como consultor independiente en diferentes proyectos contribuyendo a empresas en temas de análisis estadístico y ciencia de datos con machine learning.
 
 ```{r echo=FALSE,fig.align='center'}
 knitr::include_graphics("img/00-presentacion/arturo.png")
