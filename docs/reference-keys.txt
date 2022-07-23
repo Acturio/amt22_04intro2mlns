@@ -9,3 +9,10 @@ aprendizaje-no-supervisado
 aprendizaje-por-refuerzo
 ciclo-de-un-proyecto
 scoping
+anexo-visualización-con-ggplot
+ggplot2
+objetos-aesteticos
+objetos-geométricos-o-capas
+facetas
+más-sobre-estéticas
+referencias

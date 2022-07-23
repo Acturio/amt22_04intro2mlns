@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>AMAT- Ciencia de Datos y Machine Learning</title>
+  <title>Capítulo 3 Anexo: Visualización con Ggplot | AMAT- Ciencia de Datos y Machine Learning</title>
   <meta name="description" content="AMAT: Ciencia de Datos y Machine Learning" />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="AMAT- Ciencia de Datos y Machine Learning" />
+  <meta property="og:title" content="Capítulo 3 Anexo: Visualización con Ggplot | AMAT- Ciencia de Datos y Machine Learning" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="AMAT: Ciencia de Datos y Machine Learning" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="AMAT- Ciencia de Datos y Machine Learning" />
+  <meta name="twitter:title" content="Capítulo 3 Anexo: Visualización con Ggplot | AMAT- Ciencia de Datos y Machine Learning" />
   
   <meta name="twitter:description" content="AMAT: Ciencia de Datos y Machine Learning" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="scoping.html"/>
 
-<link rel="next" href="introducción-a-ciencia-de-datos.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -205,138 +205,104 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">AMAT- Ciencia de Datos y Machine Learning</h1>
-<h2 class="subtitle"><em>Aprendizaje NO supervisado</em></h2>
-<p class="author"><em>Karina Lizette Gamboa Puente</em></p>
-<p class="author"><em>Oscar Arturo Bringas López</em></p>
-</div>
-<div id="bienvenida" class="section level1 unnumbered hasAnchor">
-<h1>BIENVENIDA<a href="index.html#bienvenida" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="objetivo" class="section level2 unnumbered hasAnchor">
-<h2>Objetivo<a href="index.html#objetivo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Brindar al participante un amplio conocimiento de los requisitos, alcances y toma de decisión alrededor de un proyecto de Ciencia de Datos. Aprenderá a través del conjunto de librerías más novedoso en <em>R</em> a crear, ajustar y afinar los mejores parámetros para la correcta implementación de diferentes tipos de modelos de aprendizaje de máquina estadístico no supervisado (Not Supervised Statistical Machine Learning) para la creación de índices, segmentación y visualización de datos multivariados. De entre los distintos modelos creados, sabrá identificar cuál modelo ofrece el mejor ajuste de acuerdo con el objetivo particular de cada problema a resolver.</p>
-<div class="infobox important">
-<p><strong>Se asume que el alumno tiene conocimientos generales de estadística, bases matemáticas y de programación básica en R y que cuenta con los conocimientos teóricos básicos de machine learning y prácticos con tidymodels.</strong></p>
-</div>
-</div>
-<div id="instructores" class="section level2 unnumbered hasAnchor">
-<h2>Instructores<a href="index.html#instructores" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>ACT. ARTURO BRINGAS</strong></p>
-<p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/arturo-bringas/">arturo-bringas</a>
-<strong>Email:</strong> <a href="mailto:act.arturo.b@ciencias.unam.mx" class="email">act.arturo.b@ciencias.unam.mx</a></p>
-<p>Actuario egresado de la Facultad de Ciencias y Maestría en Ciencia de Datos por el ITAM.
-Se especializa en modelos predictivos y de clasificación de <em>machine learning</em> aplicado a seguros, marketing, deportes y movilidad internacional. Es jefe de departamento en Investigación Aplicada y Opinión de la UNAM, donde realiza estudios estadísticos de impacto social. Ha sido consultor <em>Sinior Data Scientist</em> para empresas y organizaciones como GNP, El Universal, UNAM, Sinnia, Geekend, la Organización de las Naciones Unidas Contra la Droga y el Delito (UNODC), entre otros. Actualmente es profesor de <em>Ciencia de datos y Machine Learning</em> en AMAT y se desempeña como consultor independiente en diferentes proyectos contribuyendo a empresas en temas de análisis estadístico y ciencia de datos con machine learning.</p>
-<p><img src="img/00-presentacion/arturo.png" width="236" style="display: block; margin: auto;" /></p>
-<p><strong>ACT. KARINA LIZETTE GAMBOA</strong></p>
-<p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/kalizzygam/">KaLizzyGam</a>
-<strong>Email:</strong> <a href="mailto:lizzygamboa@ciencias.unam.mx" class="email">lizzygamboa@ciencias.unam.mx</a></p>
-<p>Actuaria, egresada de la Facultad de Ciencias, UNAM, candidata a Maestra en Ciencia de Datos por el ITAM.</p>
-<p>Experiencia en áreas de analítica predictiva e inteligencia del negocio. <strong>Lead y Senior Data Scientist</strong> en consultoría en diferentes sectores como tecnología, asegurador, financiero y bancario. Experta en entendimiento de negocio para la correcta implementación de algoritmos de inteligencia y explotación de datos.
-Actualmente se desarrolla como <strong>Arquitecta de Soluciones Analíticas</strong> en Merama,
-startup mexicana clasificada como uno de los nuevos unicornios de Latinoamérica.
-Senior Data Science en CLOSTER y como profesora del diplomado de Metodología
-de la Investigación Social por la UNAM así como instructora de cursos de Ciencia de
-Datos en AMAT.</p>
-<p>Empresas anteriores: GNP, Activer Banco y Casa de Bolsa, PlayCity Casinos, RakenDataGroup Consulting, entre otros.</p>
-<p><img src="img/00-presentacion/lizzy.png" width="250pt" style="display: block; margin: auto;" /></p>
-</div>
-<div id="ciencia-de-datos-en-r" class="section level2 unnumbered hasAnchor">
-<h2>Ciencia de Datos en R<a href="index.html#ciencia-de-datos-en-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><img src="img/00-presentacion/DataScienceVerse.png" width="800pt" style="display: block; margin: auto;" /></p>
-</div>
-<div id="estructura-del-curso-actual" class="section level2 unnumbered hasAnchor">
-<h2>Estructura del curso actual<a href="index.html#estructura-del-curso-actual" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="alcances-del-curso" class="section level3 unnumbered hasAnchor">
-<h3>Alcances del curso<a href="index.html#alcances-del-curso" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Al finalizar el módulo, el participante sabrá plantear un proyecto de ciencias de datos, desde sus requerimientos hasta sus alcances. Sabrá crear flujos de trabajo limpios y ordenados para crear poderosos modelos no supervisados de Machine Learning.</p>
-<p><strong>Requisitos:</strong></p>
-<blockquote>
-<p>Computadora con al menos 4Gb Ram.</p>
-</blockquote>
-<blockquote>
-<p>Instalación de R con al menos versión 4.1.0</p>
-</blockquote>
-<blockquote>
-<p>Instalación de Rstudio con al menos versión 1.4</p>
-</blockquote>
-<blockquote>
-<p>Data Science &amp; Machine Learning (Aprendizaje Supervisado I)</p>
-</blockquote>
-<p><strong>Temario:</strong></p>
-<p><strong>1.- Introducción a Ciencia de Datos (4 HRS)</strong></p>
-<ul>
-<li>¿Qué es Ciencia de Datos?</li>
-<li>Objetivo de la ciencia de datos</li>
-<li>¿Qué se requiere para hacer ciencia de datos?</li>
-<li>Tipos de problemas que se pueden resolver</li>
-<li>Tipos de algoritmos y aprendizaje</li>
-<li>Ciclo de vida de un proyecto de Ciencia de Datos</li>
-</ul>
-<p><strong>2. Análisis de componentes principales (4 HRS)</strong></p>
-<ul>
-<li>Planteamiento</li>
-<li>Construcción de componentes</li>
-<li>Reducción de dimensión</li>
-<li>Visualización</li>
-<li>Aplicaciones</li>
-</ul>
-<p><strong>3. Cluster Jerárquico (4 HRS)</strong></p>
-<ul>
-<li>Liga simple</li>
-<li>Liga compleja</li>
-<li>Liga promedio</li>
-<li>Dendogramas &amp; Heatmap</li>
-</ul>
-<p><strong>4. Cluster no Jerárquico (6 HRS)</strong></p>
-<ul>
-<li>K-means</li>
-<li>K-medoides</li>
-<li>Clara</li>
-<li>DBSCAN</li>
-</ul>
-<p><strong>5. Clusterización y visualización geoespacial (6 HRS)</strong></p>
-<ul>
-<li>Lectura de datos espaciales</li>
-<li>Transformación de datos espaciales</li>
-<li>Clustering espacial</li>
-<li>Visualización espacial</li>
-</ul>
-</div>
-</div>
-<div id="duración-y-evaluación-del-curso" class="section level2 unnumbered hasAnchor">
-<h2>Duración y evaluación del curso<a href="index.html#duración-y-evaluación-del-curso" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li><p>El programa tiene una duración de 24 hrs.</p></li>
-<li><p>Las clases serán impartidas los días sábados, de 9:00 am a 1:00 pm</p></li>
-<li><p>Serán asignados ejercicios que el participante deberá resolver entre una semana y otra.</p></li>
-<li><p>Al final del curso se solicitará un proyecto final, el cual <strong>deberá ser entregado para ser acreedor a la constancia de participación</strong>.</p></li>
-</ul>
-</div>
-<div id="recursos-y-dinámica-de-clase" class="section level2 unnumbered hasAnchor">
-<h2>Recursos y dinámica de clase<a href="index.html#recursos-y-dinámica-de-clase" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>En esta clase estaremos usando:</p>
-<ul>
-<li>R <a href="https://cran.r-project.org/">da click aquí si aún no lo descargas</a></li>
-<li>RStudio <a href="https://www.rstudio.com/products/rstudio/download/">da click aquí también</a></li>
-<li>Zoom <a href="https://us02web.zoom.us/j/5155440751?pwd=YzJCOGF0VnlZdlZlS0Fpc3MvZEhadz09">Clases</a>
-<ul>
-<li>Pulgar arriba: Voy bien, estoy entendiendo!</li>
-<li>Pulgar abajo: Eso no quedó muy claro</li>
-<li>Mano arriba: Quiero participar/preguntar ó Ya estoy listo para iniciar</li>
-</ul></li>
-<li>Grupo de WhatsApp <a href="https://chat.whatsapp.com/JehH9aIUXTbFiIjpkOB08e">El chismecito está aquí</a></li>
-<li><a href="https://drive.google.com/drive/folders/1Dc9uZmy7zyVC5twTn-B-VxAW3GKv2fh9?usp=sharing">Google Drive</a></li>
-<li>Notas de clase <a href="https://acturio.github.io/amt22_04intro2mlns/">Revisame si quieres aprender</a></li>
-<li>Finalmente, se dejarán ejercicios que serán clave para el éxito del aprendizaje de los capítulos, por lo que se trabajará en equipo para lograr adquirir el mayor aprendizaje.</li>
-</ul>
+<div id="anexo-visualización-con-ggplot" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Capítulo 3</span> Anexo: Visualización con Ggplot<a href="anexo-visualización-con-ggplot.html#anexo-visualización-con-ggplot" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div class="watermark">
 <img src="img/header.png" width="400">
 </div>
+<div id="ggplot2" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Ggplot2<a href="anexo-visualización-con-ggplot.html#ggplot2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Comparando con los gráficos base de R, ggplot2:</p>
+<ul>
+<li>Tiene una gramática más compleja para gráficos simples</li>
+<li>Tiene una gramática menos compleja para gráficos complejos o muy personalizados</li>
+<li>Los datos siempre deben ser un data.frame.</li>
+<li>Usa un sistema diferente para añadir elementos al gráfico.</li>
+</ul>
+<p>Histograma con los gráficos base:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="anexo-visualización-con-ggplot.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb2-2"><a href="anexo-visualización-con-ggplot.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(iris<span class="sc">$</span>Sepal.Length)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p>Histograma con ggplot2:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="anexo-visualización-con-ggplot.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-2"><a href="anexo-visualización-con-ggplot.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length)) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="anexo-visualización-con-ggplot.html#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&#39;white&#39;</span>, <span class="at">bins=</span><span class="dv">8</span>)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<p>Ahora vamos a ver un gráfico con colores y varias series de datos.</p>
+<p>Con los gráficos base:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="anexo-visualización-con-ggplot.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Sepal.Length <span class="sc">~</span> Sepal.Width,</span>
+<span id="cb4-2"><a href="anexo-visualización-con-ggplot.html#cb4-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">factor</span>(Species),</span>
+<span id="cb4-3"><a href="anexo-visualización-con-ggplot.html#cb4-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">data =</span> iris)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p>Con ggplot2:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="anexo-visualización-con-ggplot.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, </span>
+<span id="cb5-2"><a href="anexo-visualización-con-ggplot.html#cb5-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>Sepal.Width , </span>
+<span id="cb5-3"><a href="anexo-visualización-con-ggplot.html#cb5-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y=</span> Sepal.Length,</span>
+<span id="cb5-4"><a href="anexo-visualización-con-ggplot.html#cb5-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">color=</span>Species))<span class="sc">+</span></span>
+<span id="cb5-5"><a href="anexo-visualización-con-ggplot.html#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<div id="objetos-aesteticos" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Objetos aesteticos<a href="anexo-visualización-con-ggplot.html#objetos-aesteticos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En ggplot2, aestético significa “algo que puedes ver.”</p>
+<p>Algunos ejemplos son:</p>
+<ul>
+<li><strong>Posición</strong> (por ejemplo, los ejes x e y)</li>
+<li><strong>Color</strong> (color “externo”)</li>
+<li><strong>Fill</strong> (color de relleno)</li>
+<li><strong>Shape</strong> (forma de puntos)</li>
+<li><strong>Linetype</strong> (tipo de linea)</li>
+<li><strong>Size</strong> (tamaño)</li>
+<li><strong>Alpha</strong> (para la transparencia: los valores más altos tendrían formas opacas y los más bajos, casi transparentes).</li>
+</ul>
+<p>Hay que advertir que no todas las estéticas tienen la misma potencia en un gráfico. El ojo humano percibe fácilmente longitudes distintas. Pero tiene problemas para comparar áreas (que es lo que regula la estética size) o intensidades de color. Se recomienda usar las estéticas más potentes para representar las variables más importantes.</p>
+<p>Cada tipo de objeto geométrico (geom) solo acepta un subconjunto de todos los aestéticos. Puedes consultar la pagina de ayuda de geom() para ver que aestéticos acepta. El mapeo aestético se hace con la función aes().</p>
+</div>
+<div id="objetos-geométricos-o-capas" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Objetos geométricos o capas<a href="anexo-visualización-con-ggplot.html#objetos-geométricos-o-capas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Los objetos geométricos son las formas que puede tomar un gráfico. Algunos ejemplos son:</p>
+<ul>
+<li>Barras (geom_bar(), para las variables univariados discretos o nominales)</li>
+<li>Histogramas (geom_hist() para gráficas univariadas continuas)</li>
+<li>Puntos (geom_point() para scatter plots, gráficos de puntos, etc…)</li>
+<li>Lineas (geom_line() para series temporales, lineas de tendencia, etc…)</li>
+<li>Cajas (geom_boxplot() para gráficos de cajas)</li>
+<li>Un gráfico debe tener al menos un geom, pero no hay limite. Puedes añadir más <em>geom</em> usando el signo +.</li>
+</ul>
+<p>Si queremos conocer la lista de objetos geométricos podemos ejecutar el siguiente código:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="anexo-visualización-con-ggplot.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help.search</span>(<span class="st">&quot;geom_&quot;</span>, <span class="at">package =</span> <span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
+<p>Una vez añadida una capa al gráfico a este pueden agregarse nuevas capas</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="anexo-visualización-con-ggplot.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Petal.Length, <span class="at">y =</span> Petal.Width, <span class="at">colour =</span> Species)) <span class="sc">+</span> </span>
+<span id="cb7-2"><a href="anexo-visualización-con-ggplot.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="anexo-visualización-con-ggplot.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Petal.Length, <span class="at">y =</span> Petal.Width, <span class="at">colour =</span> Species)) <span class="sc">+</span> </span>
+<span id="cb8-2"><a href="anexo-visualización-con-ggplot.html#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb8-3"><a href="anexo-visualización-con-ggplot.html#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+</div>
+<div id="facetas" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Facetas<a href="anexo-visualización-con-ggplot.html#facetas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Muchos de los gráficos que pueden generarse con los elementos anteriores pueden reproducirse usando los gráficos tradicionales de R, pero no los que usan facetas, que pueden permitirnos explorar las variables de diferente forma, por ejemplo:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="anexo-visualización-con-ggplot.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Petal.Length, <span class="at">y =</span> Petal.Width)) <span class="sc">+</span> </span>
+<span id="cb9-2"><a href="anexo-visualización-con-ggplot.html#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>() <span class="sc">+</span> </span>
+<span id="cb9-3"><a href="anexo-visualización-con-ggplot.html#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> Species)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p>crea tres gráficos dispuestos horizontalmente que comparan la relación entre la anchura y la longitud del pétalo de las tres especies de iris. Una característica de estos gráficos, que es crítica para poder hacer comparaciones adecuadas, es que comparten ejes.</p>
+</div>
+<div id="más-sobre-estéticas" class="section level3 hasAnchor" number="3.1.4">
+<h3><span class="header-section-number">3.1.4</span> Más sobre estéticas<a href="anexo-visualización-con-ggplot.html#más-sobre-estéticas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Las estéticas se pueden etiquetar con la función labs. Además, se le puede añadir un título al gráfico usando la función ggtitle. Por ejemplo, en el gráfico anterior se pueden re etiquetar los ejes y la leyenda haciendo</p>
+</div>
+</div>
+<div id="referencias" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Referencias:<a href="anexo-visualización-con-ggplot.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><a href="https://towardsdatascience.com/exploratory-data-analysis-8fc1cb20fd15">What is Exploratory Data Analysis?</a></li>
+<li><a href="https://www.itl.nist.gov/div898/handbook/eda/section1/eda11.htm">What is EDA?</a></li>
+<li><a href="https://www.pgconocimiento.com/diagrama-boxplot/">Diagrama BoxPlot</a></li>
+<li><a href="https://ggplot2-book.org/">Ggplot2: Elegant Graphics for Data Analysis</a></li>
+<li><a href="https://plotly.com/r/">Plotly</a></li>
+</ul>
 
-<div class="watermark">
-<img src="img/header.png" width="400">
-</div>
 </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -366,8 +332,8 @@ $('.pipehover_select_one_row tr').hover(function() {
           </div>
         </div>
       </div>
+<a href="scoping.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="introducción-a-ciencia-de-datos.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
