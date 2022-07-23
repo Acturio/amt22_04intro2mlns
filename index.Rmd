@@ -61,16 +61,7 @@ Empresas anteriores: GNP, Activer Banco y Casa de Bolsa, PlayCity Casinos, Raken
 knitr::include_graphics("img/00-presentacion/lizzy.png")
 ```
 
-## Ciencia de Datos en R {-}
-
-```{r echo=FALSE,fig.align='center',  out.width='800pt'}
-knitr::include_graphics("img/00-presentacion/DataScienceVerse.png")
-```
- 
-
-
-## Estructura del curso actual {-}
-
+## Estructura del curso {-}
 ### Alcances del curso {-}
 
 Al finalizar el módulo, el participante sabrá plantear un proyecto de ciencias de datos, desde sus requerimientos hasta sus alcances. Sabrá crear flujos de trabajo limpios y ordenados para crear poderosos modelos no supervisados de Machine Learning.
@@ -84,6 +75,7 @@ Al finalizar el módulo, el participante sabrá plantear un proyecto de ciencias
 > Instalación de Rstudio con al menos versión 1.4
 
 > Data Science & Machine Learning (Aprendizaje Supervisado I)
+
 
 
 **Temario:**
