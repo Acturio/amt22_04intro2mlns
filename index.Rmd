@@ -22,7 +22,7 @@ Brindar al participante un amplio conocimiento de los requisitos, alcances y tom
 
 
 ::: {.infobox .important data-latex="{important}"}
-**Se asume que el alumno tiene conocimientos generales de estadística, bases matemáticas y de programación básica en R y que cuenta con los conocimientos teóricos básicos de machine learning y prácticos con tidymodels.**
+**Se asume que el alumno tiene conocimientos generales de matemáticas, geometría analítica o álgebra lineal y de programación básica en R.**
 :::
 
 

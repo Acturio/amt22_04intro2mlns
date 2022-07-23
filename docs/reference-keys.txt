@@ -9,6 +9,13 @@ aprendizaje-no-supervisado
 aprendizaje-por-refuerzo
 ciclo-de-un-proyecto
 scoping
+análisis-de-componentes-principales
+medidas-de-dispersión
+construcción-matemática
+eigenvalores-y-eigenvectores
+implementación-en-r
+representación-gráfica
+reducción-de-dimensión
 anexo-visualización-con-ggplot
 ggplot2
 objetos-aesteticos
@@ -16,8 +23,3 @@ objetos-geométricos-o-capas
 facetas
 más-sobre-estéticas
 referencias
-análisis-de-componentes-principales
-eigenvalores-y-eigenvectores
-implementación-en-r
-representación-gráfica
-cuántas-componentes-retener

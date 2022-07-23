@@ -11,7 +11,78 @@ knitr::include_graphics("img/02-pca/dimension_reduction.jpeg")
 
 En los conjuntos de datos donde hay muchas variables presentes, no es fácil trazar los datos en su formato original, lo que dificulta tener una idea de las tendencias presentes en ellos. PCA permite ver la estructura general de los datos, identificando qué observaciones son similares entre sí y cuáles son diferentes. Esto puede permitirnos identificar grupos de muestras que son similares y determinar qué variables hacen a un grupo diferente de otro.
 
-La idea detrás de esta técnica es la siguiente:
+## Medidas de dispersión
+
+Las medidas de dispersión tratan, a través del cálculo de diferentes fórmulas, de arrojar un valor numérico que ofrezca información sobre el grado de variabilidad de una característica
+
+En otras palabras, las medidas de dispersión son números que indican si una variable se mueve mucho, poco, más o menos que otra. La razón de ser de este tipo de medidas es conocer de manera resumida una característica de la variable estudiada. En este sentido, deben acompañar a las medidas de tendencia central. Juntas, ofrecen información de un sólo vistazo que luego podremos utilizar para comparar y, si fuera preciso, tomar decisiones.
+
+Dos de las medidas principales son la **varianza** también denotada como $\sigma^2$ y la **desviación estándar** $\sigma$.
+
+La *varianza* es una medida de dispersión que representa la variabilidad de una serie de datos respecto a su media y la **desviación estándar**  es la separación que existe entre un valor cualquiera de la serie y la media.
+
+#### Ejemplo: {-}
+
+Tú y tus amigos han medido las alturas de sus perros (en milímetros):
+
+```{r, echo=FALSE,fig.align='center', out.width='500pt'}
+knitr::include_graphics("img/02-pca/Varianza1.jpeg")
+```
+
+
+Las alturas (hasta el lomo de cada perro) son: 600mm, 470mm, 170mm, 430mm y 300mm.
+Si calculamos la media, sería: 
+
+$$ Media = \frac{1}{n}\sum_{i=1}^{n}{x_i} = \frac{600 + 470 + 170 + 430 + 300}{5} = 394 $$
+
+así que la altura media es 394 mm. Si se dibuja esto en el gráfico:
+
+
+```{r, , echo=FALSE,fig.align='center', out.width='500pt'}
+knitr::include_graphics("img/02-pca/Varianza2.jpeg")
+```
+
+
+Si ahora se calcula la diferencia de cada altura con la media:
+
+```{r, echo=FALSE,fig.align='center', out.width='500pt'}
+knitr::include_graphics("img/02-pca/Varianza3.jpeg")
+
+```
+
+Para calcular la **Varianza**,  se toma cada diferencia, se eleva al cuadrado y se calcula la media:
+ 
+$$ Varianza = \frac{1}{n}\sum_{i=1}^{n}(x_i-\bar{x})^2 = \frac{206^2 + 76^2 + (−224)^2 + 36^2 + (−94)^2}{5} = 21,704$$
+
+Por otro lado, la **desviación estándar** se calcula como la raíz cuadrada de la varianza, entonces: 
+
+$$\sigma = \sqrt{\sigma^2}	=	\sqrt{21704} = \pm 147 $$
+
+Si se dibuja esta distancia, ahora se pueden  ver qué alturas están dentro de una desviación estándar (147mm) de la media:
+
+
+```{r, echo=FALSE,fig.align='center', out.width='500pt'}
+knitr::include_graphics("img/02-pca/Varianza4.jpeg")
+```
+
+Por lo tanto, usando la desviación estándar tenemos una manera "estándar" de saber qué es normal, o extra grande o extra pequeño.
+
+Los Rottweilers son perros grandes. Y los Dachsunds (perro salchicha) son un poco pequeños, ¿cierto?
+
+
+La tercera medida que se revisará es el **coeficiente de correlación lineal** ($\rho$) que es también solo llamada **"correlación"** es una medida de regresión que pretende cuantificar el grado de variación conjunta entre dos variables. 
+
+Dicha medida puede encontrarse entre -1 y 1, donde se pueden tener las siguientes interpretaciones dependiendo de su valor: 
+
+```{r, echo=FALSE,fig.align='center', out.width='500pt'}
+knitr::include_graphics("img/02-pca/correlacion.jpeg")
+```
+
+En pocas palabras, mide qué tanto varía una característica en la medida en que varía otra. La fórmula para calcular el grado de correlación es:
+
+$$Cor(x, y) = \frac{\sum_{i=1}^n{(x_i-\bar{x})(y_i-\bar{y})}}{\sqrt{\sum(x_i-\bar{x})^2}\sqrt{\sum(y_i-\bar{y})^2}}$$
+
+## Construcción matemática
 
 * Se desean crear nuevas variables llamadas **Componentes Principales**, las cuales son creadas como combinación lineal (suma ponderada) de las variables originales, por lo que cada una de las variables nuevas contiene parcialmente información de todas las variables originales.
 
@@ -19,6 +90,15 @@ $$Z_1 = a_{11}X_1 +a_{12}X_2 + ... + a_{1p}X_p$$
 $$Z_2 = a_{21}X_1 +a_{22}X_2 + ... + a_{2p}X_p$$
 $$...$$
 $$Z_p = a_{p1}X_1 +a_{p2}X_2 + ... + a_{pp}X_p$$
+
+Donde: 
+
+> $Z_i$ es la iésima componente nueva creada como combinación de las características originales
+>
+> $X_1, X_2, ... X_p$ son las columnas (variables originales)
+>
+> $a_{ij}$ es el peso o aportación de cada columna (j) a la nueva componente (i).
+
 
 * Se desea que la primer componente principal capture la mayor varianza posible de todo el conjunto de datos.
 
@@ -45,9 +125,23 @@ Cuando muchas variables se correlacionan entre sí, todas contribuirán fuerteme
 Agregar componentes adicionales hace que la estimación del conjunto de datos total sea más precisa, pero también más difícil de manejar.
 
 
+
 ### Eigenvalores y eigenvectores
 
-Los vectores propios y los valores propios vienen en pares: **cada vector propio tiene un valor propio correspondiente**. Los vectores propios son la ponderación que permite crear la combinación lineal de las variables para conformar cada componente principal, mientras que el valor propio es la varianza asociada a cada componente principal. Desde un punto de vista geométrico, el eigenvector es la dirección del vector determinado por la componente principal y el eigenvalor es la magnitud de dicho vector.
+Estimar la ponderación adecuada que debe tener cada una de características para crear las nuevas componentes es un paso crucial en este análisis. Se puede demostrar bajo una rigurosa metodología matemática que la solución que permite obtener resultados óptimos se logra cuando:
+
+$$Xv=\lambda v$$
+Donde:
+
+> $X$ es la matriz de datos originales
+>
+> $v$ es el vector con los pesos de cada columna
+>
+> $\lambda$ corresponde a la varianza de cada nueva componente.
+
+Este resultado corresponde al cálculo de los *eigenvectores* $v$ (vectores propios) y eigenvalores $\lambda$ (valores propios) de una matriz de datos.
+
+Los vectores propios y los valores propios vienen en pares: **cada vector propio tiene un valor propio correspondiente**. Los vectores propios son la ponderación que permite crear la combinación lineal de las variables para conformar cada componente principal, mientras que el valor propio es la varianza asociada a cada componente principal. 
 
 ::: {.infobox .pin data-latex="{pin}"}
 
@@ -58,7 +152,7 @@ Los vectores propios y los valores propios vienen en pares: **cada vector propio
 
 El número de valores propios y vectores propios que existe es igual al número de dimensiones que tiene el conjunto de datos.
 
-### Implementación en R
+## Implementación en R
 
 ```{r, warning=FALSE, message=FALSE}
 library(sf)
@@ -146,7 +240,7 @@ tidied_pca %>%
 Notamos que las $9$ variables aportan entre el $25\%$ y el $35\%$ a la
 primera componente principal.
 
-### Representación gráfica
+## Representación gráfica
 
 ```{r}
 library(ggrepel)
@@ -171,7 +265,7 @@ juice(pca_recipe) %>%
   ggtitle("Comparación: Índice Marginación Vs PCA CP1")
 ```
 
-### ¿Cuántas componentes retener?
+## Reducción de dimensión
 
 Existe en la literatura basta información sobre el número de componentes a retener en un análisis de PCA. El siguiente gráfico lleva por nombre **gráfico de codo** y muestra el porcentaje de varianza explicado por cada componente principal.
 

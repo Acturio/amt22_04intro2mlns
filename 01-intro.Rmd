@@ -436,7 +436,7 @@ En esta fase tenemos que responder las siguientes preguntas:
 
 - ¿Qué tipo de análisis necesitaremos? Puede ser más de uno.
 
-- ¿Cómo vamos a validar el análisis? ¿Qué validaciones se pueden hacer con los datos existentes? ¿Cómo podemos diseñar una prueba en campo para validar el análisis antes de que pongamos el producto en producción.
+- ¿Cómo vamos a validar el análisis? ¿Qué validaciones se pueden hacer con los datos existentes? ¿Cómo podemos diseñar una prueba en campo para validar el análisis antes de que pongamos el producto en producción?
 
 - Identificar qué acciones se cubren con cada análisis, debemos tener todas las acciones cubiertas.
 
