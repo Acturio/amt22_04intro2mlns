@@ -9,6 +9,3 @@ aprendizaje-no-supervisado
 aprendizaje-por-refuerzo
 ciclo-de-un-proyecto
 scoping
-data-maturity-framework
-scoping-1
-ejemplo

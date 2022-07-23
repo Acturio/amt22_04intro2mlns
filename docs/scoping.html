@@ -6,10 +6,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 2 Scoping | AMAT- Ciencia de Datos y Machine Learning</title>
   <meta name="description" content="AMAT: Ciencia de Datos y Machine Learning" />
+<<<<<<< HEAD
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+=======
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+>>>>>>> 034e1b3 (Se agregan cambios de introduccion, imagenes y ligas de herramientas)
 
   <meta property="og:title" content="Capítulo 2 Scoping | AMAT- Ciencia de Datos y Machine Learning" />
   <meta property="og:type" content="book" />
+  
   
   <meta property="og:description" content="AMAT: Ciencia de Datos y Machine Learning" />
   
@@ -32,6 +37,7 @@
   
 <link rel="prev" href="introducción-a-ciencia-de-datos.html"/>
 
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -49,9 +55,8 @@
 
 
 
-<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
-<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 
@@ -105,15 +110,10 @@
 </ul></li>
 <li class="chapter" data-level="2" data-path="scoping.html"><a href="scoping.html"><i class="fa fa-check"></i><b>2</b> Scoping</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="scoping.html"><a href="scoping.html#data-maturity-framework"><i class="fa fa-check"></i><b>2.1</b> Data Maturity Framework</a></li>
-<li class="chapter" data-level="2.2" data-path="scoping.html"><a href="scoping.html#scoping-1"><i class="fa fa-check"></i><b>2.2</b> Scoping</a>
-<ul>
 <li class="chapter" data-level="" data-path="scoping.html"><a href="scoping.html#definir-objetivos"><i class="fa fa-check"></i>Definir objetivo(s)</a></li>
 <li class="chapter" data-level="" data-path="scoping.html"><a href="scoping.html#qué-acciones-o-intervenciones-existen-que-serán-mejoradas-a-través-de-este-proyecto"><i class="fa fa-check"></i>¿Qué acciones o intervenciones existen que serán mejoradas a través de este proyecto?</a></li>
 <li class="chapter" data-level="" data-path="scoping.html"><a href="scoping.html#qué-datos-tenemos-y-cuáles-necesitamos"><i class="fa fa-check"></i>¿Qué datos tenemos y cuáles necesitamos?</a></li>
 <li class="chapter" data-level="" data-path="scoping.html"><a href="scoping.html#cuál-es-el-análisis-que-necesitamos-hacer"><i class="fa fa-check"></i>¿Cuál es el análisis que necesitamos hacer?</a></li>
-<li class="chapter" data-level="2.2.1" data-path="scoping.html"><a href="scoping.html#ejemplo"><i class="fa fa-check"></i><b>2.2.1</b> Ejemplo</a></li>
-</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="./"><img src="img/amat-logo.png" width="280"></a></li>
@@ -135,40 +135,20 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="scoping" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">Capítulo 2</span> Scoping<a href="scoping.html#scoping" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="scoping" class="section level1" number="2">
+<h1><span class="header-section-number">Capítulo 2</span> Scoping</h1>
 <p>El <strong>scoping</strong> es uno de los pasos más importante en los proyectos de ciencia de datos, es ideal realizarlo con ayuda del cliente, <strong>tiene como objetivo definir el alcance del proyecto</strong>, definir los objetivos, conocer las acciones que se llevaran acabo, conocer si los datos son relevantes y suficientes, proponer soluciones analíticas, entre otros puntos que se tocaran a continuación.</p>
 <p><img src="img/01-intro2ds-ciclo/09-objetivo.jpg" width="300pt" height="300pt" style="display: block; margin: auto;" /></p>
-<div id="data-maturity-framework" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> Data Maturity Framework<a href="scoping.html#data-maturity-framework" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Antes de iniciar con el <em>scoping</em>, queremos conocer si los interesados <strong>están listos para realizar un proyecto de ciencia de datos</strong>. Para ello, una opción es usar el <a href="http://www.datasciencepublicpolicy.org/wp-content/uploads/2018/05/Data_Maturity_Framework_4.28.16.pdf"><em>Data Maturity Framework</em></a> desarrollado en la Universidad de Chicago.</p>
-<p>El <em>Data Maturity Framework</em> nos sirve para ver dónde se encuentra la organización en el marco de madurez de datos y cómo mejorar su organización, tecnología y preparación de datos.</p>
-<p>Tiene tres áreas de contenido:</p>
-<ul>
-<li><p>Definición del problema</p></li>
-<li><p>Disponibilidad de datos y tecnología</p></li>
-<li><p>Preparación organizacional</p></li>
-</ul>
-<p>Esta dividido en tres partes:</p>
-<p><strong>1. Un cuestionario y una encuesta para evaluar la preparación de la organización.</strong></p>
-<p><img src="img/01-intro2ds-ciclo/10-dmf1.png" width="750pt" height="800pt" style="display: block; margin: auto;" /></p>
-<p><strong>2. Matriz de preparación de datos y tecnología</strong></p>
-<p><img src="img/01-intro2ds-ciclo/11-dmf2.png" width="962" style="display: block; margin: auto;" /></p>
-<p><strong>3. Matriz de preparación organizacional</strong></p>
-<p><img src="img/01-intro2ds-ciclo/12-dmf3.png" width="854" style="display: block; margin: auto;" /></p>
-</div>
-<div id="scoping-1" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Scoping<a href="scoping.html#scoping-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Ya que sabemos que la organización esta preparada para realizar un proyecto de ciencia de datos, podemos inicar el <em>scoping</em>. El proceso a seguir es el siguiente:</p>
-<div id="definir-objetivos" class="section level3 unnumbered hasAnchor">
-<h3>Definir objetivo(s)<a href="scoping.html#definir-objetivos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El proceso a seguir es el siguiente:</p>
+<div id="definir-objetivos" class="section level3 unnumbered">
+<h3>Definir objetivo(s)</h3>
 <p>Considerado <strong>el paso más importante del proceso</strong>, los <em>stakeholders</em> iniciaran con un planteamiento del problema de manera muy general, nuestra responsabilidad será ir aterrizando ideas y <strong>definir el problema de manera más concreta</strong>, esta parte del <em>scoping</em> puede ocurrir en distintas iteraciones.</p>
 <p>Necesitamos hacer que el objetivo sea <strong>concreto, medible y optimizable</strong>. Cuando se van refinando objetivos, es común que se vaya priorizando por lo que tendremos <em>tradeoffs</em> que irán ligados a las acciones y al contexto del negocio.</p>
 <p><img src="img/01-intro2ds/scoping02-objetivosmart.png" width="500pt" style="display: block; margin: auto;" /></p>
 </div>
-<div id="qué-acciones-o-intervenciones-existen-que-serán-mejoradas-a-través-de-este-proyecto" class="section level3 unnumbered hasAnchor">
-<h3>¿Qué acciones o intervenciones existen que serán mejoradas a través de este proyecto?<a href="scoping.html#qué-acciones-o-intervenciones-existen-que-serán-mejoradas-a-través-de-este-proyecto" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Debemos <strong>definir acciones concretas</strong>, si esto no ocurre es muy probable que la solución no sea implementada por lo que el proyecto no tendrá uso y no estaráamos haciendo ciencia de datos.</p>
+<div id="qué-acciones-o-intervenciones-existen-que-serán-mejoradas-a-través-de-este-proyecto" class="section level3 unnumbered">
+<h3>¿Qué acciones o intervenciones existen que serán mejoradas a través de este proyecto?</h3>
+<p>Debemos <strong>definir acciones concretas</strong>, si esto no ocurre es muy probable que la solución no sea implementada por lo que el proyecto no tendrá uso y no se estará haciendo ciencia de datos.</p>
 <p>La implementación del proyecto debería ayudar a tener mejor información para llevar acabo estas acciones, es decir, el proyecto mejorará la toma de decisiones basadas en la evidencia de los datos.</p>
 <p>Hacer una lista con las acciones ayuda a que el proyecto sea accionable, es posible que estas acciones no existan aún en la organización, por lo que el proyecto puede ayudar a <strong>generar nuevas acciones</strong>.</p>
 <p>Es muy común que la acción definida por el <em>stakeholder</em> sea de muy alto nivel, en ese caso podemos tomar 2 caminos en el <em>scoping</em>:</p>
@@ -178,17 +158,17 @@
 </ul>
 <p><img src="img/01-intro2ds/scoping03-listacciones.jpeg" width="500pt" style="display: block; margin: auto;" /></p>
 </div>
-<div id="qué-datos-tenemos-y-cuáles-necesitamos" class="section level3 unnumbered hasAnchor">
-<h3>¿Qué datos tenemos y cuáles necesitamos?<a href="scoping.html#qué-datos-tenemos-y-cuáles-necesitamos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Primero observemos que no se habia hablado de los datos hasta este punto, lo anterior porque debemos primero pensar en el problema, entenderlo y luego ver con qué datos contamos para resolverlo. Si hacemos esto primero seguramente acabaremos desarrollando productos de datos “muertos” y no accionables.</p>
-<p>En este paso se le dara uso al <em>Data Maturity Framework</em>, queremos conocer cómo se guardan los datos, con qué frecuencia, en qué formato, en qué estructura, qué granularidad tiene, desde cuándo tenemos historia de estos datos, si existe un sesgo en su recolección, con qué frencuencia recolectan nueva información, sobreescribe la ya existente?</p>
+<div id="qué-datos-tenemos-y-cuáles-necesitamos" class="section level3 unnumbered">
+<h3>¿Qué datos tenemos y cuáles necesitamos?</h3>
+<p>Primero observemos que no se había hablado de los datos hasta este punto, lo anterior porque debemos primero pensar en el problema, entenderlo y luego ver con qué datos contamos para resolverlo. Si hacemos esto primero seguramente acabaremos desarrollando productos de datos “muertos” y no accionables.</p>
+<p>En este paso se le dará uso al <em>Data Maturity Framework</em>, queremos conocer cómo se guardan los datos, con qué frecuencia, en qué formato, en qué estructura, qué granularidad tiene, desde cuándo tenemos historia de estos datos, si existe un sesgo en su recolección, con qué frecuencia recolectan nueva información, sobrescribe la ya existente?</p>
 <p>Uno de los objetivos consiste en <strong>identificar si la granularidad, frecuencia y horizonte de tiempo en los datos corresponde a la granularidad, frecuencia y horizonte de tiempo de las acciones</strong>.</p>
 <p><img src="img/01-intro2ds/scoping05-leggo.jpeg" width="500pt" style="display: block; margin: auto;" /></p>
 <p>Otro punto importante es saber si los datos con los que se cuenta son <strong>relevantes y suficientes</strong> para desarrollar el proyecto, se pueden considerar fuentes de datos externa.</p>
 </div>
-<div id="cuál-es-el-análisis-que-necesitamos-hacer" class="section level3 unnumbered hasAnchor">
-<h3>¿Cuál es el análisis que necesitamos hacer?<a href="scoping.html#cuál-es-el-análisis-que-necesitamos-hacer" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>En esta seccion del <em>scoping</em> queremos definir qué tipo de análisis necesitamos hacer con los datos con los que contamos para cumplir con los objetivos definidos y generar las acciones identificadas.</p>
+<div id="cuál-es-el-análisis-que-necesitamos-hacer" class="section level3 unnumbered">
+<h3>¿Cuál es el análisis que necesitamos hacer?</h3>
+<p>En esta sección del <em>scoping</em> queremos definir qué tipo de análisis necesitamos hacer con los datos con los que contamos para cumplir con los objetivos definidos y generar las acciones identificadas.</p>
 <p>El análisis puede incluir métodos y herramientas de diferentes disciplinas: ciencias computacionales, ciencia de datos, machine learning, estadística, ciencias sociales.</p>
 <p>Existen distintos tipos de análisis, los 4 más comunes son:</p>
 <ul>
@@ -204,22 +184,7 @@
 <li><p>¿Cómo vamos a validar el análisis? ¿Qué validaciones se pueden hacer con los datos existentes? ¿Cómo podemos diseñar una prueba en campo para validar el análisis antes de que pongamos el producto en producción.</p></li>
 <li><p>Identificar qué acciones se cubren con cada análisis, debemos tener todas las acciones cubiertas.</p></li>
 </ul>
-</div>
-<div id="ejemplo" class="section level3 hasAnchor" number="2.2.1">
-<h3><span class="header-section-number">2.2.1</span> Ejemplo<a href="scoping.html#ejemplo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>El siguiente ejemplo forma parte del trabajo de <a href="http://www.datasciencepublicpolicy.org/home/resources/data-science-project-*scoping*-guide/">DSSG</a>, al leer este problema se debe intentar responder:</p>
-<ul>
-<li>¿Cuál es el objetivo?</li>
-<li>¿Cómo se mide el objetivo?</li>
-<li>¿Qué se optimiza?</li>
-<li>¿Se puede optimizar?</li>
-<li>¿Cuáles son los tradeoffs?</li>
-<li>¿Que implicaciones éticas identificas?</li>
-</ul>
-<p><strong>High School Graduation</strong>: Uno de los mayores desafíos que enfrentan las escuelas hoy en día es ayudar a sus estudiantes a graduarse (a tiempo). Las tasas de graduación en los EE. UU. Son ~65%. Todos están interesados en identificar a los estudiantes que corren el riesgo de no graduarse a tiempo. Al hablar inicialmente con la mayoría de los distritos escolares, comienzan con un objetivo muy limitado de predecir qué niños es poco probable que se gradúen a tiempo. El primer paso es volver al objetivo de aumentar las tasas de graduación y preguntar si hay un subconjunto específico de estudiantes en riesgo que quieran identificar. ¿Qué pasaría si pudiéramos identificar a los estudiantes que tienen solo un 5% de probabilidades de estar en riesgo frente a los estudiantes que tienen un 95% de probabilidades de no graduarse a tiempo sin apoyo adicional? Si el objetivo es simplemente aumentar las tasas de graduación, es (probablemente) más fácil intervenir e influir en el primer grupo, mientras que el segundo grupo puede ser más desafiante debido a los recursos que necesita. ¿El objetivo es maximizar la probabilidad promedio/media/mediana de graduarse para una clase/escuela o es el objetivo enfocarse en los niños con mayor riesgo y maximizar la probabilidad de graduación del 10% inferior de los estudiantes? ¿O el objetivo es crear más equidad y disminuir la diferencia en la probabilidad de graduación a tiempo entre el cuartil superior y el cuartil inferior? Todos estos son objetivos razonables, pero las escuelas deben comprender, evaluar y decidir qué objetivos les interesan. Esta conversación a menudo los hace pensar más en definir analíticamente cuáles son sus objetivos organizacionales, así como las compensaciones..</p>
-<p><img src="img/01-intro2ds/desercion-escolar.jpg" width="400pt" height="250pt" style="display: block; margin: auto;" /></p>
 
-</div>
 </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
