@@ -152,7 +152,7 @@ En esta clase estaremos usando:
   - Pulgar arriba: Voy bien, estoy entendiendo! 
   - Pulgar abajo: Eso no quedó muy claro
   - Mano arriba: Quiero participar/preguntar ó Ya estoy listo para iniciar 
-* Grupo de WhatsApp [El chismecito está aquí]()
+* Grupo de WhatsApp [El chismecito está aquí](https://chat.whatsapp.com/JehH9aIUXTbFiIjpkOB08e)
 * [Google Drive]()
 * Notas de clase [Revisame si quieres aprender](https://acturio.github.io/amt22_04intro2mlns/) 
 * Finalmente, se dejarán ejercicios que serán clave para el éxito del aprendizaje de los capítulos, por lo que se trabajará en equipo para lograr adquirir el mayor aprendizaje.
