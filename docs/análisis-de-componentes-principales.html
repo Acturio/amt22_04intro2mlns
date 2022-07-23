@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 2 Análisis de Componentes Principales | AMAT- Ciencia de Datos y Machine Learning</title>
+  <meta name="description" content="AMAT: Ciencia de Datos y Machine Learning" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 2 Análisis de Componentes Principales | AMAT- Ciencia de Datos y Machine Learning" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="AMAT: Ciencia de Datos y Machine Learning" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 2 Análisis de Componentes Principales | AMAT- Ciencia de Datos y Machine Learning" />
+  
+  <meta name="twitter:description" content="AMAT: Ciencia de Datos y Machine Learning" />
+  
+
+<meta name="author" content="Karina Lizette Gamboa Puente" />
+<meta name="author" content="Oscar Arturo Bringas López" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introducción-a-ciencia-de-datos.html"/>
+<link rel="next" href="anexo-visualización-con-ggplot.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./"><img src="img/amat-logo.png" width="280"></a></li|
+|:-:|  
+<center>Ciencia de Datos y Machine Learning</center>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>BIENVENIDA</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#objetivo"><i class="fa fa-check"></i>Objetivo</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#instructores"><i class="fa fa-check"></i>Instructores</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#ciencia-de-datos-en-r"><i class="fa fa-check"></i>Ciencia de Datos en R</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#estructura-del-curso-actual"><i class="fa fa-check"></i>Estructura del curso actual</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#alcances-del-curso"><i class="fa fa-check"></i>Alcances del curso</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#duración-y-evaluación-del-curso"><i class="fa fa-check"></i>Duración y evaluación del curso</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recursos-y-dinámica-de-clase"><i class="fa fa-check"></i>Recursos y dinámica de clase</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html"><i class="fa fa-check"></i><b>1</b> Introducción a Ciencia de Datos</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#qué-es-ciencia-de-datos"><i class="fa fa-check"></i><b>1.1</b> ¿Qué es Ciencia de Datos?</a>
+<ul>
+<li class="chapter" data-level="" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#definiendo-conceptos"><i class="fa fa-check"></i>Definiendo conceptos:</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#objetivos"><i class="fa fa-check"></i><b>1.2</b> Objetivos</a></li>
+<li class="chapter" data-level="1.3" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#requisitos"><i class="fa fa-check"></i><b>1.3</b> Requisitos</a></li>
+<li class="chapter" data-level="1.4" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#aplicaciones"><i class="fa fa-check"></i><b>1.4</b> Aplicaciones</a></li>
+<li class="chapter" data-level="1.5" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#tipos-de-algoritmos"><i class="fa fa-check"></i><b>1.5</b> Tipos de algoritmos</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#aprendizaje-supervisado"><i class="fa fa-check"></i><b>1.5.1</b> Aprendizaje supervisado</a></li>
+<li class="chapter" data-level="1.5.2" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#aprendizaje-no-supervisado"><i class="fa fa-check"></i><b>1.5.2</b> Aprendizaje no supervisado</a></li>
+<li class="chapter" data-level="1.5.3" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#aprendizaje-por-refuerzo"><i class="fa fa-check"></i><b>1.5.3</b> Aprendizaje por refuerzo</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#ciclo-de-un-proyecto"><i class="fa fa-check"></i><b>1.6</b> Ciclo de un proyecto</a>
+<ul>
+<li class="chapter" data-level="" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#definir-objetivos"><i class="fa fa-check"></i>Definir objetivo(s)</a></li>
+<li class="chapter" data-level="" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#qué-acciones-o-intervenciones-existen-que-serán-mejoradas-a-través-de-este-proyecto"><i class="fa fa-check"></i>¿Qué acciones o intervenciones existen que serán mejoradas a través de este proyecto?</a></li>
+<li class="chapter" data-level="" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#qué-datos-tenemos-y-cuáles-necesitamos"><i class="fa fa-check"></i>¿Qué datos tenemos y cuáles necesitamos?</a></li>
+<li class="chapter" data-level="" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#cuál-es-el-análisis-que-necesitamos-hacer"><i class="fa fa-check"></i>¿Cuál es el análisis que necesitamos hacer?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html"><i class="fa fa-check"></i><b>2</b> Análisis de Componentes Principales</a>
+<ul>
+<li class="chapter" data-level="2.0.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#eigenvalores-y-eigenvectores"><i class="fa fa-check"></i><b>2.0.1</b> Eigenvalores y eigenvectores</a></li>
+<li class="chapter" data-level="2.0.2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#implementación-en-r"><i class="fa fa-check"></i><b>2.0.2</b> Implementación en R</a></li>
+<li class="chapter" data-level="2.0.3" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#representación-gráfica"><i class="fa fa-check"></i><b>2.0.3</b> Representación gráfica</a></li>
+<li class="chapter" data-level="2.0.4" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#cuántas-componentes-retener"><i class="fa fa-check"></i><b>2.0.4</b> ¿Cuántas componentes retener?</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html"><i class="fa fa-check"></i><b>3</b> Anexo: Visualización con Ggplot</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#ggplot2"><i class="fa fa-check"></i><b>3.1</b> Ggplot2</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#objetos-aesteticos"><i class="fa fa-check"></i><b>3.1.1</b> Objetos aesteticos</a></li>
+<li class="chapter" data-level="3.1.2" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#objetos-geométricos-o-capas"><i class="fa fa-check"></i><b>3.1.2</b> Objetos geométricos o capas</a></li>
+<li class="chapter" data-level="3.1.3" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#facetas"><i class="fa fa-check"></i><b>3.1.3</b> Facetas</a></li>
+<li class="chapter" data-level="3.1.4" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#más-sobre-estéticas"><i class="fa fa-check"></i><b>3.1.4</b> Más sobre estéticas</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#referencias"><i class="fa fa-check"></i><b>3.2</b> Referencias</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="./"><img src="img/amat-logo.png" width="280"></a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">AMAT- Ciencia de Datos y Machine Learning</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="análisis-de-componentes-principales" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Capítulo 2</span> Análisis de Componentes Principales<a href="análisis-de-componentes-principales.html#análisis-de-componentes-principales" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>El análisis PCA (por sus siglas en inglés) es una <strong>técnica de reducción de dimensión</strong> útil tanto para el proceso de análisis exploratorio, el inferencial y predictivo. Es una técnica ampliamente usada en muchos estudios, pues permite sintetizar la información relevante y desechar aquello que no aporta tanto. Es particularmente útil en el caso de conjuntos de datos “amplios” en donde las <strong>variables están correlacionadas entre sí</strong> y donde se tienen muchas variables para cada observación.</p>
+<p><img src="img/02-pca/dimension_reduction.jpeg" width="600pt" height="400pt" style="display: block; margin: auto;" /></p>
+<p>En los conjuntos de datos donde hay muchas variables presentes, no es fácil trazar los datos en su formato original, lo que dificulta tener una idea de las tendencias presentes en ellos. PCA permite ver la estructura general de los datos, identificando qué observaciones son similares entre sí y cuáles son diferentes. Esto puede permitirnos identificar grupos de muestras que son similares y determinar qué variables hacen a un grupo diferente de otro.</p>
+<p>La idea detrás de esta técnica es la siguiente:</p>
+<ul>
+<li>Se desean crear nuevas variables llamadas <strong>Componentes Principales</strong>, las cuales son creadas como combinación lineal (suma ponderada) de las variables originales, por lo que cada una de las variables nuevas contiene parcialmente información de todas las variables originales.</li>
+</ul>
+<p><span class="math display">\[Z_1 = a_{11}X_1 +a_{12}X_2 + ... + a_{1p}X_p\]</span>
+<span class="math display">\[Z_2 = a_{21}X_1 +a_{22}X_2 + ... + a_{2p}X_p\]</span>
+<span class="math display">\[...\]</span>
+<span class="math display">\[Z_p = a_{p1}X_1 +a_{p2}X_2 + ... + a_{pp}X_p\]</span></p>
+<ul>
+<li>Se desea que la primer componente principal capture la mayor varianza posible de todo el conjunto de datos.</li>
+</ul>
+<p><span class="math display">\[\forall i \in 2,...,p \quad Var(Z_1)&gt;Var(Z_i)\]</span></p>
+<ul>
+<li>La segunda componente principal deberá <strong>SER INDEPENDIENTE</strong> de la primera y deberá abarcar la mayor varianza posible del restante. Esta condición se debe cumplir para toda componente <em>i</em>, de tal forma que las nuevas componentes creadas son independientes entre sí y acumulan la mayor proporción de varianza en las primeras de ellas, dejando la mínima proporción de varianza a las últimas componentes.</li>
+</ul>
+<p><span class="math display">\[Z_1 \perp\!\!\!\perp Z_2 \quad \&amp; \quad Var(Z_1)&gt;Var(Z_2)&gt;Var(Z_i)\]</span></p>
+<ul>
+<li>El punto anterior permite desechar unas cuantas componentes (las últimas) sin perder mucha varianza.</li>
+</ul>
+<div class="infobox note">
+<p><strong>¡¡ RECORDAR !!</strong></p>
+<ul>
+<li><p><strong>A través de CPA se logra retener la mayor cantidad de varianza útil pero usando menos componentes que el número de variables originales.</strong></p></li>
+<li><p><strong>Para que este proceso sea efectivo, debe existir ALTA correlación entre las variables originales.</strong></p></li>
+</ul>
+</div>
+<p>Cuando muchas variables se correlacionan entre sí, todas contribuirán fuertemente al mismo componente principal. Cada componente principal suma un cierto porcentaje de la variación total en el conjunto de datos. Cuando sus variables iniciales estén fuertemente correlacionadas entre sí y podrá aproximar la mayor parte de la complejidad de su conjunto de datos con solo unos pocos componentes principales.</p>
+<p>Agregar componentes adicionales hace que la estimación del conjunto de datos total sea más precisa, pero también más difícil de manejar.</p>
+<div id="eigenvalores-y-eigenvectores" class="section level3 hasAnchor" number="2.0.1">
+<h3><span class="header-section-number">2.0.1</span> Eigenvalores y eigenvectores<a href="análisis-de-componentes-principales.html#eigenvalores-y-eigenvectores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Los vectores propios y los valores propios vienen en pares: <strong>cada vector propio tiene un valor propio correspondiente</strong>. Los vectores propios son la ponderación que permite crear la combinación lineal de las variables para conformar cada componente principal, mientras que el valor propio es la varianza asociada a cada componente principal. Desde un punto de vista geométrico, el eigenvector es la dirección del vector determinado por la componente principal y el eigenvalor es la magnitud de dicho vector.</p>
+<div class="infobox pin">
+<ul>
+<li><p>El valor propio de una componente es la varianza de este.</p></li>
+<li><p>La suma acumulada de los primeros <span class="math inline">\(j\)</span> eigenvalores representa la varianza acumulada de las primeras <span class="math inline">\(j\)</span> componentes principales</p></li>
+</ul>
+</div>
+<p>El número de valores propios y vectores propios que existe es igual al número de dimensiones que tiene el conjunto de datos.</p>
+</div>
+<div id="implementación-en-r" class="section level3 hasAnchor" number="2.0.2">
+<h3><span class="header-section-number">2.0.2</span> Implementación en R<a href="análisis-de-componentes-principales.html#implementación-en-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="análisis-de-componentes-principales.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-2"><a href="análisis-de-componentes-principales.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb1-3"><a href="análisis-de-componentes-principales.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb1-4"><a href="análisis-de-componentes-principales.html#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="análisis-de-componentes-principales.html#cb1-5" aria-hidden="true" tabindex="-1"></a>indice_marg <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&#39;data/IMEF_2010.dbf&#39;</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-6"><a href="análisis-de-componentes-principales.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(indice_marg)</span></code></pre></div>
+<pre><code>## Rows: 32
+## Columns: 16
+## $ CVE_ENT &lt;chr&gt; &quot;01&quot;, &quot;02&quot;, &quot;03&quot;, &quot;04&quot;, &quot;05&quot;, &quot;06&quot;, &quot;07&quot;, &quot;08&quot;, &quot;09&quot;, &quot;10&quot;, &quot;1…
+## $ AÑO     &lt;int&gt; 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 20…
+## $ POB_TOT &lt;int&gt; 1184996, 3155070, 637026, 822441, 2748391, 650555, 4796580, 34…
+## $ ANALF   &lt;dbl&gt; 3.274040, 2.600783, 3.234464, 8.370643, 2.645050, 5.157943, 17…
+## $ SPRIM   &lt;dbl&gt; 14.754823, 12.987567, 14.273833, 22.541207, 12.168029, 18.4761…
+## $ OVSDE   &lt;dbl&gt; 1.0649743, 0.4322072, 0.9436751, 6.4196750, 1.0916308, 0.68577…
+## $ OVSEE   &lt;dbl&gt; 0.62347891, 0.94517891, 2.84464884, 2.59080046, 0.53707721, 0.…
+## $ OVSAE   &lt;dbl&gt; 0.9854257, 3.5616214, 7.0865085, 9.7378176, 1.3908497, 1.17060…
+## $ VHAC    &lt;dbl&gt; 30.33066, 29.05839, 31.73806, 45.96720, 30.26891, 31.32052, 53…
+## $ OVPT    &lt;dbl&gt; 1.761813, 3.398537, 5.814081, 4.500699, 1.423701, 4.691477, 15…
+## $ PL_5000 &lt;dbl&gt; 25.1626166, 10.3491523, 15.6188287, 30.8755279, 12.1486353, 14…
+## $ PO2SM   &lt;dbl&gt; 33.64880, 21.86970, 23.29986, 45.51076, 30.04270, 32.04402, 69…
+## $ IM      &lt;dbl&gt; -0.91086057, -1.14014880, -0.68128749, 0.43357139, -1.14000448…
+## $ GM      &lt;chr&gt; &quot;Bajo&quot;, &quot;Muy bajo&quot;, &quot;Bajo&quot;, &quot;Alto&quot;, &quot;Muy bajo&quot;, &quot;Bajo&quot;, &quot;Muy a…
+## $ LUGAR   &lt;int&gt; 28, 30, 23, 10, 29, 26, 2, 21, 32, 15, 14, 1, 6, 27, 22, 8, 19…
+## $ NOM_ENT &lt;chr&gt; &quot;Aguascalientes&quot;, &quot;Baja California&quot;, &quot;Baja California Sur&quot;, &quot;C…</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="análisis-de-componentes-principales.html#cb3-1" aria-hidden="true" tabindex="-1"></a>indice_marg <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">count</span>(GM, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##         GM n
+## 1    Medio 9
+## 2     Alto 8
+## 3     Bajo 8
+## 4 Muy bajo 4
+## 5 Muy alto 3</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="análisis-de-componentes-principales.html#cb5-1" aria-hidden="true" tabindex="-1"></a>pca_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(IM <span class="sc">~</span> ., <span class="at">data =</span> indice_marg) <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="análisis-de-componentes-principales.html#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">update_role</span>(NOM_ENT, GM, <span class="at">new_role =</span> <span class="st">&quot;id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="análisis-de-componentes-principales.html#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(ANALF, SPRIM, OVSDE, OVSEE, OVSAE, VHAC, OVPT, PL_5000, PO2SM) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="análisis-de-componentes-principales.html#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_pca</span>(ANALF, SPRIM, OVSDE, OVSEE, OVSAE, VHAC, OVPT, PL_5000, PO2SM, <span class="at">num_comp=</span><span class="dv">9</span>, <span class="at">res=</span><span class="st">&quot;res&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-5"><a href="análisis-de-componentes-principales.html#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_rm</span>(LUGAR, AÑO, POB_TOT) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-6"><a href="análisis-de-componentes-principales.html#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
+<span id="cb5-7"><a href="análisis-de-componentes-principales.html#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="análisis-de-componentes-principales.html#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">juice</span>(pca_recipe)</span></code></pre></div>
+<pre><code>## # A tibble: 32 × 13
+##    CVE_ENT GM     NOM_ENT      IM    PC1     PC2     PC3     PC4     PC5     PC6
+##    &lt;fct&gt;   &lt;fct&gt;  &lt;fct&gt;     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+##  1 01      Bajo   Aguasc… -0.911  -2.34  -0.227   0.372   0.492   0.264   0.0764
+##  2 02      Muy b… Baja C… -1.14   -2.93   0.595  -0.0597 -0.492   0.291  -0.0508
+##  3 03      Bajo   Baja C… -0.681  -1.75   1.37   -0.683  -0.400  -0.304   0.160 
+##  4 04      Alto   Campec…  0.434   1.12  -0.819  -0.151  -0.271  -0.929   0.178 
+##  5 05      Muy b… Coahui… -1.14   -2.93  -0.144   0.157  -0.133   0.0419 -0.0786
+##  6 06      Bajo   Colima  -0.779  -2.00   0.0316  0.552  -0.136   0.320  -0.729 
+##  7 07      Muy a… Chiapas  2.32    5.96   0.132   1.36   -0.0122 -0.673  -0.471 
+##  8 08      Bajo   Chihua… -0.520  -1.34   1.05   -1.27    0.633  -0.646  -0.387 
+##  9 09      Muy b… Distri… -1.48   -3.81   0.110   0.159  -0.453   0.205  -0.355 
+## 10 10      Medio  Durango  0.0525  0.135  0.675  -1.50    0.929  -0.448   0.146 
+## # … with 22 more rows, and 3 more variables: PC7 &lt;dbl&gt;, PC8 &lt;dbl&gt;, PC9 &lt;dbl&gt;
+## # ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
+<p>Veamos los pasos de esta receta:</p>
+<ul>
+<li><p>Primero, debemos decirle a la receta qué datos se usan para predecir la variable de respuesta.</p></li>
+<li><p>Se actualiza el rol de las variables <em>nombre de entidad</em> y <em>grado de marginación</em> con la función <code>NOM_ENT</code>, ya que es una variable que queremos mantener por conveniencia como identificador de filas, pero no son un predictor ni variable de respuesta.</p></li>
+<li><p>Necesitamos centrar y escalar los predictores numéricos, porque estamos a punto de implementar <strong>PCA</strong>.</p></li>
+<li><p>Finalmente, usamos <code>step_pca()</code> para realizar el análisis de componentes principales.</p></li>
+<li><p>La función <code>prep()</code> es la que realiza toda la preparación de la receta.</p></li>
+</ul>
+<p>Una vez que hayamos hecho eso, podremos explorar los resultados del <strong>PCA</strong>. Comencemos por ver cómo resultó el <strong>PCA</strong>. Podemos ordenar los resultados mediante la función <code>tidy()</code>, incluido el paso de <strong>PCA</strong>, que es el segundo paso. Luego hagamos una visualización para ver cómo se ven los componentes.</p>
+<p>A continuación se muestran la desviación estándar, porcentaje de varianza y porcentaje de varianza acumulada que aporta cada componente principal.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="análisis-de-componentes-principales.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca_recipe<span class="sc">$</span>steps[[<span class="dv">2</span>]]<span class="sc">$</span>res)</span></code></pre></div>
+<pre><code>## Importance of components:
+##                          PC1     PC2    PC3     PC4     PC5     PC6     PC7
+## Standard deviation     2.572 0.82085 0.7920 0.64640 0.52101 0.44069 0.31797
+## Proportion of Variance 0.735 0.07487 0.0697 0.04643 0.03016 0.02158 0.01123
+## Cumulative Proportion  0.735 0.80990 0.8796 0.92603 0.95619 0.97777 0.98900
+##                            PC8     PC9
+## Standard deviation     0.25660 0.18201
+## Proportion of Variance 0.00732 0.00368
+## Cumulative Proportion  0.99632 1.00000</code></pre>
+<p>Podemos observar que en la primera componente principal, las <span class="math inline">\(9\)</span> variables que utilizó el Consejo Nacional de Población para obtener el <a href="http://www.conapo.gob.mx/work/models/CONAPO/Resource/862/4/images/06_C_AGEB.pdf">Índice de Marginación 2010</a> aportan de manera positiva en el primer componente principal.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="análisis-de-componentes-principales.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb9-2"><a href="análisis-de-componentes-principales.html#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="análisis-de-componentes-principales.html#cb9-3" aria-hidden="true" tabindex="-1"></a>tidied_pca <span class="ot">&lt;-</span> <span class="fu">tidy</span>(pca_recipe, <span class="dv">2</span>)</span>
+<span id="cb9-4"><a href="análisis-de-componentes-principales.html#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="análisis-de-componentes-principales.html#cb9-5" aria-hidden="true" tabindex="-1"></a>tidied_pca <span class="sc">%&gt;%</span></span>
+<span id="cb9-6"><a href="análisis-de-componentes-principales.html#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(component <span class="sc">%in%</span> <span class="fu">paste0</span>(<span class="st">&quot;PC&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-7"><a href="análisis-de-componentes-principales.html#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(component) <span class="sc">%&gt;%</span></span>
+<span id="cb9-8"><a href="análisis-de-componentes-principales.html#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">9</span>, <span class="fu">abs</span>(value)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-9"><a href="análisis-de-componentes-principales.html#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-10"><a href="análisis-de-componentes-principales.html#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">terms =</span> <span class="fu">reorder_within</span>(terms, <span class="fu">abs</span>(value), component)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-11"><a href="análisis-de-componentes-principales.html#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">abs</span>(value), terms, <span class="at">fill =</span> value <span class="sc">&gt;</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb9-12"><a href="análisis-de-componentes-principales.html#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb9-13"><a href="análisis-de-componentes-principales.html#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>component, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb9-14"><a href="análisis-de-componentes-principales.html#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_reordered</span>() <span class="sc">+</span></span>
+<span id="cb9-15"><a href="análisis-de-componentes-principales.html#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb9-16"><a href="análisis-de-componentes-principales.html#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Absolute value of contribution&quot;</span>,</span>
+<span id="cb9-17"><a href="análisis-de-componentes-principales.html#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">fill =</span> <span class="st">&quot;Positive?&quot;</span></span>
+<span id="cb9-18"><a href="análisis-de-componentes-principales.html#cb9-18" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">+</span></span>
+<span id="cb9-19"><a href="análisis-de-componentes-principales.html#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>Notamos que las <span class="math inline">\(9\)</span> variables aportan entre el <span class="math inline">\(25\%\)</span> y el <span class="math inline">\(35\%\)</span> a la
+primera componente principal.</p>
+</div>
+<div id="representación-gráfica" class="section level3 hasAnchor" number="2.0.3">
+<h3><span class="header-section-number">2.0.3</span> Representación gráfica<a href="análisis-de-componentes-principales.html#representación-gráfica" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="análisis-de-componentes-principales.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb10-2"><a href="análisis-de-componentes-principales.html#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="análisis-de-componentes-principales.html#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">juice</span>(pca_recipe) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="análisis-de-componentes-principales.html#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">GM =</span> <span class="fu">factor</span>(GM, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Muy alto&quot;</span>, <span class="st">&quot;Alto&quot;</span>, <span class="st">&quot;Medio&quot;</span>, <span class="st">&quot;Bajo&quot;</span>, <span class="st">&quot;Muy bajo&quot;</span>)), </span>
+<span id="cb10-5"><a href="análisis-de-componentes-principales.html#cb10-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">ordered =</span> T) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-6"><a href="análisis-de-componentes-principales.html#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(PC1, PC2, <span class="at">label =</span> NOM_ENT)) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="análisis-de-componentes-principales.html#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> GM), <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb10-8"><a href="análisis-de-componentes-principales.html#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>() <span class="sc">+</span></span>
+<span id="cb10-9"><a href="análisis-de-componentes-principales.html#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Grado de marginación de entidades&quot;</span>)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Finalmente, podemos observar como (de izquierda a derecha) los estados con grado de marginación Muy bajo, Bajo, Medio, Alto y Muy Alto respectivamente.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="análisis-de-componentes-principales.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">juice</span>(pca_recipe) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="análisis-de-componentes-principales.html#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> IM, <span class="at">y =</span> PC1)) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="análisis-de-componentes-principales.html#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="análisis-de-componentes-principales.html#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="análisis-de-componentes-principales.html#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Comparación: Índice Marginación Vs PCA CP1&quot;</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div id="cuántas-componentes-retener" class="section level3 hasAnchor" number="2.0.4">
+<h3><span class="header-section-number">2.0.4</span> ¿Cuántas componentes retener?<a href="análisis-de-componentes-principales.html#cuántas-componentes-retener" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Existe en la literatura basta información sobre el número de componentes a retener en un análisis de PCA. El siguiente gráfico lleva por nombre <strong>gráfico de codo</strong> y muestra el porcentaje de varianza explicado por cada componente principal.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="análisis-de-componentes-principales.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
+<span id="cb13-2"><a href="análisis-de-componentes-principales.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FactoMineR)</span>
+<span id="cb13-3"><a href="análisis-de-componentes-principales.html#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="análisis-de-componentes-principales.html#cb13-4" aria-hidden="true" tabindex="-1"></a>res.pca <span class="ot">&lt;-</span> indice_marg <span class="sc">%&gt;%</span></span>
+<span id="cb13-5"><a href="análisis-de-componentes-principales.html#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ANALF, SPRIM, OVSDE, OVSEE, OVSAE, VHAC, OVPT, PL_5000, PO2SM) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-6"><a href="análisis-de-componentes-principales.html#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb13-7"><a href="análisis-de-componentes-principales.html#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_rownames</span>(indice_marg<span class="sc">$</span>NOM_ENT) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-8"><a href="análisis-de-componentes-principales.html#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">PCA</span>(<span class="at">graph=</span><span class="cn">FALSE</span>)</span>
+<span id="cb13-9"><a href="análisis-de-componentes-principales.html#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="análisis-de-componentes-principales.html#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_eig</span>(res.pca, <span class="at">addlabels=</span><span class="cn">TRUE</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>))</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>El gráfico anterior muestra que hay una diferencia muy grande entre la varianza retenida por la 1er componente principal y el resto de las variables. Dependiendo del objetivo del análisis, podrá elegirse el numero adecuado de componentes a retener, no obstante, la literatura sugiere retener 1 o 2 componentes principales.</p>
+<p>Regresando al tema de <strong>feature engineering</strong>, es posible realizar el proceso de componentes principales y elegir una de las dos opciones siguientes:</p>
+<ol style="list-style-type: decimal">
+<li><p>Especificar el número de componentes a retener</p></li>
+<li><p>Indicar el porcentaje de varianza a alcanzar</p></li>
+</ol>
+<p>La segunda opción elegirá tantas componentes como sean necesarias hasta alcanzar el hiperparámetro mínimo indicado. A continuación se ejemplifica:</p>
+<p><strong>Caso 1:</strong></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="análisis-de-componentes-principales.html#cb14-1" aria-hidden="true" tabindex="-1"></a>pca_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(IM <span class="sc">~</span> ., <span class="at">data =</span> indice_marg) <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="análisis-de-componentes-principales.html#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">update_role</span>(NOM_ENT, GM, <span class="at">new_role =</span> <span class="st">&quot;id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="análisis-de-componentes-principales.html#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(ANALF, SPRIM, OVSDE, OVSEE, OVSAE, VHAC, OVPT, PL_5000, PO2SM) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="análisis-de-componentes-principales.html#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_pca</span>(ANALF, SPRIM, OVSDE, OVSEE, OVSAE, VHAC, OVPT, PL_5000, PO2SM,<span class="at">num_comp=</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-5"><a href="análisis-de-componentes-principales.html#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_rm</span>(LUGAR, AÑO, POB_TOT) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-6"><a href="análisis-de-componentes-principales.html#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
+<span id="cb14-7"><a href="análisis-de-componentes-principales.html#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="análisis-de-componentes-principales.html#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">juice</span>(pca_recipe)</span></code></pre></div>
+<pre><code>## # A tibble: 32 × 6
+##    CVE_ENT GM       NOM_ENT                   IM    PC1     PC2
+##    &lt;fct&gt;   &lt;fct&gt;    &lt;fct&gt;                  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+##  1 01      Bajo     Aguascalientes       -0.911  -2.34  -0.227 
+##  2 02      Muy bajo Baja California      -1.14   -2.93   0.595 
+##  3 03      Bajo     Baja California Sur  -0.681  -1.75   1.37  
+##  4 04      Alto     Campeche              0.434   1.12  -0.819 
+##  5 05      Muy bajo Coahuila de Zaragoza -1.14   -2.93  -0.144 
+##  6 06      Bajo     Colima               -0.779  -2.00   0.0316
+##  7 07      Muy alto Chiapas               2.32    5.96   0.132 
+##  8 08      Bajo     Chihuahua            -0.520  -1.34   1.05  
+##  9 09      Muy bajo Distrito Federal     -1.48   -3.81   0.110 
+## 10 10      Medio    Durango               0.0525  0.135  0.675 
+## # … with 22 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p><strong>Caso 2:</strong></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="análisis-de-componentes-principales.html#cb16-1" aria-hidden="true" tabindex="-1"></a>pca_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(IM <span class="sc">~</span> ., <span class="at">data =</span> indice_marg) <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="análisis-de-componentes-principales.html#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">update_role</span>(NOM_ENT, GM, <span class="at">new_role =</span> <span class="st">&quot;id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="análisis-de-componentes-principales.html#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(ANALF, SPRIM, OVSDE, OVSEE, OVSAE, VHAC, OVPT, PL_5000, PO2SM) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="análisis-de-componentes-principales.html#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_pca</span>(ANALF, SPRIM, OVSDE, OVSEE, OVSAE, VHAC, OVPT, PL_5000, PO2SM,<span class="at">threshold=</span><span class="fl">0.90</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-5"><a href="análisis-de-componentes-principales.html#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_rm</span>(LUGAR, AÑO, POB_TOT) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-6"><a href="análisis-de-componentes-principales.html#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
+<span id="cb16-7"><a href="análisis-de-componentes-principales.html#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="análisis-de-componentes-principales.html#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">juice</span>(pca_recipe)</span></code></pre></div>
+<pre><code>## # A tibble: 32 × 8
+##    CVE_ENT GM       NOM_ENT                   IM    PC1     PC2     PC3     PC4
+##    &lt;fct&gt;   &lt;fct&gt;    &lt;fct&gt;                  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+##  1 01      Bajo     Aguascalientes       -0.911  -2.34  -0.227   0.372   0.492 
+##  2 02      Muy bajo Baja California      -1.14   -2.93   0.595  -0.0597 -0.492 
+##  3 03      Bajo     Baja California Sur  -0.681  -1.75   1.37   -0.683  -0.400 
+##  4 04      Alto     Campeche              0.434   1.12  -0.819  -0.151  -0.271 
+##  5 05      Muy bajo Coahuila de Zaragoza -1.14   -2.93  -0.144   0.157  -0.133 
+##  6 06      Bajo     Colima               -0.779  -2.00   0.0316  0.552  -0.136 
+##  7 07      Muy alto Chiapas               2.32    5.96   0.132   1.36   -0.0122
+##  8 08      Bajo     Chihuahua            -0.520  -1.34   1.05   -1.27    0.633 
+##  9 09      Muy bajo Distrito Federal     -1.48   -3.81   0.110   0.159  -0.453 
+## 10 10      Medio    Durango               0.0525  0.135  0.675  -1.50    0.929 
+## # … with 22 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>Así es como usaremos el análisis de componentes principales para mejorar la estructura de variables que sirven de input para cualquiera de los modelos posteriores. Continuaremos con un paso más de pre-procesamiento antes de comenzar a aprender nuevos modelos.</p>
+
+</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+$('.pipehover_incremental tr').hover(function() {
+  $(this).removeClass()
+  $(this).prevAll().removeClass()
+  $(this).nextAll().removeClass()
+  $(this).addClass('hover');
+  $(this).prevAll().addClass('hover');
+  $(this).closest('div').next().find('img').attr("src", $(this).attr("link"));
+});
+
+
+$('.pipehover_select_one_row tr').hover(function() {
+  $(this).removeClass()
+  $(this).prevAll().removeClass()
+  $(this).nextAll().removeClass()
+  $(this).addClass('hover');
+  $(this).closest('div').next().find('img').attr("src", $(this).attr("link"));
+});
+
+</script>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introducción-a-ciencia-de-datos.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="anexo-visualización-con-ggplot.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["amt22_04intro2mlns.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

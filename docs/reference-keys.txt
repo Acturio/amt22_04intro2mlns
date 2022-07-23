@@ -16,3 +16,8 @@ objetos-geométricos-o-capas
 facetas
 más-sobre-estéticas
 referencias
+análisis-de-componentes-principales
+eigenvalores-y-eigenvectores
+implementación-en-r
+representación-gráfica
+cuántas-componentes-retener
