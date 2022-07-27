@@ -84,6 +84,8 @@ $$Cor(x, y) = \frac{\sum_{i=1}^n{(x_i-\bar{x})(y_i-\bar{y})}}{\sqrt{\sum(x_i-\ba
 
 ## Construcción matemática
 
+Sea $X$ una matriz de $n$ renglones y $p$ columnas, se denota por $X_i$ a la *i-ésima* columna que representa una característica del conjunto en su totalidad...
+
 * Se desean crear nuevas variables llamadas **Componentes Principales**, las cuales son creadas como combinación lineal (suma ponderada) de las variables originales, por lo que cada una de las variables nuevas contiene parcialmente información de todas las variables originales.
 
 $$Z_1 = a_{11}X_1 +a_{12}X_2 + ... + a_{1p}X_p$$
@@ -97,7 +99,7 @@ Donde:
 >
 > $X_1, X_2, ... X_p$ son las columnas (variables originales)
 >
-> $a_{ij}$ es el peso o aportación de cada columna (j) a la nueva componente (i).
+> $a_{ij}$ es el peso o aportación de cada columna *j* a la nueva componente *i*.
 
 
 * Se desea que la primer componente principal capture la mayor varianza posible de todo el conjunto de datos.
@@ -133,11 +135,11 @@ Estimar la ponderación adecuada que debe tener cada una de características par
 $$Xv=\lambda v$$
 Donde:
 
-> $X$ es la matriz de datos originales
+> $X$ es la matriz de correlación calculada a partir de los datos originales
 >
-> $v$ es el vector con los pesos de cada columna
+> $v$ es el vector con los pesos de cada columna (eigenvector).
 >
-> $\lambda$ corresponde a la varianza de cada nueva componente.
+> $\lambda$ corresponde a la varianza de cada nueva componente (eigenvalor).
 
 Este resultado corresponde al cálculo de los *eigenvectores* $v$ (vectores propios) y eigenvalores $\lambda$ (valores propios) de una matriz de datos.
 
@@ -152,7 +154,14 @@ Los vectores propios y los valores propios vienen en pares: **cada vector propio
 
 El número de valores propios y vectores propios que existe es igual al número de dimensiones que tiene el conjunto de datos.
 
+Para una mayor explicación matemática, este [libro](https://www.amazon.com/Methods-Multivariate-Analysis-Alvin-Rencher/dp/0470178965) ofrece un amplio capítulo dedicado exclusivamente al análisis de componentes principales
+
+
 ## Implementación en R
+
+Para ejemplificar el uso de CPA, usaremos los [datos](https://drive.google.com/file/d/1eMBDMxtbRel4BQ0RqMnuwGr-nGNzshgc/view?usp=sharing) de CONAPO para replicar el índice de marginación social, el cual pretende dar una medida de pobreza por regiones, las cuales pueden ser entidades, municipios, localidades, agebs o incluso manzanas\*.
+
+Existen MUUUCHAS librerías que facilitan el análisis de componentes principales. En este [blog](https://aedin.github.io/PCAworkshop/articles/b_PCA.html) se puede encontrar la diferencia en su implementación. Todas ofrecen resultados útiles y confiables.
 
 ```{r, warning=FALSE, message=FALSE}
 library(sf)
@@ -240,30 +249,6 @@ tidied_pca %>%
 Notamos que las $9$ variables aportan entre el $25\%$ y el $35\%$ a la
 primera componente principal.
 
-## Representación gráfica
-
-```{r}
-library(ggrepel)
-
-juice(pca_recipe) %>%
-  mutate(GM = factor(GM, levels = c("Muy alto", "Alto", "Medio", "Bajo", "Muy bajo")), 
-         ordered = T) %>% 
-  ggplot(aes(PC1, PC2, label = NOM_ENT)) +
-  geom_point(aes(color = GM), alpha = 0.7, size = 2) +
-  geom_text_repel() +
-  ggtitle("Grado de marginación de entidades")
-
-```
-
-Finalmente, podemos observar como (de izquierda a derecha) los estados con grado de marginación Muy bajo, Bajo, Medio, Alto y Muy Alto respectivamente. 
-
-```{r}
-juice(pca_recipe) %>% 
-  ggplot(aes(x = IM, y = PC1)) +
-  geom_smooth(method = "lm") +
-  geom_point(size = 2) +
-  ggtitle("Comparación: Índice Marginación Vs PCA CP1")
-```
 
 ## Reducción de dimensión
 
@@ -277,19 +262,21 @@ res.pca <- indice_marg %>%
   select(ANALF, SPRIM, OVSDE, OVSEE, OVSAE, VHAC, OVPT, PL_5000, PO2SM) %>% 
   as.data.frame() %>% 
   set_rownames(indice_marg$NOM_ENT) %>% 
-  PCA(graph=FALSE)
+  FactoMineR::PCA(graph=FALSE)
 
 fviz_eig(res.pca, addlabels=TRUE, ylim=c(0, 100))
 ```
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE, echo=FALSE}
-fviz_pca_biplot(X = res.pca, repel = T, addEllipses=F, geom = c("point", "text"),
-                habillage=as.factor(indice_marg$GM))
+fviz_pca_biplot(
+  X = res.pca, repel = T, addEllipses=F, geom = c("point", "text"),
+  habillage=as.factor(indice_marg$GM)
+  )
 ```
 
 El gráfico anterior muestra que hay una diferencia muy grande entre la varianza retenida por la 1er componente principal y el resto de las variables. Dependiendo del objetivo del análisis, podrá elegirse el numero adecuado de componentes a retener, no obstante, la literatura sugiere retener 1 o 2 componentes principales.
 
-Regresando al tema de **feature engineering**, es posible realizar el proceso de componentes principales y elegir una de las dos opciones siguientes:
+Es posible realizar el proceso de componentes principales y elegir una de las dos opciones siguientes:
 
 1. Especificar el número de componentes a retener
 
@@ -324,3 +311,169 @@ juice(pca_recipe)
 ```
 
 Así es como usaremos el análisis de componentes principales para mejorar la estructura de variables que sirven de input para cualquiera de los modelos posteriores. Continuaremos con un paso más de pre-procesamiento antes de comenzar a aprender nuevos modelos.
+
+
+
+## Representación gráfica
+
+Uno de los gráficos más famosos al usar CPA es el Biplot, el cual busca representar en dos dimensiones el comportamiento y grado de asociación tanto entre las variables como las observaciones
+
+El siguiente biplot permite analizar en dos dimensiones la relación entre variables
+
+```{r}
+
+fviz_pca_var(
+  res.pca,
+  col.var = "contrib", # Color by contributions to the PC
+  gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+  repel = TRUE     # Avoid text overlapping
+)
+```
+
+En este gráfico se logra apreciar que todas las características están asociadas a la misma dirección en relación con la primer componente principal, mientras que en la segunda componente existe un poco de diferencia.
+
+Entre más pequeño sea el ángulo que separa a dos vectores, mayor correlación existe entre las características. Adicionalmente, si el grado es cercano a los 180°, esto representa una perfecta correlación negativa. Por último, grados cercanos a los 90° ocurren cuando las variables son independientes.
+
+Entre más larga es la longitud de cada vector, esto representa mayor varianza en la característica que se está observando.
+
+A continuación, se muestra otra versión del biplot en donde se analizan tanto las variables como las observaciones
+
+```{r}
+fviz_pca_biplot(
+  res.pca, repel = TRUE,
+  col.var = "#2E9FDF", # Variables color
+  col.ind = "#696969"  # Individuals color
+)
+```
+
+
+La proyección ortogonal de cada punto en un vector permite conocer el grado positivo o negativo de una observación en relación con cada una de las variables. Por ejemplo...
+
+1. La proyección del Distrito Federal con cada una de las variables se encuentra en la dirección negativa, lo que implica que la relación de esta entidad con las variables que miden pobreza es negativa.
+
+2. En el caso de Oaxaca, la relación es positiva, lo que implica que Oaxaca tiene una marginación alta.
+
+A partir de estas gráficas, se logran realizar simplificaciones o variaciones de gráficas para estudiar posibles agrupaciones, como se muestra en el siguiente gráfico.
+
+```{r}
+library(ggrepel)
+
+juice(pca_recipe) %>%
+  mutate(GM = factor(GM, levels = c("Muy alto", "Alto", "Medio", "Bajo", "Muy bajo")), 
+         ordered = T) %>% 
+  ggplot(aes(PC1, PC2, label = NOM_ENT)) +
+  geom_point(aes(color = GM), alpha = 0.7, size = 2) +
+  geom_text_repel() +
+  ggtitle("Grado de marginación de entidades")
+
+```
+
+Finalmente, podemos observar como (de izquierda a derecha) los estados con grado de marginación Muy bajo, Bajo, Medio, Alto y Muy Alto respectivamente. 
+
+```{r}
+juice(pca_recipe) %>% 
+  ggplot(aes(x = IM, y = PC1)) +
+  geom_smooth(method = "lm") +
+  geom_point(size = 2) +
+  ggtitle("Comparación: Índice Marginación Vs PCA CP1")
+```
+
+
+## Predicciones
+
+Es bastante común que sea necesario ajustar o crear un análisis de componentes con la información disponible hasta cierto momento y posteriormente, nuevas observaciones son incorporadas al estudio. Sería incorrecto volver a crear el análisis cada vez que una observación nueva llega.
+
+Otro escenario de interés se da cuando se tiene muchísima información (millones de datos) y resulta costoso computacionalmente estar creando el modelo usando toda la información.
+
+En ambos escenarios, la solución está en **realizar el análisis de componentes principales con una muestra de los datos y posteriormente realizar la predicción de nuevas observaciones ya teniendo creado el modelo**
+
+
+El siguiente ejemplo contiene datos de atletas y su desempeño en competencias deportivas. 
+
+```{r}
+glimpse(decathlon2)
+
+```
+
+Se eliminarán las últimas 3 columnas para trabajar exclusivamente con las que hacer referencia al desempeño en cada una de las actividades deportivas. 
+
+```{r}
+decathlon2_train <- decathlon2[1:23, 1:10]
+glimpse(decathlon2_train)
+```
+
+En este ejercicio se usará la librería *stats* y la función *prcomp* para llevar a cabo el análisis.
+
+```{r}
+res.pca <- stats::prcomp(decathlon2_train, scale = TRUE)
+res.pca
+```
+
+Las 10 variables anteriores son las componentes principales creadas a partir de las variables originales. Se puede apreciar en la siguiente línea el impacto que tiene cada componente en términos de varianza.
+
+```{r}
+summary(res.pca)
+```
+```{r}
+fviz_eig(res.pca, addlabels=TRUE, ylim=c(0, 100))
+```
+
+Ahora considérese nuevas observaciones que desean re calculadas usando el análisis de componentes principales. Es indispensable contar con la información de las 10 variables con las que se construyó el modelo.
+
+```{r}
+decathlon2_new <- decathlon2[24:27, 1:10]
+decathlon2_new[, 1:6]
+```
+
+Finalmente, se hace uso de la función *predict* para calcular el valor de las componentes principales en cada uno de los nuevo individuos:
+
+
+```{r}
+decathlon2_new_coord <- predict(res.pca, newdata = decathlon2_new)
+decathlon2_new_coord[, 1:4]
+```
+Estos resultados pueden integrarse a las gráficas realizadas para comparar su ubicación en relación con los datos originales usados cuando se creó el modelo.
+
+
+
+```{r}
+# Gráfico con observaciones originales en biplot
+p <- fviz_pca_ind(res.pca, repel = TRUE)
+
+# Se agregan nuevas observaciones
+fviz_add(p, decathlon2_new_coord, color ="blue", repel = T)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

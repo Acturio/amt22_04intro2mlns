@@ -14,8 +14,9 @@ medidas-de-dispersión
 construcción-matemática
 eigenvalores-y-eigenvectores
 implementación-en-r
-representación-gráfica
 reducción-de-dimensión
+representación-gráfica
+predicciones
 anexo-visualización-con-ggplot
 ggplot2
 objetos-aesteticos

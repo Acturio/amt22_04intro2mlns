@@ -181,8 +181,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#eigenvalores-y-eigenvectores"><i class="fa fa-check"></i><b>3.2.1</b> Eigenvalores y eigenvectores</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#implementación-en-r"><i class="fa fa-check"></i><b>3.3</b> Implementación en R</a></li>
-<li class="chapter" data-level="3.4" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#representación-gráfica"><i class="fa fa-check"></i><b>3.4</b> Representación gráfica</a></li>
-<li class="chapter" data-level="3.5" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#reducción-de-dimensión"><i class="fa fa-check"></i><b>3.5</b> Reducción de dimensión</a></li>
+<li class="chapter" data-level="3.4" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#reducción-de-dimensión"><i class="fa fa-check"></i><b>3.4</b> Reducción de dimensión</a></li>
+<li class="chapter" data-level="3.5" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#representación-gráfica"><i class="fa fa-check"></i><b>3.5</b> Representación gráfica</a></li>
+<li class="chapter" data-level="3.6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#predicciones"><i class="fa fa-check"></i><b>3.6</b> Predicciones</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html"><i class="fa fa-check"></i><b>4</b> Anexo: Visualización con Ggplot</a>
 <ul>
@@ -254,6 +255,7 @@ Si calculamos la media, sería:</p>
 </div>
 <div id="construcción-matemática" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Construcción matemática<a href="análisis-de-componentes-principales.html#construcción-matemática" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Sea <span class="math inline">\(X\)</span> una matriz de <span class="math inline">\(n\)</span> renglones y <span class="math inline">\(p\)</span> columnas, se denota por <span class="math inline">\(X_i\)</span> a la <em>i-ésima</em> columna que representa una característica del conjunto en su totalidad…</p>
 <ul>
 <li>Se desean crear nuevas variables llamadas <strong>Componentes Principales</strong>, las cuales son creadas como combinación lineal (suma ponderada) de las variables originales, por lo que cada una de las variables nuevas contiene parcialmente información de todas las variables originales.</li>
 </ul>
@@ -265,7 +267,7 @@ Si calculamos la media, sería:</p>
 <blockquote>
 <p><span class="math inline">\(Z_i\)</span> es la iésima componente nueva creada como combinación de las características originales</p>
 <p><span class="math inline">\(X_1, X_2, ... X_p\)</span> son las columnas (variables originales)</p>
-<p><span class="math inline">\(a_{ij}\)</span> es el peso o aportación de cada columna (j) a la nueva componente (i).</p>
+<p><span class="math inline">\(a_{ij}\)</span> es el peso o aportación de cada columna <em>j</em> a la nueva componente <em>i</em>.</p>
 </blockquote>
 <ul>
 <li>Se desea que la primer componente principal capture la mayor varianza posible de todo el conjunto de datos.</li>
@@ -293,9 +295,9 @@ Si calculamos la media, sería:</p>
 <p><span class="math display">\[Xv=\lambda v\]</span>
 Donde:</p>
 <blockquote>
-<p><span class="math inline">\(X\)</span> es la matriz de datos originales</p>
-<p><span class="math inline">\(v\)</span> es el vector con los pesos de cada columna</p>
-<p><span class="math inline">\(\lambda\)</span> corresponde a la varianza de cada nueva componente.</p>
+<p><span class="math inline">\(X\)</span> es la matriz de correlación calculada a partir de los datos originales</p>
+<p><span class="math inline">\(v\)</span> es el vector con los pesos de cada columna (eigenvector).</p>
+<p><span class="math inline">\(\lambda\)</span> corresponde a la varianza de cada nueva componente (eigenvalor).</p>
 </blockquote>
 <p>Este resultado corresponde al cálculo de los <em>eigenvectores</em> <span class="math inline">\(v\)</span> (vectores propios) y eigenvalores <span class="math inline">\(\lambda\)</span> (valores propios) de una matriz de datos.</p>
 <p>Los vectores propios y los valores propios vienen en pares: <strong>cada vector propio tiene un valor propio correspondiente</strong>. Los vectores propios son la ponderación que permite crear la combinación lineal de las variables para conformar cada componente principal, mientras que el valor propio es la varianza asociada a cada componente principal.</p>
@@ -306,10 +308,13 @@ Donde:</p>
 </ul>
 </div>
 <p>El número de valores propios y vectores propios que existe es igual al número de dimensiones que tiene el conjunto de datos.</p>
+<p>Para una mayor explicación matemática, este <a href="https://www.amazon.com/Methods-Multivariate-Analysis-Alvin-Rencher/dp/0470178965">libro</a> ofrece un amplio capítulo dedicado exclusivamente al análisis de componentes principales</p>
 </div>
 </div>
 <div id="implementación-en-r" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Implementación en R<a href="análisis-de-componentes-principales.html#implementación-en-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para ejemplificar el uso de CPA, usaremos los <a href="https://drive.google.com/file/d/1eMBDMxtbRel4BQ0RqMnuwGr-nGNzshgc/view?usp=sharing">datos</a> de CONAPO para replicar el índice de marginación social, el cual pretende dar una medida de pobreza por regiones, las cuales pueden ser entidades, municipios, localidades, agebs o incluso manzanas*.</p>
+<p>Existen MUUUCHAS librerías que facilitan el análisis de componentes principales. En este <a href="https://aedin.github.io/PCAworkshop/articles/b_PCA.html">blog</a> se puede encontrar la diferencia en su implementación. Todas ofrecen resultados útiles y confiables.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="análisis-de-componentes-principales.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb2-2"><a href="análisis-de-componentes-principales.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
 <span id="cb2-3"><a href="análisis-de-componentes-principales.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
@@ -408,57 +413,36 @@ Donde:</p>
 <p>Notamos que las <span class="math inline">\(9\)</span> variables aportan entre el <span class="math inline">\(25\%\)</span> y el <span class="math inline">\(35\%\)</span> a la
 primera componente principal.</p>
 </div>
-<div id="representación-gráfica" class="section level2 hasAnchor" number="3.4">
-<h2><span class="header-section-number">3.4</span> Representación gráfica<a href="análisis-de-componentes-principales.html#representación-gráfica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="análisis-de-componentes-principales.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
-<span id="cb11-2"><a href="análisis-de-componentes-principales.html#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="análisis-de-componentes-principales.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">juice</span>(pca_recipe) <span class="sc">%&gt;%</span></span>
-<span id="cb11-4"><a href="análisis-de-componentes-principales.html#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">GM =</span> <span class="fu">factor</span>(GM, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Muy alto&quot;</span>, <span class="st">&quot;Alto&quot;</span>, <span class="st">&quot;Medio&quot;</span>, <span class="st">&quot;Bajo&quot;</span>, <span class="st">&quot;Muy bajo&quot;</span>)), </span>
-<span id="cb11-5"><a href="análisis-de-componentes-principales.html#cb11-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">ordered =</span> T) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-6"><a href="análisis-de-componentes-principales.html#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(PC1, PC2, <span class="at">label =</span> NOM_ENT)) <span class="sc">+</span></span>
-<span id="cb11-7"><a href="análisis-de-componentes-principales.html#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> GM), <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb11-8"><a href="análisis-de-componentes-principales.html#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>() <span class="sc">+</span></span>
-<span id="cb11-9"><a href="análisis-de-componentes-principales.html#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Grado de marginación de entidades&quot;</span>)</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
-<p>Finalmente, podemos observar como (de izquierda a derecha) los estados con grado de marginación Muy bajo, Bajo, Medio, Alto y Muy Alto respectivamente.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="análisis-de-componentes-principales.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">juice</span>(pca_recipe) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-2"><a href="análisis-de-componentes-principales.html#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> IM, <span class="at">y =</span> PC1)) <span class="sc">+</span></span>
-<span id="cb12-3"><a href="análisis-de-componentes-principales.html#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
-<span id="cb12-4"><a href="análisis-de-componentes-principales.html#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb12-5"><a href="análisis-de-componentes-principales.html#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Comparación: Índice Marginación Vs PCA CP1&quot;</span>)</span></code></pre></div>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
-</div>
-<div id="reducción-de-dimensión" class="section level2 hasAnchor" number="3.5">
-<h2><span class="header-section-number">3.5</span> Reducción de dimensión<a href="análisis-de-componentes-principales.html#reducción-de-dimensión" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="reducción-de-dimensión" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Reducción de dimensión<a href="análisis-de-componentes-principales.html#reducción-de-dimensión" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Existe en la literatura basta información sobre el número de componentes a retener en un análisis de PCA. El siguiente gráfico lleva por nombre <strong>gráfico de codo</strong> y muestra el porcentaje de varianza explicado por cada componente principal.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="análisis-de-componentes-principales.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
-<span id="cb14-2"><a href="análisis-de-componentes-principales.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FactoMineR)</span>
-<span id="cb14-3"><a href="análisis-de-componentes-principales.html#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="análisis-de-componentes-principales.html#cb14-4" aria-hidden="true" tabindex="-1"></a>res.pca <span class="ot">&lt;-</span> indice_marg <span class="sc">%&gt;%</span></span>
-<span id="cb14-5"><a href="análisis-de-componentes-principales.html#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ANALF, SPRIM, OVSDE, OVSEE, OVSAE, VHAC, OVPT, PL_5000, PO2SM) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-6"><a href="análisis-de-componentes-principales.html#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb14-7"><a href="análisis-de-componentes-principales.html#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_rownames</span>(indice_marg<span class="sc">$</span>NOM_ENT) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-8"><a href="análisis-de-componentes-principales.html#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">PCA</span>(<span class="at">graph=</span><span class="cn">FALSE</span>)</span>
-<span id="cb14-9"><a href="análisis-de-componentes-principales.html#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-10"><a href="análisis-de-componentes-principales.html#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_eig</span>(res.pca, <span class="at">addlabels=</span><span class="cn">TRUE</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>))</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="análisis-de-componentes-principales.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
+<span id="cb11-2"><a href="análisis-de-componentes-principales.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FactoMineR)</span>
+<span id="cb11-3"><a href="análisis-de-componentes-principales.html#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="análisis-de-componentes-principales.html#cb11-4" aria-hidden="true" tabindex="-1"></a>res.pca <span class="ot">&lt;-</span> indice_marg <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="análisis-de-componentes-principales.html#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ANALF, SPRIM, OVSDE, OVSEE, OVSAE, VHAC, OVPT, PL_5000, PO2SM) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-6"><a href="análisis-de-componentes-principales.html#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb11-7"><a href="análisis-de-componentes-principales.html#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_rownames</span>(indice_marg<span class="sc">$</span>NOM_ENT) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-8"><a href="análisis-de-componentes-principales.html#cb11-8" aria-hidden="true" tabindex="-1"></a>  FactoMineR<span class="sc">::</span><span class="fu">PCA</span>(<span class="at">graph=</span><span class="cn">FALSE</span>)</span>
+<span id="cb11-9"><a href="análisis-de-componentes-principales.html#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="análisis-de-componentes-principales.html#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_eig</span>(res.pca, <span class="at">addlabels=</span><span class="cn">TRUE</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>))</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
 <p>El gráfico anterior muestra que hay una diferencia muy grande entre la varianza retenida por la 1er componente principal y el resto de las variables. Dependiendo del objetivo del análisis, podrá elegirse el numero adecuado de componentes a retener, no obstante, la literatura sugiere retener 1 o 2 componentes principales.</p>
-<p>Regresando al tema de <strong>feature engineering</strong>, es posible realizar el proceso de componentes principales y elegir una de las dos opciones siguientes:</p>
+<p>Es posible realizar el proceso de componentes principales y elegir una de las dos opciones siguientes:</p>
 <ol style="list-style-type: decimal">
 <li><p>Especificar el número de componentes a retener</p></li>
 <li><p>Indicar el porcentaje de varianza a alcanzar</p></li>
 </ol>
 <p>La segunda opción elegirá tantas componentes como sean necesarias hasta alcanzar el hiperparámetro mínimo indicado. A continuación se ejemplifica:</p>
 <p><strong>Caso 1:</strong></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="análisis-de-componentes-principales.html#cb15-1" aria-hidden="true" tabindex="-1"></a>pca_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(IM <span class="sc">~</span> ., <span class="at">data =</span> indice_marg) <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="análisis-de-componentes-principales.html#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">update_role</span>(NOM_ENT, GM, <span class="at">new_role =</span> <span class="st">&quot;id&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-3"><a href="análisis-de-componentes-principales.html#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(ANALF, SPRIM, OVSDE, OVSEE, OVSAE, VHAC, OVPT, PL_5000, PO2SM) <span class="sc">%&gt;%</span></span>
-<span id="cb15-4"><a href="análisis-de-componentes-principales.html#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_pca</span>(ANALF, SPRIM, OVSDE, OVSEE, OVSAE, VHAC, OVPT, PL_5000, PO2SM,<span class="at">num_comp=</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-5"><a href="análisis-de-componentes-principales.html#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_rm</span>(LUGAR, AÑO, POB_TOT) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-6"><a href="análisis-de-componentes-principales.html#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
-<span id="cb15-7"><a href="análisis-de-componentes-principales.html#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="análisis-de-componentes-principales.html#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">juice</span>(pca_recipe)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="análisis-de-componentes-principales.html#cb12-1" aria-hidden="true" tabindex="-1"></a>pca_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(IM <span class="sc">~</span> ., <span class="at">data =</span> indice_marg) <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="análisis-de-componentes-principales.html#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">update_role</span>(NOM_ENT, GM, <span class="at">new_role =</span> <span class="st">&quot;id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="análisis-de-componentes-principales.html#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(ANALF, SPRIM, OVSDE, OVSEE, OVSAE, VHAC, OVPT, PL_5000, PO2SM) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="análisis-de-componentes-principales.html#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_pca</span>(ANALF, SPRIM, OVSDE, OVSEE, OVSAE, VHAC, OVPT, PL_5000, PO2SM,<span class="at">num_comp=</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-5"><a href="análisis-de-componentes-principales.html#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_rm</span>(LUGAR, AÑO, POB_TOT) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-6"><a href="análisis-de-componentes-principales.html#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
+<span id="cb12-7"><a href="análisis-de-componentes-principales.html#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="análisis-de-componentes-principales.html#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">juice</span>(pca_recipe)</span></code></pre></div>
 <pre><code>## # A tibble: 32 × 6
 ##    CVE_ENT GM       NOM_ENT                   IM    PC1     PC2
 ##    &lt;fct&gt;   &lt;fct&gt;    &lt;fct&gt;                  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
@@ -475,14 +459,14 @@ primera componente principal.</p>
 ## # … with 22 more rows
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
 <p><strong>Caso 2:</strong></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="análisis-de-componentes-principales.html#cb17-1" aria-hidden="true" tabindex="-1"></a>pca_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(IM <span class="sc">~</span> ., <span class="at">data =</span> indice_marg) <span class="sc">%&gt;%</span></span>
-<span id="cb17-2"><a href="análisis-de-componentes-principales.html#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">update_role</span>(NOM_ENT, GM, <span class="at">new_role =</span> <span class="st">&quot;id&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb17-3"><a href="análisis-de-componentes-principales.html#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(ANALF, SPRIM, OVSDE, OVSEE, OVSAE, VHAC, OVPT, PL_5000, PO2SM) <span class="sc">%&gt;%</span></span>
-<span id="cb17-4"><a href="análisis-de-componentes-principales.html#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_pca</span>(ANALF, SPRIM, OVSDE, OVSEE, OVSAE, VHAC, OVPT, PL_5000, PO2SM,<span class="at">threshold=</span><span class="fl">0.90</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb17-5"><a href="análisis-de-componentes-principales.html#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_rm</span>(LUGAR, AÑO, POB_TOT) <span class="sc">%&gt;%</span> </span>
-<span id="cb17-6"><a href="análisis-de-componentes-principales.html#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
-<span id="cb17-7"><a href="análisis-de-componentes-principales.html#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-8"><a href="análisis-de-componentes-principales.html#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">juice</span>(pca_recipe)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="análisis-de-componentes-principales.html#cb14-1" aria-hidden="true" tabindex="-1"></a>pca_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(IM <span class="sc">~</span> ., <span class="at">data =</span> indice_marg) <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="análisis-de-componentes-principales.html#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">update_role</span>(NOM_ENT, GM, <span class="at">new_role =</span> <span class="st">&quot;id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="análisis-de-componentes-principales.html#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(ANALF, SPRIM, OVSDE, OVSEE, OVSAE, VHAC, OVPT, PL_5000, PO2SM) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="análisis-de-componentes-principales.html#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_pca</span>(ANALF, SPRIM, OVSDE, OVSEE, OVSAE, VHAC, OVPT, PL_5000, PO2SM,<span class="at">threshold=</span><span class="fl">0.90</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-5"><a href="análisis-de-componentes-principales.html#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_rm</span>(LUGAR, AÑO, POB_TOT) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-6"><a href="análisis-de-componentes-principales.html#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()</span>
+<span id="cb14-7"><a href="análisis-de-componentes-principales.html#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="análisis-de-componentes-principales.html#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">juice</span>(pca_recipe)</span></code></pre></div>
 <pre><code>## # A tibble: 32 × 8
 ##    CVE_ENT GM       NOM_ENT                   IM    PC1     PC2     PC3     PC4
 ##    &lt;fct&gt;   &lt;fct&gt;    &lt;fct&gt;                  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
@@ -499,6 +483,156 @@ primera componente principal.</p>
 ## # … with 22 more rows
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
 <p>Así es como usaremos el análisis de componentes principales para mejorar la estructura de variables que sirven de input para cualquiera de los modelos posteriores. Continuaremos con un paso más de pre-procesamiento antes de comenzar a aprender nuevos modelos.</p>
+</div>
+<div id="representación-gráfica" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Representación gráfica<a href="análisis-de-componentes-principales.html#representación-gráfica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Uno de los gráficos más famosos al usar CPA es el Biplot, el cual busca representar en dos dimensiones el comportamiento y grado de asociación tanto entre las variables como las observaciones</p>
+<p>El siguiente biplot permite analizar en dos dimensiones la relación entre variables</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="análisis-de-componentes-principales.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca_var</span>(</span>
+<span id="cb16-2"><a href="análisis-de-componentes-principales.html#cb16-2" aria-hidden="true" tabindex="-1"></a>  res.pca,</span>
+<span id="cb16-3"><a href="análisis-de-componentes-principales.html#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col.var =</span> <span class="st">&quot;contrib&quot;</span>, <span class="co"># Color by contributions to the PC</span></span>
+<span id="cb16-4"><a href="análisis-de-componentes-principales.html#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">gradient.cols =</span> <span class="fu">c</span>(<span class="st">&quot;#00AFBB&quot;</span>, <span class="st">&quot;#E7B800&quot;</span>, <span class="st">&quot;#FC4E07&quot;</span>),</span>
+<span id="cb16-5"><a href="análisis-de-componentes-principales.html#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">repel =</span> <span class="cn">TRUE</span>     <span class="co"># Avoid text overlapping</span></span>
+<span id="cb16-6"><a href="análisis-de-componentes-principales.html#cb16-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+<p>En este gráfico se logra apreciar que todas las características están asociadas a la misma dirección en relación con la primer componente principal, mientras que en la segunda componente existe un poco de diferencia.</p>
+<p>Entre más pequeño sea el ángulo que separa a dos vectores, mayor correlación existe entre las características. Adicionalmente, si el grado es cercano a los 180°, esto representa una perfecta correlación negativa. Por último, grados cercanos a los 90° ocurren cuando las variables son independientes.</p>
+<p>Entre más larga es la longitud de cada vector, esto representa mayor varianza en la característica que se está observando.</p>
+<p>A continuación, se muestra otra versión del biplot en donde se analizan tanto las variables como las observaciones</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="análisis-de-componentes-principales.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca_biplot</span>(</span>
+<span id="cb17-2"><a href="análisis-de-componentes-principales.html#cb17-2" aria-hidden="true" tabindex="-1"></a>  res.pca, <span class="at">repel =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb17-3"><a href="análisis-de-componentes-principales.html#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col.var =</span> <span class="st">&quot;#2E9FDF&quot;</span>, <span class="co"># Variables color</span></span>
+<span id="cb17-4"><a href="análisis-de-componentes-principales.html#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col.ind =</span> <span class="st">&quot;#696969&quot;</span>  <span class="co"># Individuals color</span></span>
+<span id="cb17-5"><a href="análisis-de-componentes-principales.html#cb17-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<p>La proyección ortogonal de cada punto en un vector permite conocer el grado positivo o negativo de una observación en relación con cada una de las variables. Por ejemplo…</p>
+<ol style="list-style-type: decimal">
+<li><p>La proyección del Distrito Federal con cada una de las variables se encuentra en la dirección negativa, lo que implica que la relación de esta entidad con las variables que miden pobreza es negativa.</p></li>
+<li><p>En el caso de Oaxaca, la relación es positiva, lo que implica que Oaxaca tiene una marginación alta.</p></li>
+</ol>
+<p>A partir de estas gráficas, se logran realizar simplificaciones o variaciones de gráficas para estudiar posibles agrupaciones, como se muestra en el siguiente gráfico.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="análisis-de-componentes-principales.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb18-2"><a href="análisis-de-componentes-principales.html#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="análisis-de-componentes-principales.html#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">juice</span>(pca_recipe) <span class="sc">%&gt;%</span></span>
+<span id="cb18-4"><a href="análisis-de-componentes-principales.html#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">GM =</span> <span class="fu">factor</span>(GM, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Muy alto&quot;</span>, <span class="st">&quot;Alto&quot;</span>, <span class="st">&quot;Medio&quot;</span>, <span class="st">&quot;Bajo&quot;</span>, <span class="st">&quot;Muy bajo&quot;</span>)), </span>
+<span id="cb18-5"><a href="análisis-de-componentes-principales.html#cb18-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">ordered =</span> T) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-6"><a href="análisis-de-componentes-principales.html#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(PC1, PC2, <span class="at">label =</span> NOM_ENT)) <span class="sc">+</span></span>
+<span id="cb18-7"><a href="análisis-de-componentes-principales.html#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> GM), <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb18-8"><a href="análisis-de-componentes-principales.html#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>() <span class="sc">+</span></span>
+<span id="cb18-9"><a href="análisis-de-componentes-principales.html#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Grado de marginación de entidades&quot;</span>)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<p>Finalmente, podemos observar como (de izquierda a derecha) los estados con grado de marginación Muy bajo, Bajo, Medio, Alto y Muy Alto respectivamente.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="análisis-de-componentes-principales.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">juice</span>(pca_recipe) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="análisis-de-componentes-principales.html#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> IM, <span class="at">y =</span> PC1)) <span class="sc">+</span></span>
+<span id="cb19-3"><a href="análisis-de-componentes-principales.html#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
+<span id="cb19-4"><a href="análisis-de-componentes-principales.html#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb19-5"><a href="análisis-de-componentes-principales.html#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Comparación: Índice Marginación Vs PCA CP1&quot;</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+</div>
+<div id="predicciones" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Predicciones<a href="análisis-de-componentes-principales.html#predicciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Es bastante común que sea necesario ajustar o crear un análisis de componentes con la información disponible hasta cierto momento y posteriormente, nuevas observaciones son incorporadas al estudio. Sería incorrecto volver a crear el análisis cada vez que una observación nueva llega.</p>
+<p>Otro escenario de interés se da cuando se tiene muchísima información (millones de datos) y resulta costoso computacionalmente estar creando el modelo usando toda la información.</p>
+<p>En ambos escenarios, la solución está en <strong>realizar el análisis de componentes principales con una muestra de los datos y posteriormente realizar la predicción de nuevas observaciones ya teniendo creado el modelo</strong></p>
+<p>El siguiente ejemplo contiene datos de atletas y su desempeño en competencias deportivas.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="análisis-de-componentes-principales.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(decathlon2)</span></code></pre></div>
+<pre><code>## Rows: 27
+## Columns: 13
+## $ X100m        &lt;dbl&gt; 11.04, 10.76, 11.02, 11.34, 11.13, 10.83, 11.64, 11.37, 1…
+## $ Long.jump    &lt;dbl&gt; 7.58, 7.40, 7.23, 7.09, 7.30, 7.31, 6.81, 7.56, 6.97, 7.2…
+## $ Shot.put     &lt;dbl&gt; 14.83, 14.26, 14.25, 15.19, 13.48, 13.76, 14.57, 14.41, 1…
+## $ High.jump    &lt;dbl&gt; 2.07, 1.86, 1.92, 2.10, 2.01, 2.13, 1.95, 1.86, 1.95, 1.9…
+## $ X400m        &lt;dbl&gt; 49.81, 49.37, 48.93, 50.42, 48.62, 49.91, 50.14, 51.10, 4…
+## $ X110m.hurdle &lt;dbl&gt; 14.69, 14.05, 14.99, 15.31, 14.17, 14.38, 14.93, 15.06, 1…
+## $ Discus       &lt;dbl&gt; 43.75, 50.72, 40.87, 46.26, 45.67, 44.41, 47.60, 44.99, 4…
+## $ Pole.vault   &lt;dbl&gt; 5.02, 4.92, 5.32, 4.72, 4.42, 4.42, 4.92, 4.82, 4.72, 4.6…
+## $ Javeline     &lt;dbl&gt; 63.19, 60.15, 62.77, 63.44, 55.37, 56.37, 52.33, 57.19, 5…
+## $ X1500m       &lt;dbl&gt; 291.70, 301.50, 280.10, 276.40, 268.00, 285.10, 262.10, 2…
+## $ Rank         &lt;int&gt; 1, 2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 1, 2, 3, 4, 5, 6, 7,…
+## $ Points       &lt;int&gt; 8217, 8122, 8067, 8036, 8004, 7995, 7802, 7733, 7708, 765…
+## $ Competition  &lt;fct&gt; Decastar, Decastar, Decastar, Decastar, Decastar, Decasta…</code></pre>
+<p>Se eliminarán las últimas 3 columnas para trabajar exclusivamente con las que hacer referencia al desempeño en cada una de las actividades deportivas.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="análisis-de-componentes-principales.html#cb23-1" aria-hidden="true" tabindex="-1"></a>decathlon2_train <span class="ot">&lt;-</span> decathlon2[<span class="dv">1</span><span class="sc">:</span><span class="dv">23</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span>
+<span id="cb23-2"><a href="análisis-de-componentes-principales.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(decathlon2_train)</span></code></pre></div>
+<pre><code>## Rows: 23
+## Columns: 10
+## $ X100m        &lt;dbl&gt; 11.04, 10.76, 11.02, 11.34, 11.13, 10.83, 11.64, 11.37, 1…
+## $ Long.jump    &lt;dbl&gt; 7.58, 7.40, 7.23, 7.09, 7.30, 7.31, 6.81, 7.56, 6.97, 7.2…
+## $ Shot.put     &lt;dbl&gt; 14.83, 14.26, 14.25, 15.19, 13.48, 13.76, 14.57, 14.41, 1…
+## $ High.jump    &lt;dbl&gt; 2.07, 1.86, 1.92, 2.10, 2.01, 2.13, 1.95, 1.86, 1.95, 1.9…
+## $ X400m        &lt;dbl&gt; 49.81, 49.37, 48.93, 50.42, 48.62, 49.91, 50.14, 51.10, 4…
+## $ X110m.hurdle &lt;dbl&gt; 14.69, 14.05, 14.99, 15.31, 14.17, 14.38, 14.93, 15.06, 1…
+## $ Discus       &lt;dbl&gt; 43.75, 50.72, 40.87, 46.26, 45.67, 44.41, 47.60, 44.99, 4…
+## $ Pole.vault   &lt;dbl&gt; 5.02, 4.92, 5.32, 4.72, 4.42, 4.42, 4.92, 4.82, 4.72, 4.6…
+## $ Javeline     &lt;dbl&gt; 63.19, 60.15, 62.77, 63.44, 55.37, 56.37, 52.33, 57.19, 5…
+## $ X1500m       &lt;dbl&gt; 291.70, 301.50, 280.10, 276.40, 268.00, 285.10, 262.10, 2…</code></pre>
+<p>En este ejercicio se usará la librería <em>stats</em> y la función <em>prcomp</em> para llevar a cabo el análisis.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="análisis-de-componentes-principales.html#cb25-1" aria-hidden="true" tabindex="-1"></a>res.pca <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">prcomp</span>(decathlon2_train, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-2"><a href="análisis-de-componentes-principales.html#cb25-2" aria-hidden="true" tabindex="-1"></a>res.pca</span></code></pre></div>
+<pre><code>## Standard deviations (1, .., p=10):
+##  [1] 2.0308159 1.3559244 1.1131668 0.9052294 0.8375875 0.6502944 0.5500742
+##  [8] 0.5238988 0.3939758 0.3492435
+## 
+## Rotation (n x k) = (10 x 10):
+##                       PC1         PC2         PC3         PC4        PC5
+## X100m        -0.418859080  0.13230683 -0.27089959  0.03708806 -0.2321476
+## Long.jump     0.391064807 -0.20713320  0.17117519 -0.12746997  0.2783669
+## Shot.put      0.361388111 -0.06298590 -0.46497777  0.14191803 -0.2970589
+## High.jump     0.300413236  0.34309742 -0.29652805  0.15968342  0.4807859
+## X400m        -0.345478567 -0.21400770 -0.25470839  0.47592968  0.1240569
+## X110m.hurdle -0.376265119  0.01824645 -0.40325254 -0.01866477  0.2676975
+## Discus        0.365965721 -0.03662510 -0.15857927  0.43636361 -0.4873988
+## Pole.vault   -0.106985591 -0.59549862 -0.08449563 -0.37447391 -0.2646712
+## Javeline      0.210864329 -0.28475723 -0.54270782 -0.36646463  0.2361698
+## X1500m        0.002106782 -0.57855748  0.19715884  0.49491281  0.3142987
+##                       PC6         PC7         PC8         PC9        PC10
+## X100m         0.054398099 -0.16604375 -0.19988005 -0.76924639  0.12718339
+## Long.jump    -0.051865558 -0.28056361 -0.75850657 -0.13094589  0.08509665
+## Shot.put     -0.368739186 -0.01797323  0.04649571  0.12129309  0.62263702
+## High.jump    -0.437716883  0.05118848  0.16111045 -0.28463225 -0.38244596
+## X400m        -0.075796432  0.52012255 -0.44579641  0.20854176 -0.09784197
+## X110m.hurdle  0.004048005 -0.67276768 -0.01592804  0.41058421 -0.04475363
+## Discus        0.305315353 -0.25946615 -0.07550934  0.03391600 -0.49418361
+## Pole.vault   -0.503563524 -0.01889413  0.06282691 -0.06540692 -0.39288155
+## Javeline      0.556821016  0.24281145  0.10086127 -0.10268134 -0.01103627
+## X1500m        0.064663250 -0.20245828  0.37119711 -0.25950868  0.17991689</code></pre>
+<p>Las 10 variables anteriores son las componentes principales creadas a partir de las variables originales. Se puede apreciar en la siguiente línea el impacto que tiene cada componente en términos de varianza.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="análisis-de-componentes-principales.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(res.pca)</span></code></pre></div>
+<pre><code>## Importance of components:
+##                           PC1    PC2    PC3     PC4     PC5     PC6     PC7
+## Standard deviation     2.0308 1.3559 1.1132 0.90523 0.83759 0.65029 0.55007
+## Proportion of Variance 0.4124 0.1839 0.1239 0.08194 0.07016 0.04229 0.03026
+## Cumulative Proportion  0.4124 0.5963 0.7202 0.80213 0.87229 0.91458 0.94483
+##                            PC8     PC9   PC10
+## Standard deviation     0.52390 0.39398 0.3492
+## Proportion of Variance 0.02745 0.01552 0.0122
+## Cumulative Proportion  0.97228 0.98780 1.0000</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="análisis-de-componentes-principales.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_eig</span>(res.pca, <span class="at">addlabels=</span><span class="cn">TRUE</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>))</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<p>Ahora considérese nuevas observaciones que desean re calculadas usando el análisis de componentes principales. Es indispensable contar con la información de las 10 variables con las que se construyó el modelo.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="análisis-de-componentes-principales.html#cb30-1" aria-hidden="true" tabindex="-1"></a>decathlon2_new <span class="ot">&lt;-</span> decathlon2[<span class="dv">24</span><span class="sc">:</span><span class="dv">27</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span>
+<span id="cb30-2"><a href="análisis-de-componentes-principales.html#cb30-2" aria-hidden="true" tabindex="-1"></a>decathlon2_new[, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]</span></code></pre></div>
+<pre><code>##         X100m Long.jump Shot.put High.jump X400m X110m.hurdle
+## KARPOV  11.02      7.30    14.77      2.04 48.37        14.09
+## WARNERS 11.11      7.60    14.31      1.98 48.68        14.23
+## Nool    10.80      7.53    14.26      1.88 48.81        14.80
+## Drews   10.87      7.38    13.07      1.88 48.51        14.01</code></pre>
+<p>Finalmente, se hace uso de la función <em>predict</em> para calcular el valor de las componentes principales en cada uno de los nuevo individuos:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="análisis-de-componentes-principales.html#cb32-1" aria-hidden="true" tabindex="-1"></a>decathlon2_new_coord <span class="ot">&lt;-</span> <span class="fu">predict</span>(res.pca, <span class="at">newdata =</span> decathlon2_new)</span>
+<span id="cb32-2"><a href="análisis-de-componentes-principales.html#cb32-2" aria-hidden="true" tabindex="-1"></a>decathlon2_new_coord[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code></pre></div>
+<pre><code>##                PC1         PC2       PC3        PC4
+## KARPOV   0.7772521 -0.76237804 1.5971253  1.6863286
+## WARNERS -0.3779697  0.11891968 1.7005146 -0.6908084
+## Nool    -0.5468405 -1.93402211 0.4724184 -2.2283706
+## Drews   -1.0848227 -0.01703198 2.9818031 -1.5006207</code></pre>
+<p>Estos resultados pueden integrarse a las gráficas realizadas para comparar su ubicación en relación con los datos originales usados cuando se creó el modelo.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="análisis-de-componentes-principales.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico con observaciones originales en biplot</span></span>
+<span id="cb34-2"><a href="análisis-de-componentes-principales.html#cb34-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">fviz_pca_ind</span>(res.pca, <span class="at">repel =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb34-3"><a href="análisis-de-componentes-principales.html#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="análisis-de-componentes-principales.html#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Se agregan nuevas observaciones</span></span>
+<span id="cb34-5"><a href="análisis-de-componentes-principales.html#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_add</span>(p, decathlon2_new_coord, <span class="at">color =</span><span class="st">&quot;blue&quot;</span>, <span class="at">repel =</span> T)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
 
 </div>
 </div>
