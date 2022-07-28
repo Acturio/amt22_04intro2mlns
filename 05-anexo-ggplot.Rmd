@@ -120,4 +120,5 @@ Las estéticas se pueden etiquetar con la función labs. Además, se le puede a�
 -   [Diagrama BoxPlot](https://www.pgconocimiento.com/diagrama-boxplot/)
 -   [Ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/)
 -   [Plotly](https://plotly.com/r/)
+-   [Clustering](https://www.statology.org/hierarchical-clustering-in-r/)
 

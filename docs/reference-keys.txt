@@ -24,3 +24,5 @@ objetos-geométricos-o-capas
 facetas
 más-sobre-estéticas
 referencias
+clustering-jerárquico
+cálculo-de-distancia

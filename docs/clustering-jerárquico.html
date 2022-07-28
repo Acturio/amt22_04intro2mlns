@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | AMAT- Ciencia de Datos y Machine Learning</title>
+  <title>Capítulo 3 Clustering Jerárquico | AMAT- Ciencia de Datos y Machine Learning</title>
   <meta name="description" content="AMAT: Ciencia de Datos y Machine Learning" />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | AMAT- Ciencia de Datos y Machine Learning" />
+  <meta property="og:title" content="Capítulo 3 Clustering Jerárquico | AMAT- Ciencia de Datos y Machine Learning" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="AMAT: Ciencia de Datos y Machine Learning" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | AMAT- Ciencia de Datos y Machine Learning" />
+  <meta name="twitter:title" content="Capítulo 3 Clustering Jerárquico | AMAT- Ciencia de Datos y Machine Learning" />
   
   <meta name="twitter:description" content="AMAT: Ciencia de Datos y Machine Learning" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-
+<link rel="prev" href="análisis-de-componentes-principales.html"/>
+<link rel="next" href="anexo-visualización-con-ggplot.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -155,11 +155,58 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="clustering-jerárquico" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Capítulo 3</span> Clustering Jerárquico<a href="clustering-jerárquico.html#clustering-jerárquico" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>En esta sección se analizarán diferentes metodologías que tienen como propósito realizar segmentaciones de unidades de manera jerárquica, es decir, a partir de un único grupo se van agrupando o separando los individuos dependiendo de qué tan lejanos o cercanos se encuentran unos de otros. Las principales metodologías a revisar serán:</p>
+<ul>
+<li><p>Liga simple o vecino más cercano</p></li>
+<li><p>Liga compleja o vecino más lejano</p></li>
+<li><p>Liga promedio</p></li>
+<li><p>Liga centroide</p></li>
+<li><p>Varianza mínima de Ward</p></li>
+</ul>
+<p><img src="img/03-hclus/01-clusters.jpeg" width="350pt" /><img src="img/03-hclus/02-clusters.jpeg" width="350pt" /><img src="img/03-hclus/03-clusters.jpeg" width="350pt" /><img src="img/03-hclus/04-clusters.jpeg" width="350pt" /></p>
+<p>A partir del concepto de distancia entre puntos en un espacio de <em>N</em> dimensiones (variables), se realiza la agrupación de elementos para posteriormente calcular cuántos <strong>grupos</strong> es conveniente usar. Este proceso puede ser graficado de múltiples formas, sin embargo, la visualización más usada corresponde al <strong>dendograma</strong>, el cual es un gráfico como el presentado a continuación:</p>
+<p><img src="img/03-hclus/06-Hierarchical-Clustering.webp" width="400pt" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p>El eje horizontal representa los <strong>puntos de datos</strong>.</p></li>
+<li><p>La altura a lo largo del eje vertical representa la <strong>distancia entre los grupos</strong>.</p></li>
+<li><p>Las líneas verticales en el gráfico representan grupos.</p></li>
+<li><p>La altura de estas líneas representa la distancia desde el grupo más cercano.</p></li>
+</ul>
+<p>Podemos encontrar el número de conglomerados que mejor representan los grupos en los datos usando el dendrograma.</p>
+<p><img src="img/03-hclus/07-Hierarchical-Clustering-1.webp" width="400pt" style="display: block; margin: auto;" /></p>
+<p>Las líneas verticales con las mayores distancias entre ellas, es decir, la mayor altura en el mismo nivel, dan el número de grupos que mejor representan los datos.</p>
+<div id="cálculo-de-distancia" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Cálculo de distancia<a href="clustering-jerárquico.html#cálculo-de-distancia" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Otro parámetro que podemos ajustar para el modelo es la distancia usada, existen diferentes formas de medir qué tan “cerca” están dos puntos entre sí, y las diferencias entre estos métodos pueden volverse significativas en dimensiones superiores.</p>
+<ul>
+<li>La más utilizada es la distancia <strong>euclidiana</strong>, el tipo estándar de distancia.</li>
+</ul>
+<p><span class="math display">\[d(X,Y) = \sqrt{\sum_{i=1}^{n} (x_i-y_i)^2}\]</span></p>
+<ul>
+<li>Otra métrica es la llamada distancia de <strong>Manhattan</strong>, que mide la distancia tomada en cada dirección cardinal, en lugar de a lo largo de la diagonal.</li>
+</ul>
+<p><span class="math display">\[d(X,Y) = \sum_{i=1}^{n} |x_i - y_i|\]</span></p>
+<ul>
+<li>De manera más general, las anteriores son casos particulares de la distancia de <strong>Minkowski</strong>, cuya fórmula es:</li>
+</ul>
+<p><span class="math display">\[d(X,Y) = (\sum_{i=1}^{n} |x_i-y_i|^p)^{\frac{1}{p}}\]</span></p>
+<ul>
+<li>La distancia de <strong>coseno</strong> es ampliamente en análisis de texto, sistemas de recomendación.</li>
+</ul>
+<p><span class="math display">\[d(X,Y)= 1 - \frac{\sum_{i=1}^{n}{X_iY_i}}{\sqrt{\sum_{i=1}^{n}{X_i^2}}\sqrt{\sum_{i=1}^{n}{Y_i^2}}}\]</span></p>
+<ul>
+<li>La distancia de <strong>Jaccard</strong> es ampliamente usada para medir similitud cuando se trata de variables categóricas. Es usado en análisis de texto y sistemas de recomendación.</li>
+</ul>
+<p><span class="math display">\[d(X, Y) = \frac{X \cap Y}{X \cup Y}\]</span></p>
+<p><img src="img/03-hclus/08-similitudes.png" width="700pt" height="700pt" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p><a href="https://towardsdatascience.com/17-types-of-similarity-and-dissimilarity-measures-used-in-data-science-3eb914d2681">Un link interesante</a></p></li>
+<li><p><a href="https://www.maartengrootendorst.com/blog/distances/">Otro link interesante</a></p></li>
+</ul>
+
+</div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -188,8 +235,8 @@ $('.pipehover_select_one_row tr').hover(function() {
           </div>
         </div>
       </div>
-
-
+<a href="análisis-de-componentes-principales.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="anexo-visualización-con-ggplot.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
