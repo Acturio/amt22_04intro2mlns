@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo 4 Anexo: Visualización con Ggplot | AMAT- Ciencia de Datos y Machine Learning</title>
+  <title>Capítulo 6 Anexo: Visualización con Ggplot | AMAT- Ciencia de Datos y Machine Learning</title>
   <meta name="description" content="AMAT: Ciencia de Datos y Machine Learning" />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo 4 Anexo: Visualización con Ggplot | AMAT- Ciencia de Datos y Machine Learning" />
+  <meta property="og:title" content="Capítulo 6 Anexo: Visualización con Ggplot | AMAT- Ciencia de Datos y Machine Learning" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="AMAT: Ciencia de Datos y Machine Learning" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 4 Anexo: Visualización con Ggplot | AMAT- Ciencia de Datos y Machine Learning" />
+  <meta name="twitter:title" content="Capítulo 6 Anexo: Visualización con Ggplot | AMAT- Ciencia de Datos y Machine Learning" />
   
   <meta name="twitter:description" content="AMAT: Ciencia de Datos y Machine Learning" />
   
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="análisis-de-componentes-principales.html"/>
+<link rel="prev" href="clustering-jerárquico.html"/>
 
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -185,16 +185,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#representación-gráfica"><i class="fa fa-check"></i><b>3.5</b> Representación gráfica</a></li>
 <li class="chapter" data-level="3.6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#predicciones"><i class="fa fa-check"></i><b>3.6</b> Predicciones</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html"><i class="fa fa-check"></i><b>4</b> Anexo: Visualización con Ggplot</a>
+<li class="chapter" data-level="4" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html"><i class="fa fa-check"></i><b>4</b> Clustering No Jerárquico</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#ggplot2"><i class="fa fa-check"></i><b>4.1</b> Ggplot2</a>
+<li class="chapter" data-level="4.1" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#cálculo-de-distancia"><i class="fa fa-check"></i><b>4.1</b> Cálculo de distancia</a></li>
+<li class="chapter" data-level="4.2" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#k---means"><i class="fa fa-check"></i><b>4.2</b> K - means</a>
 <ul>
-<li class="chapter" data-level="4.1.1" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#objetos-aesteticos"><i class="fa fa-check"></i><b>4.1.1</b> Objetos aesteticos</a></li>
-<li class="chapter" data-level="4.1.2" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#objetos-geométricos-o-capas"><i class="fa fa-check"></i><b>4.1.2</b> Objetos geométricos o capas</a></li>
-<li class="chapter" data-level="4.1.3" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#facetas"><i class="fa fa-check"></i><b>4.1.3</b> Facetas</a></li>
-<li class="chapter" data-level="4.1.4" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#más-sobre-estéticas"><i class="fa fa-check"></i><b>4.1.4</b> Más sobre estéticas</a></li>
+<li class="chapter" data-level="4.2.1" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#ajuste-de-modelo-cómo-funciona-el-algortimo"><i class="fa fa-check"></i><b>4.2.1</b> Ajuste de modelo: ¿Cómo funciona el algortimo?</a></li>
+<li class="chapter" data-level="4.2.2" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#calidad-de-ajuste"><i class="fa fa-check"></i><b>4.2.2</b> Calidad de ajuste</a></li>
+<li class="chapter" data-level="4.2.3" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#cómo-seleccionamos-k"><i class="fa fa-check"></i><b>4.2.3</b> ¿Cómo seleccionamos K?</a></li>
+<li class="chapter" data-level="4.2.4" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#implementación-en-r-1"><i class="fa fa-check"></i><b>4.2.4</b> Implementación en R</a></li>
+<li class="chapter" data-level="4.2.5" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#warnings"><i class="fa fa-check"></i><b>4.2.5</b> Warnings</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#referencias"><i class="fa fa-check"></i><b>4.2</b> Referencias</a></li>
+<li class="chapter" data-level="4.3" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#partitioning-around-medoids-pam"><i class="fa fa-check"></i><b>4.3</b> Partitioning Around Medoids (PAM)</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#algoritmo-pam"><i class="fa fa-check"></i><b>4.3.1</b> Algoritmo PAM</a></li>
+<li class="chapter" data-level="4.3.2" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#implementación-en-r-2"><i class="fa fa-check"></i><b>4.3.2</b> Implementación en R</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#clustering-large-applications-clara"><i class="fa fa-check"></i><b>4.4</b> Clustering Large Applications (CLARA)</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#implementación-en-r-3"><i class="fa fa-check"></i><b>4.4.1</b> Implementación en R</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#dbscan"><i class="fa fa-check"></i><b>4.5</b> DBSCAN</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#algoritmo"><i class="fa fa-check"></i><b>4.5.1</b> Algoritmo</a></li>
+<li class="chapter" data-level="4.5.2" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#estimación-de-parámetros"><i class="fa fa-check"></i><b>4.5.2</b> Estimación de parámetros</a></li>
+<li class="chapter" data-level="4.5.3" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#implementación-en-r-4"><i class="fa fa-check"></i><b>4.5.3</b> Implementación en R</a></li>
+<li class="chapter" data-level="4.5.4" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#ventajas-de-dbscan"><i class="fa fa-check"></i><b>4.5.4</b> Ventajas de DBSCAN</a></li>
+<li class="chapter" data-level="4.5.5" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#aplicación-dbscan"><i class="fa fa-check"></i><b>4.5.5</b> Aplicación DBSCAN</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#comparación-de-algoritmos"><i class="fa fa-check"></i><b>4.6</b> Comparación de algoritmos</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="clustering-jerárquico.html"><a href="clustering-jerárquico.html"><i class="fa fa-check"></i><b>5</b> Clustering Jerárquico</a></li>
+<li class="chapter" data-level="6" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html"><i class="fa fa-check"></i><b>6</b> Anexo: Visualización con Ggplot</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#ggplot2"><i class="fa fa-check"></i><b>6.1</b> Ggplot2</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#objetos-aesteticos"><i class="fa fa-check"></i><b>6.1.1</b> Objetos aesteticos</a></li>
+<li class="chapter" data-level="6.1.2" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#objetos-geométricos-o-capas"><i class="fa fa-check"></i><b>6.1.2</b> Objetos geométricos o capas</a></li>
+<li class="chapter" data-level="6.1.3" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#facetas"><i class="fa fa-check"></i><b>6.1.3</b> Facetas</a></li>
+<li class="chapter" data-level="6.1.4" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#más-sobre-estéticas"><i class="fa fa-check"></i><b>6.1.4</b> Más sobre estéticas</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#referencias"><i class="fa fa-check"></i><b>6.2</b> Referencias</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="./"><img src="img/amat-logo.png" width="280"></a></li>
@@ -216,13 +247,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="anexo-visualización-con-ggplot" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">Capítulo 4</span> Anexo: Visualización con Ggplot<a href="anexo-visualización-con-ggplot.html#anexo-visualización-con-ggplot" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="anexo-visualización-con-ggplot" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Capítulo 6</span> Anexo: Visualización con Ggplot<a href="anexo-visualización-con-ggplot.html#anexo-visualización-con-ggplot" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div class="watermark">
 <img src="img/header.png" width="400">
 </div>
-<div id="ggplot2" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> Ggplot2<a href="anexo-visualización-con-ggplot.html#ggplot2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ggplot2" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Ggplot2<a href="anexo-visualización-con-ggplot.html#ggplot2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Comparando con los gráficos base de R, ggplot2:</p>
 <ul>
 <li>Tiene una gramática más compleja para gráficos simples</li>
@@ -231,29 +262,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Usa un sistema diferente para añadir elementos al gráfico.</li>
 </ul>
 <p>Histograma con los gráficos base:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="anexo-visualización-con-ggplot.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
-<span id="cb35-2"><a href="anexo-visualización-con-ggplot.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(iris<span class="sc">$</span>Sepal.Length)</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="anexo-visualización-con-ggplot.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb71-2"><a href="anexo-visualización-con-ggplot.html#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(iris<span class="sc">$</span>Sepal.Length)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
 <p>Histograma con ggplot2:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="anexo-visualización-con-ggplot.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb36-2"><a href="anexo-visualización-con-ggplot.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length)) <span class="sc">+</span></span>
-<span id="cb36-3"><a href="anexo-visualización-con-ggplot.html#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&#39;white&#39;</span>, <span class="at">bins=</span><span class="dv">8</span>)</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="anexo-visualización-con-ggplot.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb72-2"><a href="anexo-visualización-con-ggplot.html#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length)) <span class="sc">+</span></span>
+<span id="cb72-3"><a href="anexo-visualización-con-ggplot.html#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&#39;white&#39;</span>, <span class="at">bins=</span><span class="dv">8</span>)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
 <p>Ahora vamos a ver un gráfico con colores y varias series de datos.</p>
 <p>Con los gráficos base:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="anexo-visualización-con-ggplot.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Sepal.Length <span class="sc">~</span> Sepal.Width,</span>
-<span id="cb37-2"><a href="anexo-visualización-con-ggplot.html#cb37-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">factor</span>(Species),</span>
-<span id="cb37-3"><a href="anexo-visualización-con-ggplot.html#cb37-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">data =</span> iris)</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="anexo-visualización-con-ggplot.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Sepal.Length <span class="sc">~</span> Sepal.Width,</span>
+<span id="cb73-2"><a href="anexo-visualización-con-ggplot.html#cb73-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">factor</span>(Species),</span>
+<span id="cb73-3"><a href="anexo-visualización-con-ggplot.html#cb73-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">data =</span> iris)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
 <p>Con ggplot2:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="anexo-visualización-con-ggplot.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, </span>
-<span id="cb38-2"><a href="anexo-visualización-con-ggplot.html#cb38-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>Sepal.Width , </span>
-<span id="cb38-3"><a href="anexo-visualización-con-ggplot.html#cb38-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y=</span> Sepal.Length,</span>
-<span id="cb38-4"><a href="anexo-visualización-con-ggplot.html#cb38-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">color=</span>Species))<span class="sc">+</span></span>
-<span id="cb38-5"><a href="anexo-visualización-con-ggplot.html#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
-<div id="objetos-aesteticos" class="section level3 hasAnchor" number="4.1.1">
-<h3><span class="header-section-number">4.1.1</span> Objetos aesteticos<a href="anexo-visualización-con-ggplot.html#objetos-aesteticos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="anexo-visualización-con-ggplot.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, </span>
+<span id="cb74-2"><a href="anexo-visualización-con-ggplot.html#cb74-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>Sepal.Width , </span>
+<span id="cb74-3"><a href="anexo-visualización-con-ggplot.html#cb74-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y=</span> Sepal.Length,</span>
+<span id="cb74-4"><a href="anexo-visualización-con-ggplot.html#cb74-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">color=</span>Species))<span class="sc">+</span></span>
+<span id="cb74-5"><a href="anexo-visualización-con-ggplot.html#cb74-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
+<div id="objetos-aesteticos" class="section level3 hasAnchor" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> Objetos aesteticos<a href="anexo-visualización-con-ggplot.html#objetos-aesteticos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>En ggplot2, aestético significa “algo que puedes ver.”</p>
 <p>Algunos ejemplos son:</p>
 <ul>
@@ -268,8 +299,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Hay que advertir que no todas las estéticas tienen la misma potencia en un gráfico. El ojo humano percibe fácilmente longitudes distintas. Pero tiene problemas para comparar áreas (que es lo que regula la estética size) o intensidades de color. Se recomienda usar las estéticas más potentes para representar las variables más importantes.</p>
 <p>Cada tipo de objeto geométrico (geom) solo acepta un subconjunto de todos los aestéticos. Puedes consultar la pagina de ayuda de geom() para ver que aestéticos acepta. El mapeo aestético se hace con la función aes().</p>
 </div>
-<div id="objetos-geométricos-o-capas" class="section level3 hasAnchor" number="4.1.2">
-<h3><span class="header-section-number">4.1.2</span> Objetos geométricos o capas<a href="anexo-visualización-con-ggplot.html#objetos-geométricos-o-capas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="objetos-geométricos-o-capas" class="section level3 hasAnchor" number="6.1.2">
+<h3><span class="header-section-number">6.1.2</span> Objetos geométricos o capas<a href="anexo-visualización-con-ggplot.html#objetos-geométricos-o-capas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Los objetos geométricos son las formas que puede tomar un gráfico. Algunos ejemplos son:</p>
 <ul>
 <li>Barras (geom_bar(), para las variables univariados discretos o nominales)</li>
@@ -280,38 +311,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Un gráfico debe tener al menos un geom, pero no hay limite. Puedes añadir más <em>geom</em> usando el signo +.</li>
 </ul>
 <p>Si queremos conocer la lista de objetos geométricos podemos ejecutar el siguiente código:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="anexo-visualización-con-ggplot.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help.search</span>(<span class="st">&quot;geom_&quot;</span>, <span class="at">package =</span> <span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="anexo-visualización-con-ggplot.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help.search</span>(<span class="st">&quot;geom_&quot;</span>, <span class="at">package =</span> <span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
 <p>Una vez añadida una capa al gráfico a este pueden agregarse nuevas capas</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="anexo-visualización-con-ggplot.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Petal.Length, <span class="at">y =</span> Petal.Width, <span class="at">colour =</span> Species)) <span class="sc">+</span> </span>
-<span id="cb40-2"><a href="anexo-visualización-con-ggplot.html#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="anexo-visualización-con-ggplot.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Petal.Length, <span class="at">y =</span> Petal.Width, <span class="at">colour =</span> Species)) <span class="sc">+</span> </span>
-<span id="cb41-2"><a href="anexo-visualización-con-ggplot.html#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
-<span id="cb41-3"><a href="anexo-visualización-con-ggplot.html#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="anexo-visualización-con-ggplot.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Petal.Length, <span class="at">y =</span> Petal.Width, <span class="at">colour =</span> Species)) <span class="sc">+</span> </span>
+<span id="cb76-2"><a href="anexo-visualización-con-ggplot.html#cb76-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-113-1.png" width="672" /></p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="anexo-visualización-con-ggplot.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Petal.Length, <span class="at">y =</span> Petal.Width, <span class="at">colour =</span> Species)) <span class="sc">+</span> </span>
+<span id="cb77-2"><a href="anexo-visualización-con-ggplot.html#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb77-3"><a href="anexo-visualización-con-ggplot.html#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
 </div>
-<div id="facetas" class="section level3 hasAnchor" number="4.1.3">
-<h3><span class="header-section-number">4.1.3</span> Facetas<a href="anexo-visualización-con-ggplot.html#facetas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="facetas" class="section level3 hasAnchor" number="6.1.3">
+<h3><span class="header-section-number">6.1.3</span> Facetas<a href="anexo-visualización-con-ggplot.html#facetas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Muchos de los gráficos que pueden generarse con los elementos anteriores pueden reproducirse usando los gráficos tradicionales de R, pero no los que usan facetas, que pueden permitirnos explorar las variables de diferente forma, por ejemplo:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="anexo-visualización-con-ggplot.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Petal.Length, <span class="at">y =</span> Petal.Width)) <span class="sc">+</span> </span>
-<span id="cb42-2"><a href="anexo-visualización-con-ggplot.html#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>() <span class="sc">+</span> </span>
-<span id="cb42-3"><a href="anexo-visualización-con-ggplot.html#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> Species)</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="anexo-visualización-con-ggplot.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Petal.Length, <span class="at">y =</span> Petal.Width)) <span class="sc">+</span> </span>
+<span id="cb78-2"><a href="anexo-visualización-con-ggplot.html#cb78-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>() <span class="sc">+</span> </span>
+<span id="cb78-3"><a href="anexo-visualización-con-ggplot.html#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> Species)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-115-1.png" width="672" /></p>
 <p>crea tres gráficos dispuestos horizontalmente que comparan la relación entre la anchura y la longitud del pétalo de las tres especies de iris. Una característica de estos gráficos, que es crítica para poder hacer comparaciones adecuadas, es que comparten ejes.</p>
 </div>
-<div id="más-sobre-estéticas" class="section level3 hasAnchor" number="4.1.4">
-<h3><span class="header-section-number">4.1.4</span> Más sobre estéticas<a href="anexo-visualización-con-ggplot.html#más-sobre-estéticas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="más-sobre-estéticas" class="section level3 hasAnchor" number="6.1.4">
+<h3><span class="header-section-number">6.1.4</span> Más sobre estéticas<a href="anexo-visualización-con-ggplot.html#más-sobre-estéticas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Las estéticas se pueden etiquetar con la función labs. Además, se le puede añadir un título al gráfico usando la función ggtitle. Por ejemplo, en el gráfico anterior se pueden re etiquetar los ejes y la leyenda haciendo</p>
 </div>
 </div>
-<div id="referencias" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> Referencias<a href="anexo-visualización-con-ggplot.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="referencias" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Referencias<a href="anexo-visualización-con-ggplot.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><a href="https://towardsdatascience.com/exploratory-data-analysis-8fc1cb20fd15">What is Exploratory Data Analysis?</a></li>
 <li><a href="https://www.itl.nist.gov/div898/handbook/eda/section1/eda11.htm">What is EDA?</a></li>
 <li><a href="https://www.pgconocimiento.com/diagrama-boxplot/">Diagrama BoxPlot</a></li>
 <li><a href="https://ggplot2-book.org/">Ggplot2: Elegant Graphics for Data Analysis</a></li>
 <li><a href="https://plotly.com/r/">Plotly</a></li>
+<li><a href="https://www.statology.org/hierarchical-clustering-in-r/">Clustering</a></li>
 </ul>
 
 </div>
@@ -343,7 +375,7 @@ $('.pipehover_select_one_row tr').hover(function() {
           </div>
         </div>
       </div>
-<a href="análisis-de-componentes-principales.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="clustering-jerárquico.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>

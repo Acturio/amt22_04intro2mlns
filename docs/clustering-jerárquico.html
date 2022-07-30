@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo 3 Clustering Jerárquico | AMAT- Ciencia de Datos y Machine Learning</title>
+  <title>Capítulo 5 Clustering Jerárquico | AMAT- Ciencia de Datos y Machine Learning</title>
   <meta name="description" content="AMAT: Ciencia de Datos y Machine Learning" />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo 3 Clustering Jerárquico | AMAT- Ciencia de Datos y Machine Learning" />
+  <meta property="og:title" content="Capítulo 5 Clustering Jerárquico | AMAT- Ciencia de Datos y Machine Learning" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="AMAT: Ciencia de Datos y Machine Learning" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 3 Clustering Jerárquico | AMAT- Ciencia de Datos y Machine Learning" />
+  <meta name="twitter:title" content="Capítulo 5 Clustering Jerárquico | AMAT- Ciencia de Datos y Machine Learning" />
   
   <meta name="twitter:description" content="AMAT: Ciencia de Datos y Machine Learning" />
   
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="análisis-de-componentes-principales.html"/>
+<link rel="prev" href="clustering-no-jerárquico.html"/>
 <link rel="next" href="anexo-visualización-con-ggplot.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -54,6 +54,70 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -100,40 +164,68 @@
 <li class="chapter" data-level="1.5.2" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#aprendizaje-no-supervisado"><i class="fa fa-check"></i><b>1.5.2</b> Aprendizaje no supervisado</a></li>
 <li class="chapter" data-level="1.5.3" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#aprendizaje-por-refuerzo"><i class="fa fa-check"></i><b>1.5.3</b> Aprendizaje por refuerzo</a></li>
 </ul></li>
-<li class="chapter" data-level="1.6" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#ciclo-de-un-proyecto"><i class="fa fa-check"></i><b>1.6</b> Ciclo de un proyecto</a>
-<ul>
-<li class="chapter" data-level="" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#definir-objetivos"><i class="fa fa-check"></i>Definir objetivo(s)</a></li>
-<li class="chapter" data-level="" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#qué-acciones-o-intervenciones-existen-que-serán-mejoradas-a-través-de-este-proyecto"><i class="fa fa-check"></i>¿Qué acciones o intervenciones existen que serán mejoradas a través de este proyecto?</a></li>
-<li class="chapter" data-level="" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#qué-datos-tenemos-y-cuáles-necesitamos"><i class="fa fa-check"></i>¿Qué datos tenemos y cuáles necesitamos?</a></li>
-<li class="chapter" data-level="" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#cuál-es-el-análisis-que-necesitamos-hacer"><i class="fa fa-check"></i>¿Cuál es el análisis que necesitamos hacer?</a></li>
+<li class="chapter" data-level="1.6" data-path="introducción-a-ciencia-de-datos.html"><a href="introducción-a-ciencia-de-datos.html#ciclo-de-un-proyecto"><i class="fa fa-check"></i><b>1.6</b> Ciclo de un proyecto</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html"><i class="fa fa-check"></i><b>2</b> Análisis de Componentes Principales</a>
+<li class="chapter" data-level="2" data-path="scoping.html"><a href="scoping.html"><i class="fa fa-check"></i><b>2</b> Scoping</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#medidas-de-dispersión"><i class="fa fa-check"></i><b>2.1</b> Medidas de dispersión</a></li>
-<li class="chapter" data-level="2.2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#construcción-matemática"><i class="fa fa-check"></i><b>2.2</b> Construcción matemática</a>
-<ul>
-<li class="chapter" data-level="2.2.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#eigenvalores-y-eigenvectores"><i class="fa fa-check"></i><b>2.2.1</b> Eigenvalores y eigenvectores</a></li>
+<li class="chapter" data-level="" data-path="scoping.html"><a href="scoping.html#definir-objetivos"><i class="fa fa-check"></i>Definir objetivo(s)</a></li>
+<li class="chapter" data-level="" data-path="scoping.html"><a href="scoping.html#qué-acciones-o-intervenciones-existen-que-serán-mejoradas-a-través-de-este-proyecto"><i class="fa fa-check"></i>¿Qué acciones o intervenciones existen que serán mejoradas a través de este proyecto?</a></li>
+<li class="chapter" data-level="" data-path="scoping.html"><a href="scoping.html#qué-datos-tenemos-y-cuáles-necesitamos"><i class="fa fa-check"></i>¿Qué datos tenemos y cuáles necesitamos?</a></li>
+<li class="chapter" data-level="" data-path="scoping.html"><a href="scoping.html#cuál-es-el-análisis-que-necesitamos-hacer"><i class="fa fa-check"></i>¿Cuál es el análisis que necesitamos hacer?</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#implementación-en-r"><i class="fa fa-check"></i><b>2.3</b> Implementación en R</a></li>
-<li class="chapter" data-level="2.4" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#reducción-de-dimensión"><i class="fa fa-check"></i><b>2.4</b> Reducción de dimensión</a></li>
-<li class="chapter" data-level="2.5" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#representación-gráfica"><i class="fa fa-check"></i><b>2.5</b> Representación gráfica</a></li>
-<li class="chapter" data-level="2.6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#predicciones"><i class="fa fa-check"></i><b>2.6</b> Predicciones</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="clustering-jerárquico.html"><a href="clustering-jerárquico.html"><i class="fa fa-check"></i><b>3</b> Clustering Jerárquico</a>
+<li class="chapter" data-level="3" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html"><i class="fa fa-check"></i><b>3</b> Análisis de Componentes Principales</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="clustering-jerárquico.html"><a href="clustering-jerárquico.html#cálculo-de-distancia"><i class="fa fa-check"></i><b>3.1</b> Cálculo de distancia</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html"><i class="fa fa-check"></i><b>4</b> Anexo: Visualización con Ggplot</a>
+<li class="chapter" data-level="3.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#medidas-de-dispersión"><i class="fa fa-check"></i><b>3.1</b> Medidas de dispersión</a></li>
+<li class="chapter" data-level="3.2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#construcción-matemática"><i class="fa fa-check"></i><b>3.2</b> Construcción matemática</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#ggplot2"><i class="fa fa-check"></i><b>4.1</b> Ggplot2</a>
-<ul>
-<li class="chapter" data-level="4.1.1" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#objetos-aesteticos"><i class="fa fa-check"></i><b>4.1.1</b> Objetos aesteticos</a></li>
-<li class="chapter" data-level="4.1.2" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#objetos-geométricos-o-capas"><i class="fa fa-check"></i><b>4.1.2</b> Objetos geométricos o capas</a></li>
-<li class="chapter" data-level="4.1.3" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#facetas"><i class="fa fa-check"></i><b>4.1.3</b> Facetas</a></li>
-<li class="chapter" data-level="4.1.4" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#más-sobre-estéticas"><i class="fa fa-check"></i><b>4.1.4</b> Más sobre estéticas</a></li>
+<li class="chapter" data-level="3.2.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#eigenvalores-y-eigenvectores"><i class="fa fa-check"></i><b>3.2.1</b> Eigenvalores y eigenvectores</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#referencias"><i class="fa fa-check"></i><b>4.2</b> Referencias</a></li>
+<li class="chapter" data-level="3.3" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#implementación-en-r"><i class="fa fa-check"></i><b>3.3</b> Implementación en R</a></li>
+<li class="chapter" data-level="3.4" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#reducción-de-dimensión"><i class="fa fa-check"></i><b>3.4</b> Reducción de dimensión</a></li>
+<li class="chapter" data-level="3.5" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#representación-gráfica"><i class="fa fa-check"></i><b>3.5</b> Representación gráfica</a></li>
+<li class="chapter" data-level="3.6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#predicciones"><i class="fa fa-check"></i><b>3.6</b> Predicciones</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html"><i class="fa fa-check"></i><b>4</b> Clustering No Jerárquico</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#cálculo-de-distancia"><i class="fa fa-check"></i><b>4.1</b> Cálculo de distancia</a></li>
+<li class="chapter" data-level="4.2" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#k---means"><i class="fa fa-check"></i><b>4.2</b> K - means</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#ajuste-de-modelo-cómo-funciona-el-algortimo"><i class="fa fa-check"></i><b>4.2.1</b> Ajuste de modelo: ¿Cómo funciona el algortimo?</a></li>
+<li class="chapter" data-level="4.2.2" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#calidad-de-ajuste"><i class="fa fa-check"></i><b>4.2.2</b> Calidad de ajuste</a></li>
+<li class="chapter" data-level="4.2.3" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#cómo-seleccionamos-k"><i class="fa fa-check"></i><b>4.2.3</b> ¿Cómo seleccionamos K?</a></li>
+<li class="chapter" data-level="4.2.4" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#implementación-en-r-1"><i class="fa fa-check"></i><b>4.2.4</b> Implementación en R</a></li>
+<li class="chapter" data-level="4.2.5" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#warnings"><i class="fa fa-check"></i><b>4.2.5</b> Warnings</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#partitioning-around-medoids-pam"><i class="fa fa-check"></i><b>4.3</b> Partitioning Around Medoids (PAM)</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#algoritmo-pam"><i class="fa fa-check"></i><b>4.3.1</b> Algoritmo PAM</a></li>
+<li class="chapter" data-level="4.3.2" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#implementación-en-r-2"><i class="fa fa-check"></i><b>4.3.2</b> Implementación en R</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#clustering-large-applications-clara"><i class="fa fa-check"></i><b>4.4</b> Clustering Large Applications (CLARA)</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#implementación-en-r-3"><i class="fa fa-check"></i><b>4.4.1</b> Implementación en R</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#dbscan"><i class="fa fa-check"></i><b>4.5</b> DBSCAN</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#algoritmo"><i class="fa fa-check"></i><b>4.5.1</b> Algoritmo</a></li>
+<li class="chapter" data-level="4.5.2" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#estimación-de-parámetros"><i class="fa fa-check"></i><b>4.5.2</b> Estimación de parámetros</a></li>
+<li class="chapter" data-level="4.5.3" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#implementación-en-r-4"><i class="fa fa-check"></i><b>4.5.3</b> Implementación en R</a></li>
+<li class="chapter" data-level="4.5.4" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#ventajas-de-dbscan"><i class="fa fa-check"></i><b>4.5.4</b> Ventajas de DBSCAN</a></li>
+<li class="chapter" data-level="4.5.5" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#aplicación-dbscan"><i class="fa fa-check"></i><b>4.5.5</b> Aplicación DBSCAN</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#comparación-de-algoritmos"><i class="fa fa-check"></i><b>4.6</b> Comparación de algoritmos</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="clustering-jerárquico.html"><a href="clustering-jerárquico.html"><i class="fa fa-check"></i><b>5</b> Clustering Jerárquico</a></li>
+<li class="chapter" data-level="6" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html"><i class="fa fa-check"></i><b>6</b> Anexo: Visualización con Ggplot</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#ggplot2"><i class="fa fa-check"></i><b>6.1</b> Ggplot2</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#objetos-aesteticos"><i class="fa fa-check"></i><b>6.1.1</b> Objetos aesteticos</a></li>
+<li class="chapter" data-level="6.1.2" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#objetos-geométricos-o-capas"><i class="fa fa-check"></i><b>6.1.2</b> Objetos geométricos o capas</a></li>
+<li class="chapter" data-level="6.1.3" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#facetas"><i class="fa fa-check"></i><b>6.1.3</b> Facetas</a></li>
+<li class="chapter" data-level="6.1.4" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#más-sobre-estéticas"><i class="fa fa-check"></i><b>6.1.4</b> Más sobre estéticas</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html#referencias"><i class="fa fa-check"></i><b>6.2</b> Referencias</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="./"><img src="img/amat-logo.png" width="280"></a></li>
@@ -155,8 +247,8 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="clustering-jerárquico" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">Capítulo 3</span> Clustering Jerárquico<a href="clustering-jerárquico.html#clustering-jerárquico" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="clustering-jerárquico" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Capítulo 5</span> Clustering Jerárquico<a href="clustering-jerárquico.html#clustering-jerárquico" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>En esta sección se analizarán diferentes metodologías que tienen como propósito realizar segmentaciones de unidades de manera jerárquica, es decir, a partir de un único grupo se van agrupando o separando los individuos dependiendo de qué tan lejanos o cercanos se encuentran unos de otros. Las principales metodologías a revisar serán:</p>
 <ul>
 <li><p>Liga simple o vecino más cercano</p></li>
@@ -165,9 +257,9 @@
 <li><p>Liga centroide</p></li>
 <li><p>Varianza mínima de Ward</p></li>
 </ul>
-<p><img src="img/03-hclus/01-clusters.jpeg" width="350pt" /><img src="img/03-hclus/02-clusters.jpeg" width="350pt" /><img src="img/03-hclus/03-clusters.jpeg" width="350pt" /><img src="img/03-hclus/04-clusters.jpeg" width="350pt" /></p>
+<p><img src="img/04-hclus/01-clusters.jpeg" width="350pt" /><img src="img/04-hclus/02-clusters.jpeg" width="350pt" /><img src="img/04-hclus/03-clusters.jpeg" width="350pt" /><img src="img/04-hclus/04-clusters.jpeg" width="350pt" /></p>
 <p>A partir del concepto de distancia entre puntos en un espacio de <em>N</em> dimensiones (variables), se realiza la agrupación de elementos para posteriormente calcular cuántos <strong>grupos</strong> es conveniente usar. Este proceso puede ser graficado de múltiples formas, sin embargo, la visualización más usada corresponde al <strong>dendograma</strong>, el cual es un gráfico como el presentado a continuación:</p>
-<p><img src="img/03-hclus/06-Hierarchical-Clustering.webp" width="400pt" style="display: block; margin: auto;" /></p>
+<p><img src="img/04-hclus/06-Hierarchical-Clustering.webp" width="400pt" style="display: block; margin: auto;" /></p>
 <ul>
 <li><p>El eje horizontal representa los <strong>puntos de datos</strong>.</p></li>
 <li><p>La altura a lo largo del eje vertical representa la <strong>distancia entre los grupos</strong>.</p></li>
@@ -175,38 +267,9 @@
 <li><p>La altura de estas líneas representa la distancia desde el grupo más cercano.</p></li>
 </ul>
 <p>Podemos encontrar el número de conglomerados que mejor representan los grupos en los datos usando el dendrograma.</p>
-<p><img src="img/03-hclus/07-Hierarchical-Clustering-1.webp" width="400pt" style="display: block; margin: auto;" /></p>
+<p><img src="img/04-hclus/07-Hierarchical-Clustering-1.webp" width="400pt" style="display: block; margin: auto;" /></p>
 <p>Las líneas verticales con las mayores distancias entre ellas, es decir, la mayor altura en el mismo nivel, dan el número de grupos que mejor representan los datos.</p>
-<div id="cálculo-de-distancia" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> Cálculo de distancia<a href="clustering-jerárquico.html#cálculo-de-distancia" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Otro parámetro que podemos ajustar para el modelo es la distancia usada, existen diferentes formas de medir qué tan “cerca” están dos puntos entre sí, y las diferencias entre estos métodos pueden volverse significativas en dimensiones superiores.</p>
-<ul>
-<li>La más utilizada es la distancia <strong>euclidiana</strong>, el tipo estándar de distancia.</li>
-</ul>
-<p><span class="math display">\[d(X,Y) = \sqrt{\sum_{i=1}^{n} (x_i-y_i)^2}\]</span></p>
-<ul>
-<li>Otra métrica es la llamada distancia de <strong>Manhattan</strong>, que mide la distancia tomada en cada dirección cardinal, en lugar de a lo largo de la diagonal.</li>
-</ul>
-<p><span class="math display">\[d(X,Y) = \sum_{i=1}^{n} |x_i - y_i|\]</span></p>
-<ul>
-<li>De manera más general, las anteriores son casos particulares de la distancia de <strong>Minkowski</strong>, cuya fórmula es:</li>
-</ul>
-<p><span class="math display">\[d(X,Y) = (\sum_{i=1}^{n} |x_i-y_i|^p)^{\frac{1}{p}}\]</span></p>
-<ul>
-<li>La distancia de <strong>coseno</strong> es ampliamente en análisis de texto, sistemas de recomendación.</li>
-</ul>
-<p><span class="math display">\[d(X,Y)= 1 - \frac{\sum_{i=1}^{n}{X_iY_i}}{\sqrt{\sum_{i=1}^{n}{X_i^2}}\sqrt{\sum_{i=1}^{n}{Y_i^2}}}\]</span></p>
-<ul>
-<li>La distancia de <strong>Jaccard</strong> es ampliamente usada para medir similitud cuando se trata de variables categóricas. Es usado en análisis de texto y sistemas de recomendación.</li>
-</ul>
-<p><span class="math display">\[d(X, Y) = \frac{X \cap Y}{X \cup Y}\]</span></p>
-<p><img src="img/03-hclus/08-similitudes.png" width="700pt" height="700pt" style="display: block; margin: auto;" /></p>
-<ul>
-<li><p><a href="https://towardsdatascience.com/17-types-of-similarity-and-dissimilarity-measures-used-in-data-science-3eb914d2681">Un link interesante</a></p></li>
-<li><p><a href="https://www.maartengrootendorst.com/blog/distances/">Otro link interesante</a></p></li>
-</ul>
 
-</div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -235,7 +298,7 @@ $('.pipehover_select_one_row tr').hover(function() {
           </div>
         </div>
       </div>
-<a href="análisis-de-componentes-principales.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="clustering-no-jerárquico.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="anexo-visualización-con-ggplot.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
