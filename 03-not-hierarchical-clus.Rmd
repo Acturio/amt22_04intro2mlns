@@ -64,7 +64,7 @@ El primer paso en *k-means* es elegir el número de conglomerados, K. Como estam
 
 A continuación, seleccionamos aleatoriamente el centroide para cada grupo. Supongamos que queremos tener 2 grupos, por lo que K es igual a 2, seleccionamos aleatoriamente los centroides:
 
-```{r, fig.align='center', out.height='300pt', out.width='350pt', echo=F}
+```{r, fig.align='center', out.height='250pt', out.width='350pt', echo=F}
 knitr::include_graphics("img/03-not-hclus/3-12-1-paso2.png")
 ```
 
@@ -72,7 +72,7 @@ knitr::include_graphics("img/03-not-hclus/3-12-1-paso2.png")
 
 Una vez que hemos inicializado los centroides, asignamos cada punto al centroide del cluster más cercano:
 
-```{r, fig.align='center', out.height='300pt', out.width='350pt', echo=F}
+```{r, fig.align='center', out.height='250pt', out.width='350pt', echo=F}
 knitr::include_graphics("img/03-not-hclus/3-12-1-paso3.png")
 ```
 
@@ -80,17 +80,17 @@ knitr::include_graphics("img/03-not-hclus/3-12-1-paso3.png")
 
 Ahora, una vez que hayamos asignado todos los puntos a cualquiera de los grupos, el siguiente paso es calcular los centroides de los grupos recién formados:
 
-```{r, fig.align='center', out.height='300pt', out.width='350pt', echo=F}
+```{r, fig.align='center', out.height='250pt', out.width='350pt', echo=F}
 knitr::include_graphics("img/03-not-hclus/3-12-1-paso4.png")
 ```
 
 - **Paso 5:** Repetir los pasos 3 y 4.
 
-```{r, fig.align='center', out.height='300pt', out.width='350pt', echo=F}
+```{r, fig.align='center', out.height='250pt', out.width='350pt', echo=F}
 knitr::include_graphics("img/03-not-hclus/3-12-1-paso5.png")
 ```
 
-```{r, fig.align='center', out.height='300pt', out.width='350pt', echo=F}
+```{r, fig.align='center', out.height='450pt', out.width='550pt', echo=F}
 knitr::include_graphics("img/03-not-hclus/kmeans step.png")
 ```
 
@@ -132,26 +132,37 @@ $$total \quad within = \sum_{k=1}^{K}W(C_k) = \sum_{k=1}^{K}\sum_{x_i \in C_k}(x
 
 #### Silhouette
 
-El índice de **Silhouette** hace referencia al método de interpretación y validación de la consistencia dentro de los conglomerados.  La medida de Silhouette es una medida de qué tan similar es un elemento al interior del cluster en comparación con otros. 
+El índice de **Silhouette** hace referencia al método de **interpretación y validación de la consistencia dentro de los conglomerados**.  La medida de Silhouette es una medida de **qué tan similar es un elemento al interior del cluster en comparación con otros.** 
 
 El rango del índice va de -1 a 1, donde un alto valor del índice indica que el objeto es consistente dentro de su cluster y pobremente asociado a otro conglomerado. Si muchos elementos presentan un valor bajo o negativo, entonces la configuración del cluster puede que tenga muy pocos o demasiados conglomerados.
 
-El índice de Silhouette puede ser calculado con cualquier métrica de distancia, tal como la distancia Euclidiana o de Manhattan.
+El índice de Silhouette puede ser calculado con cualquier métrica de distancia, tal como la distancia Euclidiana, Manhattan u otro.
+
+Se define al índice de **Silhouette** como:
+
+$$s(i)=\frac{b(i)-a(i)}{max\left\{a(i), b(i)\right\}}; \quad si \quad|C_i|>1; \quad -1 \le s(i) \le 1$$
+
+$$s(i)=0; \quad si \quad|C_i|=1$$
 
 Asumiendo que cada elemento ha sido asignado a un cluster, para cada punto *i* en $C_i$, entonces:
 
 $$a(i)=\frac{1}{|C_i|-1}\sum_{j\in C_i, i \neq j}d(i,j)$$
-es la distancia promedio entre *i* y el resto de elementos dentro del conglomerado *i* y $|C_i|$ es el número de elementos dentro del i-ésimo conglomerado. $d(i,j)$ es la distancia entre los elementos *i* y *j*. Se puede interpretar a $a(i)$ como una métrica de qué tan bien asignado está el elemento *i* al conglomerado. Entre más pequeño sea el valor, mejor asignado se encuentra. 
 
-Posteriormente, se calcula la medida de disimilaridad del punto *i* a algún conglomerado $C_k$ como el promedio de la distancia del punto *i* a todos los puntos en $C_k$ $(C_k \neq C_i)$.
+* $a(i)$ = Es la distancia promedio entre *i* y el resto de elementos dentro del conglomerado *i*.
+
+* $|C_i|$ = Es el número de elementos dentro del i-ésimo conglomerado. 
+
+* $d(i,j)$ = Es la distancia entre los elementos *i* y *j* en el cluster $C_i$. 
+
+Se puede interpretar a $a(i)$ como una métrica de qué tan bien asignado está el elemento *i* al conglomerado. Entre más pequeño sea el valor, mejor asignado se encuentra. 
+
+Posteriormente, se calcula la **medida de disimilaridad del punto *i* a algún conglomerado $C_k$** como el promedio de la distancia del punto *i* a todos los puntos en $C_k$ $(C_k \neq C_i)$.
 
 Para cada punto $i \in C_i$, se define:
 
 $$b(i)=min_{k\neq i}\frac{1}{|C_k|}\sum_{j\in C_k}d(i,j)$$
-Se define al índice de **Silhouette** como:
 
-$$s(i)=\frac{b(i)-a(i)}{max\left\{a(i), b(i)\right\}}; \quad \quad \quad -1 \le s(i) \le 1$$
-
+ser la distancia media más pequeña (de ahí el operador *min* en la fórmula) de *i* a todos los puntos en cualquier otro grupo, del cual *i* no es miembro. Se dice que el conglomerado con esta disimilitud media más pequeña es el "conglomerado vecino" de *i* porque es el siguiente conglomerado que mejor se ajusta para el punto *i*.
 
 ### ¿Cómo seleccionamos K?
 
@@ -214,7 +225,7 @@ En el siguiente ejemplo se agruparán los datos en seis grupos (*centers* = 6). 
 
 ```{r}
 k6 <- kmeans(df, centers = 6, nstart = 25)
-str(k6)
+dplyr::glimpse(k6)
 ```
 
 La salida de kmeans es una lista con distinta información. La más importante:
@@ -248,23 +259,22 @@ Debido a que el número de conglomerados (K) debe establecerse antes de iniciar 
 library(patchwork)
 library(gridExtra)
 
+k2 <- kmeans(df, centers = 2, nstart = 25)
 k3 <- kmeans(df, centers = 3, nstart = 25)
 k4 <- kmeans(df, centers = 4, nstart = 25)
 k5 <- kmeans(df, centers = 5, nstart = 25)
 
-p2 <- fviz_cluster(k3, geom = "point", ellipse.type = "t",  data = df) + ggtitle("K = 3")
-p3 <- fviz_cluster(k4, geom = "point", ellipse.type = "t",  data = df) + ggtitle("K = 4")
-p4 <- fviz_cluster(k5, geom = "point", ellipse.type = "t",  data = df) + ggtitle("K = 5")
-p6 <- fviz_cluster(k6, geom = "point", ellipse.type = "t", data = df) + ggtitle("K = 6")
+p2 <- fviz_cluster(k2, geom = "point", ellipse.type = "t",  data = df) + ggtitle("K = 2")
+p3 <- fviz_cluster(k3, geom = "point", ellipse.type = "t",  data = df) + ggtitle("K = 3")
+p4 <- fviz_cluster(k4, geom = "point", ellipse.type = "t",  data = df) + ggtitle("K = 4")
+p5 <- fviz_cluster(k5, geom = "point", ellipse.type = "t",  data = df) + ggtitle("K = 5")
 
-grid.arrange(p2, p3, p4, p6, nrow = 2)
+grid.arrange(p2, p3, p4, p5, nrow = 2)
 ```
 
 Recordemos que podemos usar la gráfica de codo para obtener el número óptimo de K, usaremos la función *fviz_nbclust()* para esto.
 
 ```{r}
-
-
 set.seed(123)
 wss_plot <- fviz_nbclust(df, kmeans, method = "wss")
 
@@ -279,7 +289,13 @@ Con las gráficas anteriores no es claro cual K debemos elegir, podemos usar la 
 ```{r, warning=FALSE,message=FALSE, eval=FALSE}
 library(NbClust)
 
-nb <- NbClust(data = df, diss = NULL, distance = "euclidean", min.nc = 2, method = "kmeans")
+nb <- NbClust(
+  data = df, 
+  diss = NULL, 
+  distance = "euclidean", 
+  min.nc = 2, 
+  method = "kmeans"
+  )
 ```
 
 ```{r, warning=FALSE,message=FALSE, echo=FALSE, results = 'hide', fig.show='hide'}
@@ -335,25 +351,16 @@ Dado que este algoritmo está basado en promedios, debe de ser considerada su se
 knitr::include_graphics("img/03-not-hclus/kmeans-outliers.png")
 ```
 
-
-
-
-
-
 ## Partitioning Around Medoids (PAM)
 
 
-El algoritmo *k-medoides* es un enfoque de agrupamiento relacionado con el agrupamiento de *k-medias* para particionar un conjunto de datos en *k* grupos o clusters. En *k-medoides*, cada grupo está representado por uno de los puntos de datos pertenecientes a un grupo. Estos puntos son nombrados **medoides**.
+El algoritmo *k-medoides* es un enfoque de agrupamiento para particionar un conjunto de datos en *k* grupos o clusters. En *k-medoides*, cada grupo está representado por uno de los puntos de datos pertenecientes a un grupo. Estos puntos son nombrados **medoides**.
 
-El término **medoide** se refiere a un objeto dentro de un grupo para el cual la disimilitud promedio entre él y todos los demás miembros del cluster son mínimos. Corresponde a el punto más céntrico del grupo. Estos objetos (uno por grupo) pueden ser considerado como un ejemplo representativo de los miembros de ese grupo que puede ser útil en algunas situaciones.
+El término **medoide** se refiere a un objeto dentro de un grupo para el cual la disimilitud promedio entre él y todos los demás miembros del cluster son mínimos. Corresponde a el punto más céntrico del grupo. 
 
-Este algoritmo es una alternativa sólida de *k-medias*. Debido a que este
-algoritmo es menos sensible al ruido y los valores atípicos, en comparación con *k-medias*, pues usa medoides como centros de conglomerados en lugar de medias. El uso de medias implica que la agrupación de *k-medias* es muy sensible a los valores atípicos, lo cual
-puede afectar gravemente la asignación de observaciones a los conglomerados. 
+Este algoritmo es una alternativa sólida de *k-medias*. Debido a que **este algoritmo es menos sensible al ruido y los valores atípicos**, en comparación con *k-medias*, pues usa medoides como centros de conglomerados en lugar de medias. El uso de medias implica que la agrupación de *k-medias* es muy sensible a los valores atípicos, lo cual puede afectar gravemente la asignación de observaciones a los conglomerados.
 
-
-
-```{r echo=FALSE,fig.align='center'}
+```{r echo=FALSE,fig.align='center', out.width='600pt', out.height='200pt'}
 knitr::include_graphics("img/03-not-hclus/kmeans-kmedoids.png")
 ```
 
@@ -363,18 +370,11 @@ El método de agrupamiento de *k-medoides* más común es el algoritmo *PAM (Par
 
 ### Algoritmo PAM
 
-El algoritmo *PAM* se basa en la búsqueda de *k* objetos representativos o medoides entre las observaciones del conjunto de datos.
-
-
-Después de encontrar un conjunto de *k* medoides, los grupos se construyen asignando cada observación al medoide más cercano.
-
-Posteriormente, cada medoide *m* y cada punto de datos no medoide seleccionado se intercambian y se calcula la función objetivo.
+El algoritmo *PAM* se basa en la búsqueda de *k* objetos representativos o medoides entre las observaciones del conjunto de datos. Después de encontrar un conjunto de *k* medoides, los grupos se construyen asignando cada observación al medoide más cercano. Posteriormente, cada medoide *m* y cada punto de datos no medoide seleccionado se intercambian y se calcula la función objetivo.
 
 **La función objetivo corresponde a la suma de las disimilitudes de todos los objetos a su medoide más cercano.**
 
-El paso de intercambio intenta mejorar la calidad de la agrupación mediante el intercambio entre objetos seleccionados (medoides) y objetos no seleccionados. Si la función objetivo puede reducirse intercambiando un objeto seleccionado con un objeto no seleccionado, entonces el se realiza el intercambio. Esto se continúa hasta que la función objetivo ya no puede ser disminuida. El objetivo es encontrar *k* objetos representativos que minimicen la suma de disimilitudes de las observaciones con su objeto representativo más cercano.
-
-Como se mencionó anteriormente, el algoritmo *PAM* funciona con una matriz de disimilitud y para calcular esta matriz, el algoritmo puede utilizar dos métricas:
+El objetivo es encontrar *k* objetos representativos que minimicen la suma de disimilitudes de las observaciones con su objeto representativo más cercano. Como se mencionó anteriormente, el algoritmo *PAM* funciona con una matriz de disimilitud y para calcular esta matriz, el algoritmo puede utilizar dos métricas:
 
 * La distancia *euclidiana*, que es la raíz de la suma de cuadrados de  las diferencias;
 
@@ -383,8 +383,6 @@ Como se mencionó anteriormente, el algoritmo *PAM* funciona con una matriz de d
 ```{r echo=FALSE,fig.align='center'}
 knitr::include_graphics("img/03-not-hclus/distancias.jpg")
 ```
-
-
 
 **Nota:** En la práctica, se debería obtener resultados similares la mayor parte del tiempo, utilizando cualquiera de estas distancias mencionadas. Si lo datos contienen valores atípicos, distancia de *Manhattan* debería dar resultados más sólidos, mientras que la distancia *euclidiana* se vería influenciada por valores inusuales.
 
@@ -429,7 +427,13 @@ nb <- NbClust(df, distance = "euclidean", min.nc = 2, max.nc = 10,
 fviz_nbclust(nb)
 ```
 
-A partir de la gráfica se observa que la cantidad sugerida de grupos es 2, por lo que en la siguiente sección se clasificarán las observaciones en 2 grupos.
+**¿Qué se hace en estos casos?**
+
+Es importante conocer las diferencias entre cada grupo y entender si este resultado tiene sentido desde un enfoque de negocio. Una vez entendiendo la razón por la cual 9 grupos es viable desde múltiples criterios, se deberá tomar la decisión del número adecuado de grupos.
+
+Otro criterio importante, es entender los índices y su interpretación. Conocer el significado de cada índice será importante para conocer la validez de su uso y consideración.
+
+A partir de la gráfica se observa que la cantidad sugerida de grupos es 2 o 9, por lo que en la siguiente sección se clasificarán las observaciones en 2 grupos.
 
 La función `pam()` del paquete *Cluster* se puede utilizar para calcular
 *PAM.*
@@ -466,6 +470,14 @@ pam_plot <- fviz_cluster(
 
 pam_plot
 ```
+
+**Ejercicio:**
+
+* Calcular los centroides de cada grupo realizando 2 segmentaciones
+
+* Calcular los centroides de cada grupo realizando 9 segmentaciones
+
+* Comparar los resultados anteriores y comentar
 
 ## Clustering Large Applications (CLARA)
 
@@ -593,11 +605,11 @@ un punto *x*.
 * **puntos mínimos ("MinPts"):** Es el número mínimo de vecinos dentro del radio *"eps"*.
 
 
-Cualquier punto *x* en el conjunto de datos, con un recuento de vecinos mayor o igual que *MinPts*, es marcado como un **punto central**.
+1) Cualquier punto *x* en el conjunto de datos, con un recuento de vecinos mayor o igual que *MinPts*, es marcado como un **punto central**.
 
-Decimos que *x* es un **punto fronterizo**, si el número de sus vecinos es menos que *MinPts*, pero pertenece a la vecindad de algún punto central *z*.
+2) Decimos que *x* es un **punto fronterizo**, si el número de sus vecinos es menos que *MinPts*, pero pertenece a la vecindad de algún punto central *z*.
 
-Finalmente, si un punto no es ni un núcleo ni un punto fronterizo, entonces se denomina **punto de ruido o parte aislada**.
+3) Finalmente, si un punto no es ni un núcleo ni un punto fronterizo, entonces se denomina **punto de ruido o parte aislada**.
 
 La siguiente figura muestra los diferentes tipos de puntos (puntos centrales, fronterizos y atípicos) usando *MinPts = 6*.
 
@@ -626,11 +638,9 @@ Comenzamos definiendo $3$ términos, necesarios para comprender el algoritmo *DB
 Un cluster basado en densidad se define como un grupo de puntos conectados por densidad. El algoritmo de agrupamiento basado en densidad (*DBSCAN*) funciona de la siguiente manera:
 
 
-> 1. Para cada punto $x_i$, calcular la distancia entre $x_i$ y los otros     puntos. Hallar todos los puntos vecinos dentro de la distancia *eps*     del punto de partida ($x_i$). Cada punto, con un vecino cuenta mayor
-    o igual a *MinPts*, se marca como punto central o visitado.
+> 1. Para cada punto $x_i$, calcular la distancia entre $x_i$ y los otros puntos. Hallar todos los puntos vecinos dentro de la distancia *eps* del punto de partida ($x_i$). Cada punto con número de vecinos mayor o igual a *MinPts*, se marca como punto central o visitado.
 
-> 2. Para cada punto central, si aún no está asignado a un cluster, crear   un nuevo cluster. Encuentrar recursivamente todos sus puntos             densamente conectados y asignarlos a el mismo grupo que el punto
-  central.
+> 2. Para cada punto central, si aún no está asignado a un cluster, crear un nuevo cluster. Encuentrar recursivamente todos sus puntos densamente conectados y asignarlos a el mismo grupo que el punto central.
 
 > 3. Iterar a través de los puntos no visitados restantes en el conjunto   de datos.
 
@@ -731,7 +741,7 @@ dbscan::kNNdistplot(df, k = 3)
 abline(h = 1.175, lty = 1.5)
 ```
 
-Se puede ver que el valor óptimo de $\epsilon$ está alrededor de una distancia de $2.45$.
+Se puede ver que el valor óptimo de $\epsilon$ está alrededor de una distancia de $1.175$.
 
 
 ```{r}
