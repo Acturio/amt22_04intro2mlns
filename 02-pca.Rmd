@@ -445,7 +445,11 @@ fviz_add(p, decathlon2_new_coord, color ="blue", repel = T)
 ```
 
 
+## Ejercicios
 
+1) Observar en una gráfica la contribución de cada variable a las componentes principales y tratar de interpretar las primeras 2 o 3.
+
+2) Comparar de manera numérica y gráfica la asociación entre los puntos originales asociados a cada atleta y la primer componente principal
 
 
 

@@ -17,6 +17,7 @@ implementación-en-r
 reducción-de-dimensión
 representación-gráfica
 predicciones
+ejercicios
 clustering-no-jerárquico
 cálculo-de-distancia
 distancias-homogéneas
