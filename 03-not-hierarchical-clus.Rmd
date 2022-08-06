@@ -41,6 +41,61 @@ knitr::include_graphics("img/03-not-hclus/01-similitudes.png")
 
 * [Otro link interesante](https://www.maartengrootendorst.com/blog/distances/)
 
+### Distancias homogéneas
+
+Las distancias basadas en la correlación son ampliamente usadas en múltiples análisis. La función *get_dist()* puede ser usada para calcular la distancia basada en correlación. Esta medida puede calcularse mediante *pearson*, *spearman* o *kendall*.
+
+```{r, warning=FALSE, message=FALSE}
+library("factoextra")
+
+USArrests_scaled <- scale(USArrests)
+dist.cor <- get_dist(USArrests_scaled, method = "pearson")
+
+round(as.matrix(dist.cor)[1:7, 1:7], 1)
+```
+
+### Distancias mixtas
+
+La naturaleza los datos es muy distinta. Existen datos numéricos, nominales y ordinales que requieren de un procesamiento distinto. Es de particular interés analizar la distancia entre observaciones cuando se trata de variables con diferente naturaleza:
+
+* numérico - numérico
+
+* numérico - nominal
+
+* numérico - ordinal
+
+* nominal - nominal
+
+* nominal - ordinal
+
+Existe una función en *R* que detecta la naturaleza de cada variable y calcula la asociación entre individuos.
+
+```{r, warning=FALSE, message=FALSE}
+library(cluster)
+library(dplyr)
+
+data(flower)
+glimpse(flower)
+```
+Como puede observarse, cada una de las variables anteriores tiene una naturaleza distinta. La función *daisy()* calcula la matriz de disimilaridades de acuerdo con la metodología correspondiente a cada par de variables.
+
+```{r}
+dd <- daisy(flower)
+round(as.matrix(dd)[1:10, 1:10], 2)
+```
+
+### Visualización de distancias
+
+En cualquier análisis, es de gran valor contar con un gráfico que permita conocer de manera práctica y simple el resumen de distancias. Un mapa de calor es una solución bastante útil, el cual representará de en una escala de color a los elementos cerca y lejos. 
+
+
+```{r}
+fviz_dist(dist.cor)
+```
+
+El nivel del color es proporcional al valor de disimilaridad entre observaciones.
+Cuando la distancia es cero, el color es rojo puro y cuando la distancia es amplia, el color es azul puro. Los elementos que pertenecen a un mismo cluster se muestran en orden consecutivo.
+
 
 ## K - means
 

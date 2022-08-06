@@ -187,7 +187,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html"><i class="fa fa-check"></i><b>4</b> Clustering No Jerárquico</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#cálculo-de-distancia"><i class="fa fa-check"></i><b>4.1</b> Cálculo de distancia</a></li>
+<li class="chapter" data-level="4.1" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#cálculo-de-distancia"><i class="fa fa-check"></i><b>4.1</b> Cálculo de distancia</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#distancias-homogéneas"><i class="fa fa-check"></i><b>4.1.1</b> Distancias homogéneas</a></li>
+<li class="chapter" data-level="4.1.2" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#distancias-mixtas"><i class="fa fa-check"></i><b>4.1.2</b> Distancias mixtas</a></li>
+<li class="chapter" data-level="4.1.3" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#visualización-de-distancias"><i class="fa fa-check"></i><b>4.1.3</b> Visualización de distancias</a></li>
+</ul></li>
 <li class="chapter" data-level="4.2" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#k---means"><i class="fa fa-check"></i><b>4.2</b> K - means</a>
 <ul>
 <li class="chapter" data-level="4.2.1" data-path="clustering-no-jerárquico.html"><a href="clustering-no-jerárquico.html#ajuste-de-modelo-cómo-funciona-el-algortimo"><i class="fa fa-check"></i><b>4.2.1</b> Ajuste de modelo: ¿Cómo funciona el algortimo?</a></li>
@@ -282,6 +287,73 @@ Para mayor detalle sobre el funcionamiento de la métrica, revisar el siguiente 
 <li><p><a href="https://towardsdatascience.com/17-types-of-similarity-and-dissimilarity-measures-used-in-data-science-3eb914d2681">Un link interesante</a></p></li>
 <li><p><a href="https://www.maartengrootendorst.com/blog/distances/">Otro link interesante</a></p></li>
 </ul>
+<div id="distancias-homogéneas" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Distancias homogéneas<a href="clustering-no-jerárquico.html#distancias-homogéneas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Las distancias basadas en la correlación son ampliamente usadas en múltiples análisis. La función <em>get_dist()</em> puede ser usada para calcular la distancia basada en correlación. Esta medida puede calcularse mediante <em>pearson</em>, <em>spearman</em> o <em>kendall</em>.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="clustering-no-jerárquico.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;factoextra&quot;</span>)</span>
+<span id="cb35-2"><a href="clustering-no-jerárquico.html#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="clustering-no-jerárquico.html#cb35-3" aria-hidden="true" tabindex="-1"></a>USArrests_scaled <span class="ot">&lt;-</span> <span class="fu">scale</span>(USArrests)</span>
+<span id="cb35-4"><a href="clustering-no-jerárquico.html#cb35-4" aria-hidden="true" tabindex="-1"></a>dist.cor <span class="ot">&lt;-</span> <span class="fu">get_dist</span>(USArrests_scaled, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span>
+<span id="cb35-5"><a href="clustering-no-jerárquico.html#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="clustering-no-jerárquico.html#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">as.matrix</span>(dist.cor)[<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>], <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>##             Alabama Alaska Arizona Arkansas California Colorado Connecticut
+## Alabama         0.0    0.7     1.4      0.1        1.9      1.7         1.7
+## Alaska          0.7    0.0     0.8      0.4        0.8      0.5         1.9
+## Arizona         1.4    0.8     0.0      1.2        0.3      0.6         0.8
+## Arkansas        0.1    0.4     1.2      0.0        1.6      1.4         1.9
+## California      1.9    0.8     0.3      1.6        0.0      0.1         0.7
+## Colorado        1.7    0.5     0.6      1.4        0.1      0.0         1.0
+## Connecticut     1.7    1.9     0.8      1.9        0.7      1.0         0.0</code></pre>
+</div>
+<div id="distancias-mixtas" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Distancias mixtas<a href="clustering-no-jerárquico.html#distancias-mixtas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La naturaleza los datos es muy distinta. Existen datos numéricos, nominales y ordinales que requieren de un procesamiento distinto. Es de particular interés analizar la distancia entre observaciones cuando se trata de variables con diferente naturaleza:</p>
+<ul>
+<li><p>numérico - numérico</p></li>
+<li><p>numérico - nominal</p></li>
+<li><p>numérico - ordinal</p></li>
+<li><p>nominal - nominal</p></li>
+<li><p>nominal - ordinal</p></li>
+</ul>
+<p>Existe una función en <em>R</em> que detecta la naturaleza de cada variable y calcula la asociación entre individuos.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="clustering-no-jerárquico.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
+<span id="cb37-2"><a href="clustering-no-jerárquico.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb37-3"><a href="clustering-no-jerárquico.html#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="clustering-no-jerárquico.html#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(flower)</span>
+<span id="cb37-5"><a href="clustering-no-jerárquico.html#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(flower)</span></code></pre></div>
+<pre><code>## Rows: 18
+## Columns: 8
+## $ V1 &lt;fct&gt; 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0
+## $ V2 &lt;fct&gt; 1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0
+## $ V3 &lt;fct&gt; 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1
+## $ V4 &lt;fct&gt; 4, 2, 3, 4, 5, 4, 4, 2, 3, 5, 5, 1, 1, 4, 3, 4, 2, 2
+## $ V5 &lt;ord&gt; 3, 1, 3, 2, 2, 3, 3, 2, 1, 2, 3, 2, 2, 2, 2, 2, 2, 1
+## $ V6 &lt;ord&gt; 15, 3, 1, 16, 2, 12, 13, 7, 4, 14, 8, 9, 6, 11, 10, 18, 17, 5
+## $ V7 &lt;dbl&gt; 25, 150, 150, 125, 20, 50, 40, 100, 25, 100, 45, 90, 20, 80, 40, 20…
+## $ V8 &lt;dbl&gt; 15, 50, 50, 50, 15, 40, 20, 15, 15, 60, 10, 25, 10, 30, 20, 60, 60,…</code></pre>
+<p>Como puede observarse, cada una de las variables anteriores tiene una naturaleza distinta. La función <em>daisy()</em> calcula la matriz de disimilaridades de acuerdo con la metodología correspondiente a cada par de variables.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="clustering-no-jerárquico.html#cb39-1" aria-hidden="true" tabindex="-1"></a>dd <span class="ot">&lt;-</span> <span class="fu">daisy</span>(flower)</span>
+<span id="cb39-2"><a href="clustering-no-jerárquico.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">as.matrix</span>(dd)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##       1    2    3    4    5    6    7    8    9   10
+## 1  0.00 0.89 0.53 0.35 0.41 0.23 0.29 0.42 0.58 0.61
+## 2  0.89 0.00 0.51 0.55 0.62 0.66 0.60 0.46 0.43 0.45
+## 3  0.53 0.51 0.00 0.57 0.37 0.30 0.49 0.60 0.45 0.47
+## 4  0.35 0.55 0.57 0.00 0.64 0.42 0.34 0.30 0.81 0.56
+## 5  0.41 0.62 0.37 0.64 0.00 0.34 0.42 0.47 0.33 0.38
+## 6  0.23 0.66 0.30 0.42 0.34 0.00 0.19 0.57 0.51 0.41
+## 7  0.29 0.60 0.49 0.34 0.42 0.19 0.00 0.41 0.59 0.59
+## 8  0.42 0.46 0.60 0.30 0.47 0.57 0.41 0.00 0.64 0.66
+## 9  0.58 0.43 0.45 0.81 0.33 0.51 0.59 0.64 0.00 0.43
+## 10 0.61 0.45 0.47 0.56 0.38 0.41 0.59 0.66 0.43 0.00</code></pre>
+</div>
+<div id="visualización-de-distancias" class="section level3 hasAnchor" number="4.1.3">
+<h3><span class="header-section-number">4.1.3</span> Visualización de distancias<a href="clustering-no-jerárquico.html#visualización-de-distancias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En cualquier análisis, es de gran valor contar con un gráfico que permita conocer de manera práctica y simple el resumen de distancias. Un mapa de calor es una solución bastante útil, el cual representará de en una escala de color a los elementos cerca y lejos.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="clustering-no-jerárquico.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_dist</span>(dist.cor)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
+<p>El nivel del color es proporcional al valor de disimilaridad entre observaciones.
+Cuando la distancia es cero, el color es rojo puro y cuando la distancia es amplia, el color es azul puro. Los elementos que pertenecen a un mismo cluster se muestran en orden consecutivo.</p>
+</div>
 </div>
 <div id="k---means" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> K - means<a href="clustering-no-jerárquico.html#k---means" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -299,22 +371,22 @@ Para mayor detalle sobre el funcionamiento de la métrica, revisar el siguiente 
 <li><strong>Paso 2:</strong> Seleccionar K puntos aleatorios de los datos como centroides.</li>
 </ul>
 <p>A continuación, seleccionamos aleatoriamente el centroide para cada grupo. Supongamos que queremos tener 2 grupos, por lo que K es igual a 2, seleccionamos aleatoriamente los centroides:</p>
-<p><img src="img/03-not-hclus/3-12-1-paso2.png" width="350pt" height="300pt" style="display: block; margin: auto;" /></p>
+<p><img src="img/03-not-hclus/3-12-1-paso2.png" width="350pt" height="250pt" style="display: block; margin: auto;" /></p>
 <ul>
 <li><strong>Paso 3:</strong> Asignamos todos los puntos al centroide del cluster más cercano.</li>
 </ul>
 <p>Una vez que hemos inicializado los centroides, asignamos cada punto al centroide del cluster más cercano:</p>
-<p><img src="img/03-not-hclus/3-12-1-paso3.png" width="350pt" height="300pt" style="display: block; margin: auto;" /></p>
+<p><img src="img/03-not-hclus/3-12-1-paso3.png" width="350pt" height="250pt" style="display: block; margin: auto;" /></p>
 <ul>
 <li><strong>Paso 4:</strong> Volvemos a calcular los centroides de los <em>clusters</em> recién formados.</li>
 </ul>
 <p>Ahora, una vez que hayamos asignado todos los puntos a cualquiera de los grupos, el siguiente paso es calcular los centroides de los grupos recién formados:</p>
-<p><img src="img/03-not-hclus/3-12-1-paso4.png" width="350pt" height="300pt" style="display: block; margin: auto;" /></p>
+<p><img src="img/03-not-hclus/3-12-1-paso4.png" width="350pt" height="250pt" style="display: block; margin: auto;" /></p>
 <ul>
 <li><strong>Paso 5:</strong> Repetir los pasos 3 y 4.</li>
 </ul>
-<p><img src="img/03-not-hclus/3-12-1-paso5.png" width="350pt" height="300pt" style="display: block; margin: auto;" /></p>
-<p><img src="img/03-not-hclus/kmeans%20step.png" width="350pt" height="300pt" style="display: block; margin: auto;" /></p>
+<p><img src="img/03-not-hclus/3-12-1-paso5.png" width="350pt" height="250pt" style="display: block; margin: auto;" /></p>
+<p><img src="img/03-not-hclus/kmeans%20step.png" width="550pt" height="450pt" style="display: block; margin: auto;" /></p>
 <ul>
 <li><strong>Criterios de paro:</strong></li>
 </ul>
@@ -346,17 +418,24 @@ Para mayor detalle sobre el funcionamiento de la métrica, revisar el siguiente 
 </div>
 <div id="silhouette" class="section level4 hasAnchor" number="4.2.2.2">
 <h4><span class="header-section-number">4.2.2.2</span> Silhouette<a href="clustering-no-jerárquico.html#silhouette" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>El índice de <strong>Silhouette</strong> hace referencia al método de interpretación y validación de la consistencia dentro de los conglomerados. La medida de Silhouette es una medida de qué tan similar es un elemento al interior del cluster en comparación con otros.</p>
+<p>El índice de <strong>Silhouette</strong> hace referencia al método de <strong>interpretación y validación de la consistencia dentro de los conglomerados</strong>. La medida de Silhouette es una medida de <strong>qué tan similar es un elemento al interior del cluster en comparación con otros.</strong></p>
 <p>El rango del índice va de -1 a 1, donde un alto valor del índice indica que el objeto es consistente dentro de su cluster y pobremente asociado a otro conglomerado. Si muchos elementos presentan un valor bajo o negativo, entonces la configuración del cluster puede que tenga muy pocos o demasiados conglomerados.</p>
-<p>El índice de Silhouette puede ser calculado con cualquier métrica de distancia, tal como la distancia Euclidiana o de Manhattan.</p>
+<p>El índice de Silhouette puede ser calculado con cualquier métrica de distancia, tal como la distancia Euclidiana, Manhattan u otro.</p>
+<p>Se define al índice de <strong>Silhouette</strong> como:</p>
+<p><span class="math display">\[s(i)=\frac{b(i)-a(i)}{max\left\{a(i), b(i)\right\}}; \quad si \quad|C_i|&gt;1; \quad -1 \le s(i) \le 1\]</span></p>
+<p><span class="math display">\[s(i)=0; \quad si \quad|C_i|=1\]</span></p>
 <p>Asumiendo que cada elemento ha sido asignado a un cluster, para cada punto <em>i</em> en <span class="math inline">\(C_i\)</span>, entonces:</p>
-<p><span class="math display">\[a(i)=\frac{1}{|C_i|-1}\sum_{j\in C_i, i \neq j}d(i,j)\]</span>
-es la distancia promedio entre <em>i</em> y el resto de elementos dentro del conglomerado <em>i</em> y <span class="math inline">\(|C_i|\)</span> es el número de elementos dentro del i-ésimo conglomerado. <span class="math inline">\(d(i,j)\)</span> es la distancia entre los elementos <em>i</em> y <em>j</em>. Se puede interpretar a <span class="math inline">\(a(i)\)</span> como una métrica de qué tan bien asignado está el elemento <em>i</em> al conglomerado. Entre más pequeño sea el valor, mejor asignado se encuentra.</p>
-<p>Posteriormente, se calcula la medida de disimilaridad del punto <em>i</em> a algún conglomerado <span class="math inline">\(C_k\)</span> como el promedio de la distancia del punto <em>i</em> a todos los puntos en <span class="math inline">\(C_k\)</span> <span class="math inline">\((C_k \neq C_i)\)</span>.</p>
+<p><span class="math display">\[a(i)=\frac{1}{|C_i|-1}\sum_{j\in C_i, i \neq j}d(i,j)\]</span></p>
+<ul>
+<li><p><span class="math inline">\(a(i)\)</span> = Es la distancia promedio entre <em>i</em> y el resto de elementos dentro del conglomerado <em>i</em>.</p></li>
+<li><p><span class="math inline">\(|C_i|\)</span> = Es el número de elementos dentro del i-ésimo conglomerado.</p></li>
+<li><p><span class="math inline">\(d(i,j)\)</span> = Es la distancia entre los elementos <em>i</em> y <em>j</em> en el cluster <span class="math inline">\(C_i\)</span>.</p></li>
+</ul>
+<p>Se puede interpretar a <span class="math inline">\(a(i)\)</span> como una métrica de qué tan bien asignado está el elemento <em>i</em> al conglomerado. Entre más pequeño sea el valor, mejor asignado se encuentra.</p>
+<p>Posteriormente, se calcula la <strong>medida de disimilaridad del punto <em>i</em> a algún conglomerado <span class="math inline">\(C_k\)</span></strong> como el promedio de la distancia del punto <em>i</em> a todos los puntos en <span class="math inline">\(C_k\)</span> <span class="math inline">\((C_k \neq C_i)\)</span>.</p>
 <p>Para cada punto <span class="math inline">\(i \in C_i\)</span>, se define:</p>
-<p><span class="math display">\[b(i)=min_{k\neq i}\frac{1}{|C_k|}\sum_{j\in C_k}d(i,j)\]</span>
-Se define al índice de <strong>Silhouette</strong> como:</p>
-<p><span class="math display">\[s(i)=\frac{b(i)-a(i)}{max\left\{a(i), b(i)\right\}}; \quad \quad \quad -1 \le s(i) \le 1\]</span></p>
+<p><span class="math display">\[b(i)=min_{k\neq i}\frac{1}{|C_k|}\sum_{j\in C_k}d(i,j)\]</span></p>
+<p>ser la distancia media más pequeña (de ahí el operador <em>min</em> en la fórmula) de <em>i</em> a todos los puntos en cualquier otro grupo, del cual <em>i</em> no es miembro. Se dice que el conglomerado con esta disimilitud media más pequeña es el “conglomerado vecino” de <em>i</em> porque es el siguiente conglomerado que mejor se ajusta para el punto <em>i</em>.</p>
 </div>
 </div>
 <div id="cómo-seleccionamos-k" class="section level3 hasAnchor" number="4.2.3">
@@ -376,8 +455,8 @@ Se define al índice de <strong>Silhouette</strong> como:</p>
 <div id="implementación-en-r-1" class="section level3 hasAnchor" number="4.2.4">
 <h3><span class="header-section-number">4.2.4</span> Implementación en R<a href="clustering-no-jerárquico.html#implementación-en-r-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Usaremos los datos <em>USArrests</em>, que contiene estadísticas, en arrestos por cada 100,000 residentes por asalto, asesinato y violación en cada uno de los 50 estados de EE. UU. En 1973. También se da el porcentaje de la población que vive en áreas urbanas.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="clustering-no-jerárquico.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;USArrests&quot;</span>) </span>
-<span id="cb35-2"><a href="clustering-no-jerárquico.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(USArrests)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="clustering-no-jerárquico.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;USArrests&quot;</span>) </span>
+<span id="cb42-2"><a href="clustering-no-jerárquico.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(USArrests)</span></code></pre></div>
 <pre><code>##            Murder Assault UrbanPop Rape
 ## Alabama      13.2     236       58 21.2
 ## Alaska       10.0     263       48 44.5
@@ -385,10 +464,10 @@ Se define al índice de <strong>Silhouette</strong> como:</p>
 ## Arkansas      8.8     190       50 19.5
 ## California    9.0     276       91 40.6
 ## Colorado      7.9     204       78 38.7</code></pre>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="clustering-no-jerárquico.html#cb37-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span><span class="fu">scale</span>(USArrests, <span class="at">center =</span> T, <span class="at">scale =</span> T)</span>
-<span id="cb37-2"><a href="clustering-no-jerárquico.html#cb37-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(df)</span>
-<span id="cb37-3"><a href="clustering-no-jerárquico.html#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-4"><a href="clustering-no-jerárquico.html#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df, <span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="clustering-no-jerárquico.html#cb44-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span><span class="fu">scale</span>(USArrests, <span class="at">center =</span> T, <span class="at">scale =</span> T)</span>
+<span id="cb44-2"><a href="clustering-no-jerárquico.html#cb44-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(df)</span>
+<span id="cb44-3"><a href="clustering-no-jerárquico.html#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="clustering-no-jerárquico.html#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df, <span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>##                Murder   Assault   UrbanPop         Rape
 ## Alabama    1.24256408 0.7828393 -0.5209066 -0.003416473
 ## Alaska     0.50786248 1.1068225 -1.2117642  2.484202941
@@ -404,20 +483,20 @@ Se define al índice de <strong>Silhouette</strong> como:</p>
 <li><p><strong>algorithm</strong>: Algoritmo a usar</p></li>
 </ul>
 <p>En el siguiente ejemplo se agruparán los datos en seis grupos (<em>centers</em> = 6). Como se había mencionado, la función kmeans también tiene una opción <em>nstart</em> que intenta múltiples configuraciones iniciales y regresa la mejor, agregar nstart = 25 generará 25 configuraciones iniciales.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="clustering-no-jerárquico.html#cb39-1" aria-hidden="true" tabindex="-1"></a>k6 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(df, <span class="at">centers =</span> <span class="dv">6</span>, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
-<span id="cb39-2"><a href="clustering-no-jerárquico.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(k6)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="clustering-no-jerárquico.html#cb46-1" aria-hidden="true" tabindex="-1"></a>k6 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(df, <span class="at">centers =</span> <span class="dv">6</span>, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
+<span id="cb46-2"><a href="clustering-no-jerárquico.html#cb46-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(k6)</span></code></pre></div>
 <pre><code>## List of 9
-##  $ cluster     : Named int [1:50] 1 5 6 4 5 5 2 2 6 1 ...
+##  $ cluster     : Named int [1:50] 5 6 3 2 6 6 1 1 3 5 ...
 ##   ..- attr(*, &quot;names&quot;)= chr [1:50] &quot;Alabama&quot; &quot;Alaska&quot; &quot;Arizona&quot; &quot;Arkansas&quot; ...
-##  $ centers     : num [1:6, 1:4] 1.58 -0.629 -1.173 -0.164 0.456 ...
+##  $ centers     : num [1:6, 1:4] -0.629 -0.164 0.867 -1.173 1.58 ...
 ##   ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. ..$ : chr [1:6] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
 ##   .. ..$ : chr [1:4] &quot;Murder&quot; &quot;Assault&quot; &quot;UrbanPop&quot; &quot;Rape&quot;
 ##  $ totss       : num 196
-##  $ withinss    : num [1:6] 6.13 9.33 7.44 7.79 6.26 ...
+##  $ withinss    : num [1:6] 9.33 7.79 5.89 7.44 6.13 ...
 ##  $ tot.withinss: num 42.8
 ##  $ betweenss   : num 153
-##  $ size        : int [1:6] 7 10 10 11 4 8
+##  $ size        : int [1:6] 10 11 8 10 7 4
 ##  $ iter        : int 3
 ##  $ ifault      : int 0
 ##  - attr(*, &quot;class&quot;)= chr &quot;kmeans&quot;</code></pre>
@@ -432,39 +511,46 @@ Se define al índice de <strong>Silhouette</strong> como:</p>
 <li><p><strong>size</strong>: el número de observaciones en cada grupo.</p></li>
 </ul>
 <p>También podemos ver nuestros resultados usando la función <em>fviz_cluster()</em>. Esto proporciona una ilustración de los grupos. Si hay más de dos dimensiones (variables), <em>fviz_cluster()</em> realizará un análisis de componentes principales (PCA) y trazará los puntos de datos de acuerdo con los dos primeros componentes principales que explican la mayor parte de la varianza.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="clustering-no-jerárquico.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
-<span id="cb41-2"><a href="clustering-no-jerárquico.html#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-3"><a href="clustering-no-jerárquico.html#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(k6, <span class="at">data =</span> df, <span class="at">ellipse.type =</span> <span class="st">&quot;t&quot;</span>, <span class="at">repel =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="clustering-no-jerárquico.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
+<span id="cb48-2"><a href="clustering-no-jerárquico.html#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-3"><a href="clustering-no-jerárquico.html#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(k6, <span class="at">data =</span> df, <span class="at">ellipse.type =</span> <span class="st">&quot;t&quot;</span>, <span class="at">repel =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
 <p>Debido a que el número de conglomerados (K) debe establecerse antes de iniciar el algoritmo, a menudo es recomendado utilizar varios valores diferentes de K y examinar las diferencias en los resultados. Podemos ejecutar el mismo proceso para 3, 4 y 5 clusters, y los resultados se muestran en la siguiente figura:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="clustering-no-jerárquico.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb42-2"><a href="clustering-no-jerárquico.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
-<span id="cb42-3"><a href="clustering-no-jerárquico.html#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-4"><a href="clustering-no-jerárquico.html#cb42-4" aria-hidden="true" tabindex="-1"></a>k3 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(df, <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
-<span id="cb42-5"><a href="clustering-no-jerárquico.html#cb42-5" aria-hidden="true" tabindex="-1"></a>k4 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(df, <span class="at">centers =</span> <span class="dv">4</span>, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
-<span id="cb42-6"><a href="clustering-no-jerárquico.html#cb42-6" aria-hidden="true" tabindex="-1"></a>k5 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(df, <span class="at">centers =</span> <span class="dv">5</span>, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
-<span id="cb42-7"><a href="clustering-no-jerárquico.html#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-8"><a href="clustering-no-jerárquico.html#cb42-8" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">fviz_cluster</span>(k3, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">ellipse.type =</span> <span class="st">&quot;t&quot;</span>,  <span class="at">data =</span> df) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;K = 3&quot;</span>)</span>
-<span id="cb42-9"><a href="clustering-no-jerárquico.html#cb42-9" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">fviz_cluster</span>(k4, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">ellipse.type =</span> <span class="st">&quot;t&quot;</span>,  <span class="at">data =</span> df) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;K = 4&quot;</span>)</span>
-<span id="cb42-10"><a href="clustering-no-jerárquico.html#cb42-10" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">fviz_cluster</span>(k5, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">ellipse.type =</span> <span class="st">&quot;t&quot;</span>,  <span class="at">data =</span> df) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;K = 5&quot;</span>)</span>
-<span id="cb42-11"><a href="clustering-no-jerárquico.html#cb42-11" aria-hidden="true" tabindex="-1"></a>p6 <span class="ot">&lt;-</span> <span class="fu">fviz_cluster</span>(k6, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">ellipse.type =</span> <span class="st">&quot;t&quot;</span>, <span class="at">data =</span> df) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;K = 6&quot;</span>)</span>
-<span id="cb42-12"><a href="clustering-no-jerárquico.html#cb42-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-13"><a href="clustering-no-jerárquico.html#cb42-13" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p2, p3, p4, p6, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="clustering-no-jerárquico.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb49-2"><a href="clustering-no-jerárquico.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb49-3"><a href="clustering-no-jerárquico.html#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="clustering-no-jerárquico.html#cb49-4" aria-hidden="true" tabindex="-1"></a>k2 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(df, <span class="at">centers =</span> <span class="dv">2</span>, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
+<span id="cb49-5"><a href="clustering-no-jerárquico.html#cb49-5" aria-hidden="true" tabindex="-1"></a>k3 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(df, <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
+<span id="cb49-6"><a href="clustering-no-jerárquico.html#cb49-6" aria-hidden="true" tabindex="-1"></a>k4 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(df, <span class="at">centers =</span> <span class="dv">4</span>, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
+<span id="cb49-7"><a href="clustering-no-jerárquico.html#cb49-7" aria-hidden="true" tabindex="-1"></a>k5 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(df, <span class="at">centers =</span> <span class="dv">5</span>, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
+<span id="cb49-8"><a href="clustering-no-jerárquico.html#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-9"><a href="clustering-no-jerárquico.html#cb49-9" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">fviz_cluster</span>(k2, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">ellipse.type =</span> <span class="st">&quot;t&quot;</span>,  <span class="at">data =</span> df) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;K = 2&quot;</span>)</span>
+<span id="cb49-10"><a href="clustering-no-jerárquico.html#cb49-10" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">fviz_cluster</span>(k3, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">ellipse.type =</span> <span class="st">&quot;t&quot;</span>,  <span class="at">data =</span> df) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;K = 3&quot;</span>)</span>
+<span id="cb49-11"><a href="clustering-no-jerárquico.html#cb49-11" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">fviz_cluster</span>(k4, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">ellipse.type =</span> <span class="st">&quot;t&quot;</span>,  <span class="at">data =</span> df) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;K = 4&quot;</span>)</span>
+<span id="cb49-12"><a href="clustering-no-jerárquico.html#cb49-12" aria-hidden="true" tabindex="-1"></a>p5 <span class="ot">&lt;-</span> <span class="fu">fviz_cluster</span>(k5, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">ellipse.type =</span> <span class="st">&quot;t&quot;</span>,  <span class="at">data =</span> df) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;K = 5&quot;</span>)</span>
+<span id="cb49-13"><a href="clustering-no-jerárquico.html#cb49-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-14"><a href="clustering-no-jerárquico.html#cb49-14" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p2, p3, p4, p5, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
 <p>Recordemos que podemos usar la gráfica de codo para obtener el número óptimo de K, usaremos la función <em>fviz_nbclust()</em> para esto.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="clustering-no-jerárquico.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb43-2"><a href="clustering-no-jerárquico.html#cb43-2" aria-hidden="true" tabindex="-1"></a>wss_plot <span class="ot">&lt;-</span> <span class="fu">fviz_nbclust</span>(df, kmeans, <span class="at">method =</span> <span class="st">&quot;wss&quot;</span>)</span>
-<span id="cb43-3"><a href="clustering-no-jerárquico.html#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-4"><a href="clustering-no-jerárquico.html#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb43-5"><a href="clustering-no-jerárquico.html#cb43-5" aria-hidden="true" tabindex="-1"></a>sil_plot <span class="ot">&lt;-</span> <span class="fu">fviz_nbclust</span>(df, kmeans, <span class="at">method =</span> <span class="st">&quot;silhouette&quot;</span>)</span>
-<span id="cb43-6"><a href="clustering-no-jerárquico.html#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-7"><a href="clustering-no-jerárquico.html#cb43-7" aria-hidden="true" tabindex="-1"></a>wss_plot <span class="sc">+</span> sil_plot</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="clustering-no-jerárquico.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb50-2"><a href="clustering-no-jerárquico.html#cb50-2" aria-hidden="true" tabindex="-1"></a>wss_plot <span class="ot">&lt;-</span> <span class="fu">fviz_nbclust</span>(df, kmeans, <span class="at">method =</span> <span class="st">&quot;wss&quot;</span>)</span>
+<span id="cb50-3"><a href="clustering-no-jerárquico.html#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-4"><a href="clustering-no-jerárquico.html#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb50-5"><a href="clustering-no-jerárquico.html#cb50-5" aria-hidden="true" tabindex="-1"></a>sil_plot <span class="ot">&lt;-</span> <span class="fu">fviz_nbclust</span>(df, kmeans, <span class="at">method =</span> <span class="st">&quot;silhouette&quot;</span>)</span>
+<span id="cb50-6"><a href="clustering-no-jerárquico.html#cb50-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-7"><a href="clustering-no-jerárquico.html#cb50-7" aria-hidden="true" tabindex="-1"></a>wss_plot <span class="sc">+</span> sil_plot</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
 <p>Con las gráficas anteriores no es claro cual K debemos elegir, podemos usar la función <em>NbClust()</em> de la librería <em>NbClust</em> para comparar <strong>30 indices distintos</strong> y ver cual es el mejor K.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="clustering-no-jerárquico.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(NbClust)</span>
-<span id="cb44-2"><a href="clustering-no-jerárquico.html#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-3"><a href="clustering-no-jerárquico.html#cb44-3" aria-hidden="true" tabindex="-1"></a>nb <span class="ot">&lt;-</span> <span class="fu">NbClust</span>(<span class="at">data =</span> df, <span class="at">diss =</span> <span class="cn">NULL</span>, <span class="at">distance =</span> <span class="st">&quot;euclidean&quot;</span>, <span class="at">min.nc =</span> <span class="dv">2</span>, <span class="at">method =</span> <span class="st">&quot;kmeans&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="clustering-no-jerárquico.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_nbclust</span>(nb)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="clustering-no-jerárquico.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(NbClust)</span>
+<span id="cb51-2"><a href="clustering-no-jerárquico.html#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="clustering-no-jerárquico.html#cb51-3" aria-hidden="true" tabindex="-1"></a>nb <span class="ot">&lt;-</span> <span class="fu">NbClust</span>(</span>
+<span id="cb51-4"><a href="clustering-no-jerárquico.html#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df, </span>
+<span id="cb51-5"><a href="clustering-no-jerárquico.html#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">diss =</span> <span class="cn">NULL</span>, </span>
+<span id="cb51-6"><a href="clustering-no-jerárquico.html#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">distance =</span> <span class="st">&quot;euclidean&quot;</span>, </span>
+<span id="cb51-7"><a href="clustering-no-jerárquico.html#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">min.nc =</span> <span class="dv">2</span>, </span>
+<span id="cb51-8"><a href="clustering-no-jerárquico.html#cb51-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&quot;kmeans&quot;</span></span>
+<span id="cb51-9"><a href="clustering-no-jerárquico.html#cb51-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="clustering-no-jerárquico.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_nbclust</span>(nb)</span></code></pre></div>
 <pre><code>## Among all indices: 
 ## ===================
 ## * 2 proposed  0 as the best number of clusters
@@ -480,21 +566,21 @@ Se define al índice de <strong>Silhouette</strong> como:</p>
 ## Conclusion
 ## =========================
 ## * According to the majority rule, the best number of clusters is  2 .</code></pre>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
 <p>Con ayuda de la función anterior, observamos que 9 indices proponen <span class="math inline">\(K=2\)</span></p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="clustering-no-jerárquico.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb47-2"><a href="clustering-no-jerárquico.html#cb47-2" aria-hidden="true" tabindex="-1"></a>final <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(df, <span class="dv">2</span>, <span class="at">nstart =</span> <span class="dv">25</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="clustering-no-jerárquico.html#cb48-1" aria-hidden="true" tabindex="-1"></a>kmeans_plot <span class="ot">&lt;-</span> <span class="fu">fviz_cluster</span>(</span>
-<span id="cb48-2"><a href="clustering-no-jerárquico.html#cb48-2" aria-hidden="true" tabindex="-1"></a>  final, </span>
-<span id="cb48-3"><a href="clustering-no-jerárquico.html#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df, </span>
-<span id="cb48-4"><a href="clustering-no-jerárquico.html#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ellipse.type =</span> <span class="st">&quot;t&quot;</span>, </span>
-<span id="cb48-5"><a href="clustering-no-jerárquico.html#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">repel =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
-<span id="cb48-6"><a href="clustering-no-jerárquico.html#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;K-Means Plot&quot;</span>) <span class="sc">+</span></span>
-<span id="cb48-7"><a href="clustering-no-jerárquico.html#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb48-8"><a href="clustering-no-jerárquico.html#cb48-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span>
-<span id="cb48-9"><a href="clustering-no-jerárquico.html#cb48-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-10"><a href="clustering-no-jerárquico.html#cb48-10" aria-hidden="true" tabindex="-1"></a>kmeans_plot</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="clustering-no-jerárquico.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb54-2"><a href="clustering-no-jerárquico.html#cb54-2" aria-hidden="true" tabindex="-1"></a>final <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(df, <span class="dv">2</span>, <span class="at">nstart =</span> <span class="dv">25</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="clustering-no-jerárquico.html#cb55-1" aria-hidden="true" tabindex="-1"></a>kmeans_plot <span class="ot">&lt;-</span> <span class="fu">fviz_cluster</span>(</span>
+<span id="cb55-2"><a href="clustering-no-jerárquico.html#cb55-2" aria-hidden="true" tabindex="-1"></a>  final, </span>
+<span id="cb55-3"><a href="clustering-no-jerárquico.html#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df, </span>
+<span id="cb55-4"><a href="clustering-no-jerárquico.html#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ellipse.type =</span> <span class="st">&quot;t&quot;</span>, </span>
+<span id="cb55-5"><a href="clustering-no-jerárquico.html#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">repel =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
+<span id="cb55-6"><a href="clustering-no-jerárquico.html#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;K-Means Plot&quot;</span>) <span class="sc">+</span></span>
+<span id="cb55-7"><a href="clustering-no-jerárquico.html#cb55-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb55-8"><a href="clustering-no-jerárquico.html#cb55-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb55-9"><a href="clustering-no-jerárquico.html#cb55-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-10"><a href="clustering-no-jerárquico.html#cb55-10" aria-hidden="true" tabindex="-1"></a>kmeans_plot</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
 </div>
 <div id="warnings" class="section level3 hasAnchor" number="4.2.5">
 <h3><span class="header-section-number">4.2.5</span> Warnings<a href="clustering-no-jerárquico.html#warnings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -504,21 +590,16 @@ Se define al índice de <strong>Silhouette</strong> como:</p>
 </div>
 <div id="partitioning-around-medoids-pam" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> Partitioning Around Medoids (PAM)<a href="clustering-no-jerárquico.html#partitioning-around-medoids-pam" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El algoritmo <em>k-medoides</em> es un enfoque de agrupamiento relacionado con el agrupamiento de <em>k-medias</em> para particionar un conjunto de datos en <em>k</em> grupos o clusters. En <em>k-medoides</em>, cada grupo está representado por uno de los puntos de datos pertenecientes a un grupo. Estos puntos son nombrados <strong>medoides</strong>.</p>
-<p>El término <strong>medoide</strong> se refiere a un objeto dentro de un grupo para el cual la disimilitud promedio entre él y todos los demás miembros del cluster son mínimos. Corresponde a el punto más céntrico del grupo. Estos objetos (uno por grupo) pueden ser considerado como un ejemplo representativo de los miembros de ese grupo que puede ser útil en algunas situaciones.</p>
-<p>Este algoritmo es una alternativa sólida de <em>k-medias</em>. Debido a que este
-algoritmo es menos sensible al ruido y los valores atípicos, en comparación con <em>k-medias</em>, pues usa medoides como centros de conglomerados en lugar de medias. El uso de medias implica que la agrupación de <em>k-medias</em> es muy sensible a los valores atípicos, lo cual
-puede afectar gravemente la asignación de observaciones a los conglomerados.</p>
-<p><img src="img/03-not-hclus/kmeans-kmedoids.png" width="232" style="display: block; margin: auto;" /></p>
+<p>El algoritmo <em>k-medoides</em> es un enfoque de agrupamiento para particionar un conjunto de datos en <em>k</em> grupos o clusters. En <em>k-medoides</em>, cada grupo está representado por uno de los puntos de datos pertenecientes a un grupo. Estos puntos son nombrados <strong>medoides</strong>.</p>
+<p>El término <strong>medoide</strong> se refiere a un objeto dentro de un grupo para el cual la disimilitud promedio entre él y todos los demás miembros del cluster son mínimos. Corresponde a el punto más céntrico del grupo.</p>
+<p>Este algoritmo es una alternativa sólida de <em>k-medias</em>. Debido a que <strong>este algoritmo es menos sensible al ruido y los valores atípicos</strong>, en comparación con <em>k-medias</em>, pues usa medoides como centros de conglomerados en lugar de medias. El uso de medias implica que la agrupación de <em>k-medias</em> es muy sensible a los valores atípicos, lo cual puede afectar gravemente la asignación de observaciones a los conglomerados.</p>
+<p><img src="img/03-not-hclus/kmeans-kmedoids.png" width="600pt" height="200pt" style="display: block; margin: auto;" /></p>
 <p>El método de agrupamiento de <em>k-medoides</em> más común es el algoritmo <em>PAM (Partitioning Around Medoids, Kaufman &amp; Rousseeuw, 1990)</em>.</p>
 <div id="algoritmo-pam" class="section level3 hasAnchor" number="4.3.1">
 <h3><span class="header-section-number">4.3.1</span> Algoritmo PAM<a href="clustering-no-jerárquico.html#algoritmo-pam" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>El algoritmo <em>PAM</em> se basa en la búsqueda de <em>k</em> objetos representativos o medoides entre las observaciones del conjunto de datos.</p>
-<p>Después de encontrar un conjunto de <em>k</em> medoides, los grupos se construyen asignando cada observación al medoide más cercano.</p>
-<p>Posteriormente, cada medoide <em>m</em> y cada punto de datos no medoide seleccionado se intercambian y se calcula la función objetivo.</p>
+<p>El algoritmo <em>PAM</em> se basa en la búsqueda de <em>k</em> objetos representativos o medoides entre las observaciones del conjunto de datos. Después de encontrar un conjunto de <em>k</em> medoides, los grupos se construyen asignando cada observación al medoide más cercano. Posteriormente, cada medoide <em>m</em> y cada punto de datos no medoide seleccionado se intercambian y se calcula la función objetivo.</p>
 <p><strong>La función objetivo corresponde a la suma de las disimilitudes de todos los objetos a su medoide más cercano.</strong></p>
-<p>El paso de intercambio intenta mejorar la calidad de la agrupación mediante el intercambio entre objetos seleccionados (medoides) y objetos no seleccionados. Si la función objetivo puede reducirse intercambiando un objeto seleccionado con un objeto no seleccionado, entonces el se realiza el intercambio. Esto se continúa hasta que la función objetivo ya no puede ser disminuida. El objetivo es encontrar <em>k</em> objetos representativos que minimicen la suma de disimilitudes de las observaciones con su objeto representativo más cercano.</p>
-<p>Como se mencionó anteriormente, el algoritmo <em>PAM</em> funciona con una matriz de disimilitud y para calcular esta matriz, el algoritmo puede utilizar dos métricas:</p>
+<p>El objetivo es encontrar <em>k</em> objetos representativos que minimicen la suma de disimilitudes de las observaciones con su objeto representativo más cercano. Como se mencionó anteriormente, el algoritmo <em>PAM</em> funciona con una matriz de disimilitud y para calcular esta matriz, el algoritmo puede utilizar dos métricas:</p>
 <ul>
 <li><p>La distancia <em>euclidiana</em>, que es la raíz de la suma de cuadrados de las diferencias;</p></li>
 <li><p>Y la distancia de <em>Manhattan</em>, que es la suma de distancias absolutas.</p></li>
@@ -532,24 +613,24 @@ puede afectar gravemente la asignación de observaciones a los conglomerados.</p
 <p>La silueta media mide la calidad de un agrupamiento. Una silueta media alta indica una buena agrupación.</p>
 <p><strong>El número óptimo de conglomerados <em>k</em> es el que maximiza la silueta promedio sobre un rango de valores posibles para <em>k</em> </strong></p>
 <p>La función <code>fviz_nbclust()</code> del paquete <em>factoextra</em> proporciona una solución conveniente para estimar el número óptimo de conglomerados con diferentes métodos.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="clustering-no-jerárquico.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
-<span id="cb49-2"><a href="clustering-no-jerárquico.html#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-3"><a href="clustering-no-jerárquico.html#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Elbow method</span></span>
-<span id="cb49-4"><a href="clustering-no-jerárquico.html#cb49-4" aria-hidden="true" tabindex="-1"></a>Elbow <span class="ot">&lt;-</span> <span class="fu">fviz_nbclust</span>(df, pam, <span class="at">method =</span> <span class="st">&quot;wss&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb49-5"><a href="clustering-no-jerárquico.html#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">4</span>, <span class="at">linetype =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb49-6"><a href="clustering-no-jerárquico.html#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;Elbow method&quot;</span>)</span>
-<span id="cb49-7"><a href="clustering-no-jerárquico.html#cb49-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-8"><a href="clustering-no-jerárquico.html#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Silhouette method</span></span>
-<span id="cb49-9"><a href="clustering-no-jerárquico.html#cb49-9" aria-hidden="true" tabindex="-1"></a>Silhouette <span class="ot">&lt;-</span> <span class="fu">fviz_nbclust</span>(df, pam, <span class="at">method =</span> <span class="st">&quot;silhouette&quot;</span>) <span class="sc">+</span></span>
-<span id="cb49-10"><a href="clustering-no-jerárquico.html#cb49-10" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;Silhouette method&quot;</span>)</span>
-<span id="cb49-11"><a href="clustering-no-jerárquico.html#cb49-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-12"><a href="clustering-no-jerárquico.html#cb49-12" aria-hidden="true" tabindex="-1"></a>Elbow <span class="sc">+</span> Silhouette</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="clustering-no-jerárquico.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;NbClust&quot;</span>)</span>
-<span id="cb50-2"><a href="clustering-no-jerárquico.html#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-3"><a href="clustering-no-jerárquico.html#cb50-3" aria-hidden="true" tabindex="-1"></a>nb <span class="ot">&lt;-</span> <span class="fu">NbClust</span>(df, <span class="at">distance =</span> <span class="st">&quot;euclidean&quot;</span>, <span class="at">min.nc =</span> <span class="dv">2</span>, <span class="at">max.nc =</span> <span class="dv">10</span>,</span>
-<span id="cb50-4"><a href="clustering-no-jerárquico.html#cb50-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">method =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="clustering-no-jerárquico.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_nbclust</span>(nb)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="clustering-no-jerárquico.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
+<span id="cb56-2"><a href="clustering-no-jerárquico.html#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-3"><a href="clustering-no-jerárquico.html#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Elbow method</span></span>
+<span id="cb56-4"><a href="clustering-no-jerárquico.html#cb56-4" aria-hidden="true" tabindex="-1"></a>Elbow <span class="ot">&lt;-</span> <span class="fu">fviz_nbclust</span>(df, pam, <span class="at">method =</span> <span class="st">&quot;wss&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb56-5"><a href="clustering-no-jerárquico.html#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">4</span>, <span class="at">linetype =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb56-6"><a href="clustering-no-jerárquico.html#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;Elbow method&quot;</span>)</span>
+<span id="cb56-7"><a href="clustering-no-jerárquico.html#cb56-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-8"><a href="clustering-no-jerárquico.html#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Silhouette method</span></span>
+<span id="cb56-9"><a href="clustering-no-jerárquico.html#cb56-9" aria-hidden="true" tabindex="-1"></a>Silhouette <span class="ot">&lt;-</span> <span class="fu">fviz_nbclust</span>(df, pam, <span class="at">method =</span> <span class="st">&quot;silhouette&quot;</span>) <span class="sc">+</span></span>
+<span id="cb56-10"><a href="clustering-no-jerárquico.html#cb56-10" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;Silhouette method&quot;</span>)</span>
+<span id="cb56-11"><a href="clustering-no-jerárquico.html#cb56-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-12"><a href="clustering-no-jerárquico.html#cb56-12" aria-hidden="true" tabindex="-1"></a>Elbow <span class="sc">+</span> Silhouette</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="clustering-no-jerárquico.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;NbClust&quot;</span>)</span>
+<span id="cb57-2"><a href="clustering-no-jerárquico.html#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="clustering-no-jerárquico.html#cb57-3" aria-hidden="true" tabindex="-1"></a>nb <span class="ot">&lt;-</span> <span class="fu">NbClust</span>(df, <span class="at">distance =</span> <span class="st">&quot;euclidean&quot;</span>, <span class="at">min.nc =</span> <span class="dv">2</span>, <span class="at">max.nc =</span> <span class="dv">10</span>,</span>
+<span id="cb57-4"><a href="clustering-no-jerárquico.html#cb57-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">method =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="clustering-no-jerárquico.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_nbclust</span>(nb)</span></code></pre></div>
 <pre><code>## Among all indices: 
 ## ===================
 ## * 2 proposed  0 as the best number of clusters
@@ -565,13 +646,16 @@ puede afectar gravemente la asignación de observaciones a los conglomerados.</p
 ## Conclusion
 ## =========================
 ## * According to the majority rule, the best number of clusters is  9 .</code></pre>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
-<p>A partir de la gráfica se observa que la cantidad sugerida de grupos es 2, por lo que en la siguiente sección se clasificarán las observaciones en 2 grupos.</p>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
+<p><strong>¿Qué se hace en estos casos?</strong></p>
+<p>Es importante conocer las diferencias entre cada grupo y entender si este resultado tiene sentido desde un enfoque de negocio. Una vez entendiendo la razón por la cual 9 grupos es viable desde múltiples criterios, se deberá tomar la decisión del número adecuado de grupos.</p>
+<p>Otro criterio importante, es entender los índices y su interpretación. Conocer el significado de cada índice será importante para conocer la validez de su uso y consideración.</p>
+<p>A partir de la gráfica se observa que la cantidad sugerida de grupos es 2 o 9, por lo que en la siguiente sección se clasificarán las observaciones en 2 grupos.</p>
 <p>La función <code>pam()</code> del paquete <em>Cluster</em> se puede utilizar para calcular
 <em>PAM.</em></p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="clustering-no-jerárquico.html#cb53-1" aria-hidden="true" tabindex="-1"></a>k_mediods <span class="ot">&lt;-</span> <span class="fu">pam</span>(df, <span class="dv">2</span>)</span>
-<span id="cb53-2"><a href="clustering-no-jerárquico.html#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-3"><a href="clustering-no-jerárquico.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(k_mediods)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="clustering-no-jerárquico.html#cb60-1" aria-hidden="true" tabindex="-1"></a>k_mediods <span class="ot">&lt;-</span> <span class="fu">pam</span>(df, <span class="dv">2</span>)</span>
+<span id="cb60-2"><a href="clustering-no-jerárquico.html#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-3"><a href="clustering-no-jerárquico.html#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(k_mediods)</span></code></pre></div>
 <pre><code>## Medoids:
 ##            ID     Murder    Assault   UrbanPop       Rape
 ## New Mexico 31  0.8292944  1.3708088  0.3081225  1.1603196
@@ -611,17 +695,23 @@ puede afectar gravemente la asignación de observaciones a los conglomerados.</p
 </ul>
 <p>Para visualizar los resultados de la partición, usaremos la función <code>fviz_cluster()</code> del paquete <em>factoextra</em>.</p>
 <p>Esta función dibuja un diagrama de dispersión de puntos de datos coloreados por números de grupo. Si los datos contienen más de <em>2</em> variables, se utiliza el algoritmo de análisis de componentes principales (PCA) para reducir la dimensionalidad de los datos. En este caso, los dos primeros componentes se utilizan para trazar los datos.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="clustering-no-jerárquico.html#cb55-1" aria-hidden="true" tabindex="-1"></a>pam_plot <span class="ot">&lt;-</span> <span class="fu">fviz_cluster</span>(</span>
-<span id="cb55-2"><a href="clustering-no-jerárquico.html#cb55-2" aria-hidden="true" tabindex="-1"></a>  k_mediods,</span>
-<span id="cb55-3"><a href="clustering-no-jerárquico.html#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;#00AFBB&quot;</span>, <span class="st">&quot;#FC4E07&quot;</span>), </span>
-<span id="cb55-4"><a href="clustering-no-jerárquico.html#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ellipse.type =</span> <span class="st">&quot;t&quot;</span>, </span>
-<span id="cb55-5"><a href="clustering-no-jerárquico.html#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">repel =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb55-6"><a href="clustering-no-jerárquico.html#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()) <span class="sc">+</span></span>
-<span id="cb55-7"><a href="clustering-no-jerárquico.html#cb55-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&#39;K-Medoids Plot&#39;</span>) <span class="sc">+</span></span>
-<span id="cb55-8"><a href="clustering-no-jerárquico.html#cb55-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span>
-<span id="cb55-9"><a href="clustering-no-jerárquico.html#cb55-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-10"><a href="clustering-no-jerárquico.html#cb55-10" aria-hidden="true" tabindex="-1"></a>pam_plot</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="clustering-no-jerárquico.html#cb62-1" aria-hidden="true" tabindex="-1"></a>pam_plot <span class="ot">&lt;-</span> <span class="fu">fviz_cluster</span>(</span>
+<span id="cb62-2"><a href="clustering-no-jerárquico.html#cb62-2" aria-hidden="true" tabindex="-1"></a>  k_mediods,</span>
+<span id="cb62-3"><a href="clustering-no-jerárquico.html#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;#00AFBB&quot;</span>, <span class="st">&quot;#FC4E07&quot;</span>), </span>
+<span id="cb62-4"><a href="clustering-no-jerárquico.html#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ellipse.type =</span> <span class="st">&quot;t&quot;</span>, </span>
+<span id="cb62-5"><a href="clustering-no-jerárquico.html#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">repel =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb62-6"><a href="clustering-no-jerárquico.html#cb62-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()) <span class="sc">+</span></span>
+<span id="cb62-7"><a href="clustering-no-jerárquico.html#cb62-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&#39;K-Medoids Plot&#39;</span>) <span class="sc">+</span></span>
+<span id="cb62-8"><a href="clustering-no-jerárquico.html#cb62-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb62-9"><a href="clustering-no-jerárquico.html#cb62-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-10"><a href="clustering-no-jerárquico.html#cb62-10" aria-hidden="true" tabindex="-1"></a>pam_plot</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
+<p><strong>Ejercicio:</strong></p>
+<ul>
+<li><p>Calcular los centroides de cada grupo realizando 2 segmentaciones</p></li>
+<li><p>Calcular los centroides de cada grupo realizando 9 segmentaciones</p></li>
+<li><p>Comparar los resultados anteriores y comentar</p></li>
+</ul>
 </div>
 </div>
 <div id="clustering-large-applications-clara" class="section level2 hasAnchor" number="4.4">
@@ -654,13 +744,13 @@ el tamaño de muestra ha sido alcanzado.</p>
 <div id="implementación-en-r-3" class="section level3 hasAnchor" number="4.4.1">
 <h3><span class="header-section-number">4.4.1</span> Implementación en R<a href="clustering-no-jerárquico.html#implementación-en-r-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Estimaremos el número óptimo de clusters como se realizó en la sección pasada.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="clustering-no-jerárquico.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_nbclust</span>(df, clara, <span class="at">method =</span> <span class="st">&quot;silhouette&quot;</span>)<span class="sc">+</span></span>
-<span id="cb56-2"><a href="clustering-no-jerárquico.html#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_minimal</span>()</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="clustering-no-jerárquico.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_nbclust</span>(df, clara, <span class="at">method =</span> <span class="st">&quot;silhouette&quot;</span>)<span class="sc">+</span></span>
+<span id="cb63-2"><a href="clustering-no-jerárquico.html#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
 <p>A partir de la gráfica, la cantidad sugerida de grupos es 2. En el siguiente paso clasificaremos las observaciones en 2 grupos.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="clustering-no-jerárquico.html#cb57-1" aria-hidden="true" tabindex="-1"></a>clara <span class="ot">&lt;-</span> <span class="fu">clara</span>(df, <span class="dv">2</span>, <span class="at">samples =</span> <span class="dv">50</span>, <span class="at">pamLike =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb57-2"><a href="clustering-no-jerárquico.html#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-3"><a href="clustering-no-jerárquico.html#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(clara)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="clustering-no-jerárquico.html#cb64-1" aria-hidden="true" tabindex="-1"></a>clara <span class="ot">&lt;-</span> <span class="fu">clara</span>(df, <span class="dv">2</span>, <span class="at">samples =</span> <span class="dv">50</span>, <span class="at">pamLike =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb64-2"><a href="clustering-no-jerárquico.html#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-3"><a href="clustering-no-jerárquico.html#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(clara)</span></code></pre></div>
 <pre><code>## Call:     clara(x = df, k = 2, samples = 50, pamLike = TRUE) 
 ## Medoids:
 ##                Murder    Assault   UrbanPop       Rape
@@ -685,13 +775,13 @@ el tamaño de muestra ha sido alcanzado.</p>
 ##  [1] &quot;sample&quot;     &quot;medoids&quot;    &quot;i.med&quot;      &quot;clustering&quot; &quot;objective&quot; 
 ##  [6] &quot;clusinfo&quot;   &quot;diss&quot;       &quot;call&quot;       &quot;silinfo&quot;    &quot;data&quot;</code></pre>
 <p>Se visualiza ahora los resultados del método <em>CLARA</em></p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="clustering-no-jerárquico.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(</span>
-<span id="cb59-2"><a href="clustering-no-jerárquico.html#cb59-2" aria-hidden="true" tabindex="-1"></a>  clara,</span>
-<span id="cb59-3"><a href="clustering-no-jerárquico.html#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;#00AFBB&quot;</span>, <span class="st">&quot;#FC4E07&quot;</span>), </span>
-<span id="cb59-4"><a href="clustering-no-jerárquico.html#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ellipse.type =</span> <span class="st">&quot;t&quot;</span>, </span>
-<span id="cb59-5"><a href="clustering-no-jerárquico.html#cb59-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()</span>
-<span id="cb59-6"><a href="clustering-no-jerárquico.html#cb59-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="clustering-no-jerárquico.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(</span>
+<span id="cb66-2"><a href="clustering-no-jerárquico.html#cb66-2" aria-hidden="true" tabindex="-1"></a>  clara,</span>
+<span id="cb66-3"><a href="clustering-no-jerárquico.html#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;#00AFBB&quot;</span>, <span class="st">&quot;#FC4E07&quot;</span>), </span>
+<span id="cb66-4"><a href="clustering-no-jerárquico.html#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ellipse.type =</span> <span class="st">&quot;t&quot;</span>, </span>
+<span id="cb66-5"><a href="clustering-no-jerárquico.html#cb66-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb66-6"><a href="clustering-no-jerárquico.html#cb66-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
 </div>
 </div>
 <div id="dbscan" class="section level2 hasAnchor" number="4.5">
@@ -722,24 +812,24 @@ formas arbitrarias.</p>
 <p>Para ilustrar esta situación, el siguiente código calcula <em>k-medias</em>
 en el conjunto de datos mencionado.</p>
 <p>La función <code>fviz_cluster()</code> del paquete <em>factoextra</em> se utiliza para visualizar los clusters.</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="clustering-no-jerárquico.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;multishapes&quot;</span>)</span>
-<span id="cb60-2"><a href="clustering-no-jerárquico.html#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-3"><a href="clustering-no-jerárquico.html#cb60-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> multishapes[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
-<span id="cb60-4"><a href="clustering-no-jerárquico.html#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-5"><a href="clustering-no-jerárquico.html#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb60-6"><a href="clustering-no-jerárquico.html#cb60-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-7"><a href="clustering-no-jerárquico.html#cb60-7" aria-hidden="true" tabindex="-1"></a>kmeans <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(df, <span class="dv">5</span>, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
-<span id="cb60-8"><a href="clustering-no-jerárquico.html#cb60-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-9"><a href="clustering-no-jerárquico.html#cb60-9" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(</span>
-<span id="cb60-10"><a href="clustering-no-jerárquico.html#cb60-10" aria-hidden="true" tabindex="-1"></a>  kmeans,</span>
-<span id="cb60-11"><a href="clustering-no-jerárquico.html#cb60-11" aria-hidden="true" tabindex="-1"></a>  df,</span>
-<span id="cb60-12"><a href="clustering-no-jerárquico.html#cb60-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>,</span>
-<span id="cb60-13"><a href="clustering-no-jerárquico.html#cb60-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">ellipse=</span> <span class="cn">FALSE</span>,</span>
-<span id="cb60-14"><a href="clustering-no-jerárquico.html#cb60-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.clust.cent =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb60-15"><a href="clustering-no-jerárquico.html#cb60-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="st">&quot;jco&quot;</span>,</span>
-<span id="cb60-16"><a href="clustering-no-jerárquico.html#cb60-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()</span>
-<span id="cb60-17"><a href="clustering-no-jerárquico.html#cb60-17" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-95-1.png" width="672" /></p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="clustering-no-jerárquico.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;multishapes&quot;</span>)</span>
+<span id="cb67-2"><a href="clustering-no-jerárquico.html#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-3"><a href="clustering-no-jerárquico.html#cb67-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> multishapes[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
+<span id="cb67-4"><a href="clustering-no-jerárquico.html#cb67-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-5"><a href="clustering-no-jerárquico.html#cb67-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb67-6"><a href="clustering-no-jerárquico.html#cb67-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-7"><a href="clustering-no-jerárquico.html#cb67-7" aria-hidden="true" tabindex="-1"></a>kmeans <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(df, <span class="dv">5</span>, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
+<span id="cb67-8"><a href="clustering-no-jerárquico.html#cb67-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-9"><a href="clustering-no-jerárquico.html#cb67-9" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(</span>
+<span id="cb67-10"><a href="clustering-no-jerárquico.html#cb67-10" aria-hidden="true" tabindex="-1"></a>  kmeans,</span>
+<span id="cb67-11"><a href="clustering-no-jerárquico.html#cb67-11" aria-hidden="true" tabindex="-1"></a>  df,</span>
+<span id="cb67-12"><a href="clustering-no-jerárquico.html#cb67-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>,</span>
+<span id="cb67-13"><a href="clustering-no-jerárquico.html#cb67-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">ellipse=</span> <span class="cn">FALSE</span>,</span>
+<span id="cb67-14"><a href="clustering-no-jerárquico.html#cb67-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.clust.cent =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb67-15"><a href="clustering-no-jerárquico.html#cb67-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="st">&quot;jco&quot;</span>,</span>
+<span id="cb67-16"><a href="clustering-no-jerárquico.html#cb67-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb67-17"><a href="clustering-no-jerárquico.html#cb67-17" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-99-1.png" width="672" /></p>
 <p>Sabemos que hay <em>5</em> grupos de en los datos, pero se puede ver que el método de <em>k-medias</em> identifica incorrectamente estos 5 grupos.</p>
 <div id="algoritmo" class="section level3 hasAnchor" number="4.5.1">
 <h3><span class="header-section-number">4.5.1</span> Algoritmo<a href="clustering-no-jerárquico.html#algoritmo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -750,9 +840,11 @@ en el conjunto de datos mencionado.</p>
 un punto <em>x</em>.</p></li>
 <li><p><strong>puntos mínimos (“MinPts”):</strong> Es el número mínimo de vecinos dentro del radio <em>“eps”</em>.</p></li>
 </ul>
-<p>Cualquier punto <em>x</em> en el conjunto de datos, con un recuento de vecinos mayor o igual que <em>MinPts</em>, es marcado como un <strong>punto central</strong>.</p>
-<p>Decimos que <em>x</em> es un <strong>punto fronterizo</strong>, si el número de sus vecinos es menos que <em>MinPts</em>, pero pertenece a la vecindad de algún punto central <em>z</em>.</p>
-<p>Finalmente, si un punto no es ni un núcleo ni un punto fronterizo, entonces se denomina <strong>punto de ruido o parte aislada</strong>.</p>
+<ol style="list-style-type: decimal">
+<li><p>Cualquier punto <em>x</em> en el conjunto de datos, con un recuento de vecinos mayor o igual que <em>MinPts</em>, es marcado como un <strong>punto central</strong>.</p></li>
+<li><p>Decimos que <em>x</em> es un <strong>punto fronterizo</strong>, si el número de sus vecinos es menos que <em>MinPts</em>, pero pertenece a la vecindad de algún punto central <em>z</em>.</p></li>
+<li><p>Finalmente, si un punto no es ni un núcleo ni un punto fronterizo, entonces se denomina <strong>punto de ruido o parte aislada</strong>.</p></li>
+</ol>
 <p>La siguiente figura muestra los diferentes tipos de puntos (puntos centrales, fronterizos y atípicos) usando <em>MinPts = 6</em>.</p>
 <p>Aquí <em>x</em> es un punto central porque los vecinos <span class="math inline">\(s_{\epsilon}(x) = 6\)</span>, <em>y</em> es un punto fronterizo ya que <span class="math inline">\(s_{\epsilon}(y) &lt; \text{ MinPts}\)</span>,
 pero pertenece a la vecindad del punto central <em>x</em>. Finalmente, <em>z</em> es un punto de ruido.</p>
@@ -771,14 +863,12 @@ densidad alcanzable desde otro punto <span class="math inline">\(B\)</span> si:<
 <p>Un cluster basado en densidad se define como un grupo de puntos conectados por densidad. El algoritmo de agrupamiento basado en densidad (<em>DBSCAN</em>) funciona de la siguiente manera:</p>
 <blockquote>
 <ol style="list-style-type: decimal">
-<li>Para cada punto <span class="math inline">\(x_i\)</span>, calcular la distancia entre <span class="math inline">\(x_i\)</span> y los otros puntos. Hallar todos los puntos vecinos dentro de la distancia <em>eps</em> del punto de partida (<span class="math inline">\(x_i\)</span>). Cada punto, con un vecino cuenta mayor
-o igual a <em>MinPts</em>, se marca como punto central o visitado.</li>
+<li>Para cada punto <span class="math inline">\(x_i\)</span>, calcular la distancia entre <span class="math inline">\(x_i\)</span> y los otros puntos. Hallar todos los puntos vecinos dentro de la distancia <em>eps</em> del punto de partida (<span class="math inline">\(x_i\)</span>). Cada punto con número de vecinos mayor o igual a <em>MinPts</em>, se marca como punto central o visitado.</li>
 </ol>
 </blockquote>
 <blockquote>
 <ol start="2" style="list-style-type: decimal">
-<li>Para cada punto central, si aún no está asignado a un cluster, crear un nuevo cluster. Encuentrar recursivamente todos sus puntos densamente conectados y asignarlos a el mismo grupo que el punto
-central.</li>
+<li>Para cada punto central, si aún no está asignado a un cluster, crear un nuevo cluster. Encuentrar recursivamente todos sus puntos densamente conectados y asignarlos a el mismo grupo que el punto central.</li>
 </ol>
 </blockquote>
 <blockquote>
@@ -803,37 +893,37 @@ una matriz de puntos.</p>
 <p>A continuación, estas <em>k-distancias</em> se trazan en orden ascendente. El objetivo es determinar la “rodilla,” que corresponde al parámetro óptimo de <em>eps</em>.</p>
 <p>Una “rodilla” corresponde a un umbral donde se produce un cambio brusco a lo largo de la curva.</p>
 <p>La función <code>kNNdistplot()</code> de el paquete <em>dbscan</em> se puede usar para dibujar la distancia-k.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="clustering-no-jerárquico.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dbscan)</span>
-<span id="cb61-2"><a href="clustering-no-jerárquico.html#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-3"><a href="clustering-no-jerárquico.html#cb61-3" aria-hidden="true" tabindex="-1"></a>dbscan<span class="sc">::</span><span class="fu">kNNdistplot</span>(df, <span class="at">k =</span>  <span class="dv">5</span>)</span>
-<span id="cb61-4"><a href="clustering-no-jerárquico.html#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">0.15</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="clustering-no-jerárquico.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dbscan)</span>
+<span id="cb68-2"><a href="clustering-no-jerárquico.html#cb68-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-3"><a href="clustering-no-jerárquico.html#cb68-3" aria-hidden="true" tabindex="-1"></a>dbscan<span class="sc">::</span><span class="fu">kNNdistplot</span>(df, <span class="at">k =</span>  <span class="dv">5</span>)</span>
+<span id="cb68-4"><a href="clustering-no-jerárquico.html#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">0.15</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
 <p>Se puede ver que el valor óptimo de <span class="math inline">\(\epsilon\)</span> está alrededor de una distancia de <span class="math inline">\(0.15\)</span>.</p>
 </div>
 </div>
 <div id="implementación-en-r-4" class="section level3 hasAnchor" number="4.5.3">
 <h3><span class="header-section-number">4.5.3</span> Implementación en R<a href="clustering-no-jerárquico.html#implementación-en-r-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Utilizaremos el paquete <em>fpc</em> para calcular <em>DBSCAN</em>. También es posible utilizar el paquete <em>dbscan</em>, que proporciona una re-implementación más rápida del algoritmo en comparación con el paquete <em>fpc</em>.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="clustering-no-jerárquico.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;fpc&quot;</span>)</span>
-<span id="cb62-2"><a href="clustering-no-jerárquico.html#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-3"><a href="clustering-no-jerárquico.html#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb62-4"><a href="clustering-no-jerárquico.html#cb62-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-5"><a href="clustering-no-jerárquico.html#cb62-5" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> fpc<span class="sc">::</span><span class="fu">dbscan</span>(df, <span class="at">eps =</span> <span class="fl">0.15</span>, <span class="at">MinPts =</span> <span class="dv">5</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="clustering-no-jerárquico.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(</span>
-<span id="cb63-2"><a href="clustering-no-jerárquico.html#cb63-2" aria-hidden="true" tabindex="-1"></a>  db,</span>
-<span id="cb63-3"><a href="clustering-no-jerárquico.html#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
-<span id="cb63-4"><a href="clustering-no-jerárquico.html#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">stand =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb63-5"><a href="clustering-no-jerárquico.html#cb63-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ellipse =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb63-6"><a href="clustering-no-jerárquico.html#cb63-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.clust.cent =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb63-7"><a href="clustering-no-jerárquico.html#cb63-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>,</span>
-<span id="cb63-8"><a href="clustering-no-jerárquico.html#cb63-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="st">&quot;jco&quot;</span>,</span>
-<span id="cb63-9"><a href="clustering-no-jerárquico.html#cb63-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()</span>
-<span id="cb63-10"><a href="clustering-no-jerárquico.html#cb63-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-99-1.png" width="672" /></p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="clustering-no-jerárquico.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;fpc&quot;</span>)</span>
+<span id="cb69-2"><a href="clustering-no-jerárquico.html#cb69-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-3"><a href="clustering-no-jerárquico.html#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb69-4"><a href="clustering-no-jerárquico.html#cb69-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-5"><a href="clustering-no-jerárquico.html#cb69-5" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> fpc<span class="sc">::</span><span class="fu">dbscan</span>(df, <span class="at">eps =</span> <span class="fl">0.15</span>, <span class="at">MinPts =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="clustering-no-jerárquico.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(</span>
+<span id="cb70-2"><a href="clustering-no-jerárquico.html#cb70-2" aria-hidden="true" tabindex="-1"></a>  db,</span>
+<span id="cb70-3"><a href="clustering-no-jerárquico.html#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
+<span id="cb70-4"><a href="clustering-no-jerárquico.html#cb70-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">stand =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb70-5"><a href="clustering-no-jerárquico.html#cb70-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ellipse =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb70-6"><a href="clustering-no-jerárquico.html#cb70-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.clust.cent =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb70-7"><a href="clustering-no-jerárquico.html#cb70-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>,</span>
+<span id="cb70-8"><a href="clustering-no-jerárquico.html#cb70-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="st">&quot;jco&quot;</span>,</span>
+<span id="cb70-9"><a href="clustering-no-jerárquico.html#cb70-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb70-10"><a href="clustering-no-jerárquico.html#cb70-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
 <p><strong>Nota:</strong> La función <code>fviz_cluster()</code> usa diferentes símbolos de puntos para los puntos centrales (es decir, puntos semilla) y puntos fronterizos. Los puntos negros corresponden a valores atípicos.</p>
 <p>Puede verse que <em>DBSCAN</em> funciona mejor para estos conjuntos de datos y puede identificar el conjunto correcto de clusters en comparación con los algoritmos de <em>k-medias</em>.</p>
 <p>Los resultados del algoritmo se pueden ver de la siguiente manera</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="clustering-no-jerárquico.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(db)</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="clustering-no-jerárquico.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(db)</span></code></pre></div>
 <pre><code>## dbscan Pts=1100 MinPts=5 eps=0.15
 ##         0   1   2   3  4  5
 ## border 31  24   1   5  7  1
@@ -853,46 +943,46 @@ una matriz de puntos.</p>
 <h3><span class="header-section-number">4.5.5</span> Aplicación DBSCAN<a href="clustering-no-jerárquico.html#aplicación-dbscan" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Aplicaremos ahora el algoritmo <em>DBSCAN</em> a los datos <em>USArrests</em>.</p>
 <p>Veamos primero el valor óptimo de <span class="math inline">\(\epsilon\)</span> para estos datos.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="clustering-no-jerárquico.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;USArrests&quot;</span>) </span>
-<span id="cb66-2"><a href="clustering-no-jerárquico.html#cb66-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-3"><a href="clustering-no-jerárquico.html#cb66-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">scale</span>(USArrests)</span>
-<span id="cb66-4"><a href="clustering-no-jerárquico.html#cb66-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-5"><a href="clustering-no-jerárquico.html#cb66-5" aria-hidden="true" tabindex="-1"></a>dbscan<span class="sc">::</span><span class="fu">kNNdistplot</span>(df, <span class="at">k =</span> <span class="dv">3</span>)</span>
-<span id="cb66-6"><a href="clustering-no-jerárquico.html#cb66-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">1.175</span>, <span class="at">lty =</span> <span class="fl">1.5</span>)</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
-<p>Se puede ver que el valor óptimo de <span class="math inline">\(\epsilon\)</span> está alrededor de una distancia de <span class="math inline">\(2.45\)</span>.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="clustering-no-jerárquico.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">114234</span>)</span>
-<span id="cb67-2"><a href="clustering-no-jerárquico.html#cb67-2" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> fpc<span class="sc">::</span><span class="fu">dbscan</span>(df, <span class="at">eps =</span> <span class="fl">1.175</span>, <span class="at">MinPts =</span> <span class="dv">2</span>)</span>
-<span id="cb67-3"><a href="clustering-no-jerárquico.html#cb67-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-4"><a href="clustering-no-jerárquico.html#cb67-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(db)</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="clustering-no-jerárquico.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;USArrests&quot;</span>) </span>
+<span id="cb73-2"><a href="clustering-no-jerárquico.html#cb73-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-3"><a href="clustering-no-jerárquico.html#cb73-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">scale</span>(USArrests)</span>
+<span id="cb73-4"><a href="clustering-no-jerárquico.html#cb73-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-5"><a href="clustering-no-jerárquico.html#cb73-5" aria-hidden="true" tabindex="-1"></a>dbscan<span class="sc">::</span><span class="fu">kNNdistplot</span>(df, <span class="at">k =</span> <span class="dv">3</span>)</span>
+<span id="cb73-6"><a href="clustering-no-jerárquico.html#cb73-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">1.175</span>, <span class="at">lty =</span> <span class="fl">1.5</span>)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
+<p>Se puede ver que el valor óptimo de <span class="math inline">\(\epsilon\)</span> está alrededor de una distancia de <span class="math inline">\(1.175\)</span>.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="clustering-no-jerárquico.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">114234</span>)</span>
+<span id="cb74-2"><a href="clustering-no-jerárquico.html#cb74-2" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> fpc<span class="sc">::</span><span class="fu">dbscan</span>(df, <span class="at">eps =</span> <span class="fl">1.175</span>, <span class="at">MinPts =</span> <span class="dv">2</span>)</span>
+<span id="cb74-3"><a href="clustering-no-jerárquico.html#cb74-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-4"><a href="clustering-no-jerárquico.html#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(db)</span></code></pre></div>
 <pre><code>## dbscan Pts=50 MinPts=2 eps=1.175
 ##        0 1  2
 ## border 6 0  0
 ## seed   0 7 37
 ## total  6 7 37</code></pre>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="clustering-no-jerárquico.html#cb69-1" aria-hidden="true" tabindex="-1"></a>dbscan_plot <span class="ot">&lt;-</span> <span class="fu">fviz_cluster</span>(</span>
-<span id="cb69-2"><a href="clustering-no-jerárquico.html#cb69-2" aria-hidden="true" tabindex="-1"></a>  db,</span>
-<span id="cb69-3"><a href="clustering-no-jerárquico.html#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
-<span id="cb69-4"><a href="clustering-no-jerárquico.html#cb69-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">stand =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb69-5"><a href="clustering-no-jerárquico.html#cb69-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">axes =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
-<span id="cb69-6"><a href="clustering-no-jerárquico.html#cb69-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">repel =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb69-7"><a href="clustering-no-jerárquico.html#cb69-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.clust.cent =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb69-8"><a href="clustering-no-jerárquico.html#cb69-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>,</span>
-<span id="cb69-9"><a href="clustering-no-jerárquico.html#cb69-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="st">&quot;jco&quot;</span>,</span>
-<span id="cb69-10"><a href="clustering-no-jerárquico.html#cb69-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ellipse.type =</span> <span class="st">&quot;t&quot;</span>, </span>
-<span id="cb69-11"><a href="clustering-no-jerárquico.html#cb69-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()) <span class="sc">+</span></span>
-<span id="cb69-12"><a href="clustering-no-jerárquico.html#cb69-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&#39;DBSCAN Plot&#39;</span>) <span class="sc">+</span></span>
-<span id="cb69-13"><a href="clustering-no-jerárquico.html#cb69-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span>
-<span id="cb69-14"><a href="clustering-no-jerárquico.html#cb69-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-15"><a href="clustering-no-jerárquico.html#cb69-15" aria-hidden="true" tabindex="-1"></a>dbscan_plot</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="clustering-no-jerárquico.html#cb76-1" aria-hidden="true" tabindex="-1"></a>dbscan_plot <span class="ot">&lt;-</span> <span class="fu">fviz_cluster</span>(</span>
+<span id="cb76-2"><a href="clustering-no-jerárquico.html#cb76-2" aria-hidden="true" tabindex="-1"></a>  db,</span>
+<span id="cb76-3"><a href="clustering-no-jerárquico.html#cb76-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
+<span id="cb76-4"><a href="clustering-no-jerárquico.html#cb76-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">stand =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb76-5"><a href="clustering-no-jerárquico.html#cb76-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">axes =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb76-6"><a href="clustering-no-jerárquico.html#cb76-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">repel =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb76-7"><a href="clustering-no-jerárquico.html#cb76-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.clust.cent =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb76-8"><a href="clustering-no-jerárquico.html#cb76-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>,</span>
+<span id="cb76-9"><a href="clustering-no-jerárquico.html#cb76-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="st">&quot;jco&quot;</span>,</span>
+<span id="cb76-10"><a href="clustering-no-jerárquico.html#cb76-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ellipse.type =</span> <span class="st">&quot;t&quot;</span>, </span>
+<span id="cb76-11"><a href="clustering-no-jerárquico.html#cb76-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()) <span class="sc">+</span></span>
+<span id="cb76-12"><a href="clustering-no-jerárquico.html#cb76-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&#39;DBSCAN Plot&#39;</span>) <span class="sc">+</span></span>
+<span id="cb76-13"><a href="clustering-no-jerárquico.html#cb76-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb76-14"><a href="clustering-no-jerárquico.html#cb76-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-15"><a href="clustering-no-jerárquico.html#cb76-15" aria-hidden="true" tabindex="-1"></a>dbscan_plot</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
 </div>
 </div>
 <div id="comparación-de-algoritmos" class="section level2 hasAnchor" number="4.6">
 <h2><span class="header-section-number">4.6</span> Comparación de algoritmos<a href="clustering-no-jerárquico.html#comparación-de-algoritmos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Un buen análisis de clustering no sucede sin antes comparar los resultados producidos por los distintos algoritmos. A continuación, se presenta la comparación de las gráficas. Esta comparación visual sirve de apoyo para conocer las diferencias entre los distintos métodos, sin embargo, esto no sustituye al análisis numérico de <em>wss</em>, <em>silhouette</em> o algún otro.</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="clustering-no-jerárquico.html#cb70-1" aria-hidden="true" tabindex="-1"></a>kmeans_plot <span class="sc">+</span> pam_plot <span class="sc">+</span> dbscan_plot</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="clustering-no-jerárquico.html#cb77-1" aria-hidden="true" tabindex="-1"></a>kmeans_plot <span class="sc">+</span> pam_plot <span class="sc">+</span> dbscan_plot</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
 
 <div class="watermark">
 <img src="img/header.png" width="400">
