@@ -322,7 +322,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-138-1.png" width="672" /></p>
 <p>Puede observarse en el primer gráfico que, al menos existen 2 clusters significativos, con posibilidad de que sean 3. A diferencia del gráfico de la derecha que no muestra una tendencia en la estructura conglomerativa.</p>
 <p>Es sumamente importante realizar esta evaluación porque</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="evaluación-de-clusters.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13528</span>)</span>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="evaluación-de-clusters.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">135281</span>)</span>
 <span id="cb113-2"><a href="evaluación-de-clusters.html#cb113-2" aria-hidden="true" tabindex="-1"></a>km_res2 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(random_df_scaled, <span class="dv">3</span>)</span>
 <span id="cb113-3"><a href="evaluación-de-clusters.html#cb113-3" aria-hidden="true" tabindex="-1"></a>cluster_plot <span class="ot">&lt;-</span> <span class="fu">fviz_cluster</span>(</span>
 <span id="cb113-4"><a href="evaluación-de-clusters.html#cb113-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">data =</span> random_df_scaled, <span class="at">cluster =</span> km_res2<span class="sc">$</span>cluster),</span>
@@ -392,6 +392,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>La matriz de disimilaridad anterior confirma que existe una estructura de cluster en el conjunto de datos Iris, pero no en el aleatorio.</p>
 <p>La técnica <em>VAT</em> detecta la tendencia de clustering de forma visual al contar el número de bloques cuadradas sobre la diagonal en la imagen VAT.</p>
+<p><strong>Ejercicio</strong></p>
+<ul>
+<li><p>Realizar una evaluación de tendencia de conglomeración con los datos de clientes</p></li>
+<li><p>Realizar una evaluación de tendencia de conglomeración con los datos de entidades</p></li>
+</ul>
 
 </div>
 </div>

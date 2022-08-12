@@ -558,7 +558,7 @@ Puede observarse en el primer gráfico que, al menos existen 2 clusters signific
 Es sumamente importante realizar esta evaluación porque 
 
 ```{r, warning=FALSE, message=FALSE}
-set.seed(13528)
+set.seed(135281)
 km_res2 <- kmeans(random_df_scaled, 3)
 cluster_plot <- fviz_cluster(
   list(data = random_df_scaled, cluster = km_res2$cluster),
@@ -649,10 +649,11 @@ La matriz de disimilaridad anterior confirma que existe una estructura de cluste
 La técnica *VAT* detecta la tendencia de clustering de forma visual al contar el número de bloques cuadradas sobre la diagonal en la imagen VAT.
 
 
+**Ejercicio**
 
+* Realizar una evaluación de tendencia de conglomeración con los datos de clientes
 
-
-
+* Realizar una evaluación de tendencia de conglomeración con los datos de entidades
 
 
 
