@@ -52,6 +52,12 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/d3v3-3.5.3/./d3v3.min.js"></script>
+<link href="libs/d3heatmapcore-0.0.0/heatmapcore.css" rel="stylesheet" />
+<script src="libs/d3heatmapcore-0.0.0/heatmapcore.js"></script>
+<script src="libs/d3v3-tip-0.6.6/index.js"></script>
+<script src="libs/d3heatmap-binding-0.9.0/d3heatmap.js"></script>
 
 
 <style type="text/css">
@@ -237,6 +243,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="5.3.1" data-path="clustering-jerárquico.html"><a href="clustering-jerárquico.html#selección-de-grupos"><i class="fa fa-check"></i><b>5.3.1</b> Selección de grupos</a></li>
 </ul></li>
+<li class="chapter" data-level="5.4" data-path="clustering-jerárquico.html"><a href="clustering-jerárquico.html#comparación-de-dendogramas"><i class="fa fa-check"></i><b>5.4</b> Comparación de dendogramas</a></li>
+<li class="chapter" data-level="5.5" data-path="clustering-jerárquico.html"><a href="clustering-jerárquico.html#heatmaps"><i class="fa fa-check"></i><b>5.5</b> Heatmaps</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html"><i class="fa fa-check"></i><b>6</b> Anexo: Visualización con Ggplot</a>
 <ul>
@@ -503,18 +511,18 @@ Cuando la distancia es cero, el color es rojo puro y cuando la distancia es ampl
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="clustering-no-jerárquico.html#cb46-1" aria-hidden="true" tabindex="-1"></a>k6 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(df, <span class="at">centers =</span> <span class="dv">6</span>, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
 <span id="cb46-2"><a href="clustering-no-jerárquico.html#cb46-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(k6)</span></code></pre></div>
 <pre><code>## List of 9
-##  $ cluster     : Named int [1:50] 3 1 4 2 1 1 5 5 4 3 ...
+##  $ cluster     : Named int [1:50] 6 3 2 4 3 3 5 5 2 6 ...
 ##   ..- attr(*, &quot;names&quot;)= chr [1:50] &quot;Alabama&quot; &quot;Alaska&quot; &quot;Arizona&quot; &quot;Arkansas&quot; ...
-##  $ centers     : num [1:6, 1:4] 0.456 -0.164 1.58 0.867 -0.629 ...
+##  $ centers     : num [1:6, 1:4] -1.173 0.867 0.456 -0.164 -0.629 ...
 ##   ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. ..$ : chr [1:6] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
 ##   .. ..$ : chr [1:4] &quot;Murder&quot; &quot;Assault&quot; &quot;UrbanPop&quot; &quot;Rape&quot;
 ##  $ totss       : num 196
-##  $ withinss    : num [1:6] 6.26 7.79 6.13 5.89 9.33 ...
+##  $ withinss    : num [1:6] 7.44 5.89 6.26 7.79 9.33 ...
 ##  $ tot.withinss: num 42.8
 ##  $ betweenss   : num 153
-##  $ size        : int [1:6] 4 11 7 8 10 10
-##  $ iter        : int 3
+##  $ size        : int [1:6] 10 8 4 11 10 7
+##  $ iter        : int 2
 ##  $ ifault      : int 0
 ##  - attr(*, &quot;class&quot;)= chr &quot;kmeans&quot;</code></pre>
 <p>La salida de kmeans es una lista con distinta información. La más importante:</p>

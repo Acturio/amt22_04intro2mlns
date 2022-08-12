@@ -53,6 +53,8 @@ medidas-de-disimilaridad
 función-liga
 dendogramas
 selección-de-grupos
+comparación-de-dendogramas
+heatmaps
 anexo-visualización-con-ggplot
 ggplot2
 objetos-aesteticos

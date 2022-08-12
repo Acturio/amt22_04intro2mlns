@@ -192,7 +192,7 @@ knitr::include_graphics("img/04-hclus/11-average_linkage2.png")
 knitr::include_graphics("img/04-hclus/12-centroid_linkage.png")
 ```
 
-* **Método de varianza mínima de Ward:** Este método en vez de analizar la distancia entre grupos, analiza la varianza, por lo que se encarga de minimizar el total de la varianza intra-cluster (inercia). En cada paso, el par de clusters con distancia mínima entre clusters son unidos. Este método dice que la distancia entre dos clusters A y B, es qué tanto la varianza respecto del centroide incrementará cuando sean unidos.
+* **Método de varianza mínima de Ward:** Este método en vez de analizar la distancia entre grupos, analiza la varianza, por lo que se encarga de minimizar el total de la varianza intra-cluster (inercia). En cada paso, el par de clusters con distancia mínima entre clusters son unidos. Este método dice que **la distancia entre dos clusters A y B, es qué tanto la varianza respecto del centroide incrementará cuando sean unidos.**
 
 
 ```{r, echo=FALSE, fig.align='center', out.width='600pt'}
@@ -269,7 +269,36 @@ fviz_dend(
  cex = 0.5,
  k_colors = c("red", "blue"),
  color_labels_by_k = TRUE,
- rect = TRUE
+ rect = TRUE,
+ rect_border = c("red", "blue"),
+ rect_fill = T,
+ horiz = T
+)
+```
+
+Algunas variaciones estéticas sobre un dendograma se pueden realizar al cambiar determinados parámetros. Por ejemplo:
+
+```{r, warning=FALSE}
+fviz_dend(
+ res_hc,
+ k = 4,
+ cex = 0.5,
+ k_colors = "jco",
+ type = "circular",
+ show_labels = TRUE
+)
+```
+
+```{r, warning=FALSE}
+fviz_dend(
+ res_hc,
+ k = 4,
+ cex = 0.5,
+ k_colors = "jco",
+ type = "phylogenic",
+ phylo_layout = "layout.gem",
+ repel = T,
+ show_labels = TRUE
 )
 ```
 
@@ -312,9 +341,162 @@ fviz_dend(
  )
 ```
 
+## Comparación de dendogramas
+
+Luego de aprender a crear dendogramas, se procederá a comparar dos dendogramas usando la librería *dendextend*, la cual proveé las funciones *tanglegram()* y *cor.dendlist()*.
+
+```{r, warning=FALSE, message=FALSE}
+library(dendextend)
+
+set.seed(15937)
+df2 <- df[sample(1:50, 30),]
+
+res_dist2 <- dist(df2, method = "euclidian")
+
+hc1 <- hclust(res_dist2, method = "average")
+hc2 <- hclust(res_dist2, method = "ward.D")
+hc3 <- hclust(res_dist2, method = "complete")
+hc4 <- hclust(res_dist2, method = "median")
+
+dend1 <- as.dendrogram(hc1)
+dend2 <- as.dendrogram(hc2)
+dend3 <- as.dendrogram(hc3)
+dend4 <- as.dendrogram(hc4)
+
+dend_list <- dendlist(
+ "average" = dend1, 
+ "ward´s" = dend2, 
+ "complete" = dend3, 
+ "median" = dend4
+ )
+
+tanglegram(
+ dend1, 
+ dend2,
+ sort = T,
+ margin_inner = 6.5,
+ highlight_distinct_edges = F,
+ common_subtrees_color_lines = T,
+ common_subtrees_color_branches = T,
+ main = "Vs",
+ main_left = "Average Linkage",
+ main_right = "Ward´s Linkage",
+ )
+```
+
+A partir del gráfico anterior, se realiza la comparación de la diferencia en la ubicación de algunos elementos. Esta diferencia dependerá por completo de la metodología de aglomeración utilizada.
+
+Otra forma de comparar la similitud entre clusters es a partir de una matriz de correlaciones.
+
+```{r, warning=FALSE, message=FALSE}
+library(corrplot)
+
+cors <- cor.dendlist(dend_list, method = "cophenetic")
+cors
+
+corrplot(
+ corr = cors, 
+ method = "ellipse"
+ )
+```
+
+
+## Heatmaps
+
+Otro modo de visualizar el clustering jerárquico es a través de los mapas de color. Existen diversas alternativas para mostrar estas aglomeraciones. Los heatmaps, permiten visualizar clusters de individuos y de características. Las funciones implementadas son: 
+
+* *gplots::heatmap.2()*
+* *pheatmap::pheatmap()*
+* *d3heatmap::d3heatmap()*
+* *ComplexHeatmap::Heatmap()*
+
+En las siguientes secciones se mostrarán diversas visualizaciones de clusters, las cuales podrán ser por individuos, por características o ambas. Como primer paso, se comienza con la preparación de datos.
+
+```{r, warning=FALSE, message=FALSE}
+library(readr)
+library(dplyr)
+library(gplots)
+library(sf)
+
+indice_marg <- st_read('data/IMEF_2010.dbf', quiet = TRUE)
+indice_marg %>% glimpse()
+
+df <- indice_marg %>% 
+  select(ANALF:PO2SM) %>% 
+  scale(center = TRUE, scale = TRUE)
+
+row.names(df) <- indice_marg$NOM_ENT
+
+heatmap.2(
+  df,
+  scale = "none",
+  cexCol = 0.7,
+  cexRow = 0.5,
+  main = "Heatmap - Marginación",
+  col = bluered(32),
+  trace = "none",
+  density.info = "none"
+ )
+```
 
 
 
+```{r}
+library(pheatmap)
+
+pheatmap(
+  df,
+  cutree_rows = 5,
+  cutree_cols = 2,
+  clustering_distance_rows = "euclidean",
+  clustering_distance_cols = "euclidean",
+  clustering_method = "ward.D",
+  main = "Heatmap - Ward´s Clustering"
+  )
+```
+
+```{r, warning=FALSE, message=FALSE}
+# devtools::install_github("talgalili/d3heatmap")
+
+library(d3heatmap)
+
+d3heatmap(
+  df,
+  k_row = 5,
+  k_col = 2,
+  main = "Interactive Heatmap",
+  xlab = "Variables",
+  ylab = "Entidades",
+  cexRow = 0.7,
+  cexCol = 0.7
+)
+```
+
+
+```{r, warning=FALSE, message=FALSE}
+# devtools::install_github("jokergoo/ComplexHeatmap")
+
+library(ComplexHeatmap)
+
+Heatmap(
+  df,
+  split = indice_marg %>% 
+     mutate(GM = case_when(
+        GM == "Muy bajo" ~ "MB",
+        GM == "Bajo" ~ "B",
+        GM == "Medio" ~ "M",
+        GM == "Alto" ~ "A",
+        GM == "Muy alto" ~ "MA"
+     )) %>% pull(GM) %>% factor(levels = c("MB", "B", "M", "A", "MA"), ordered = T),
+  name = "Scale",
+  clustering_distance_rows = "euclidean",
+  clustering_method_rows = "ward.D",
+  column_title = "Variables",
+  row_title_gp = gpar(fontsize = 12),
+  column_title_gp = gpar(fontsize = 12),
+  row_names_gp = gpar(fontsize = 8)
+)
+```
 
 
 
