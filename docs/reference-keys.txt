@@ -55,6 +55,8 @@ dendogramas
 selección-de-grupos
 comparación-de-dendogramas
 heatmaps
+evaluación-de-clusters
+tendencia-de-factibilidad
 anexo-visualización-con-ggplot
 ggplot2
 objetos-aesteticos
