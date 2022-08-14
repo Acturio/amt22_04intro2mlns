@@ -833,9 +833,9 @@ Un buen análisis de clustering no sucede sin antes comparar los resultados prod
 kmeans_plot + pam_plot + dbscan_plot
 ```
 
+**Ejercicio**
 
-
-
+Comparar el grado de marginación original de CONAPO con los distintos algoritmos de clustering revisados hasta el momento.
 
 
 

@@ -515,17 +515,17 @@ Cuando la distancia es cero, el color es rojo puro y cuando la distancia es ampl
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="clustering-no-jerárquico.html#cb46-1" aria-hidden="true" tabindex="-1"></a>k6 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(df, <span class="at">centers =</span> <span class="dv">6</span>, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
 <span id="cb46-2"><a href="clustering-no-jerárquico.html#cb46-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(k6)</span></code></pre></div>
 <pre><code>## List of 9
-##  $ cluster     : Named int [1:50] 6 1 5 2 1 1 3 3 5 6 ...
+##  $ cluster     : Named int [1:50] 5 3 6 4 3 3 1 1 6 5 ...
 ##   ..- attr(*, &quot;names&quot;)= chr [1:50] &quot;Alabama&quot; &quot;Alaska&quot; &quot;Arizona&quot; &quot;Arkansas&quot; ...
-##  $ centers     : num [1:6, 1:4] 0.456 -0.164 -0.629 -1.173 0.867 ...
+##  $ centers     : num [1:6, 1:4] -0.629 -1.173 0.456 -0.164 1.58 ...
 ##   ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. ..$ : chr [1:6] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
 ##   .. ..$ : chr [1:4] &quot;Murder&quot; &quot;Assault&quot; &quot;UrbanPop&quot; &quot;Rape&quot;
 ##  $ totss       : num 196
-##  $ withinss    : num [1:6] 6.26 7.79 9.33 7.44 5.89 ...
+##  $ withinss    : num [1:6] 9.33 7.44 6.26 7.79 6.13 ...
 ##  $ tot.withinss: num 42.8
 ##  $ betweenss   : num 153
-##  $ size        : int [1:6] 4 11 10 10 8 7
+##  $ size        : int [1:6] 10 10 4 11 7 8
 ##  $ iter        : int 3
 ##  $ ifault      : int 0
 ##  - attr(*, &quot;class&quot;)= chr &quot;kmeans&quot;</code></pre>
@@ -1012,6 +1012,8 @@ una matriz de puntos.</p>
 <p>Un buen análisis de clustering no sucede sin antes comparar los resultados producidos por los distintos algoritmos. A continuación, se presenta la comparación de las gráficas. Esta comparación visual sirve de apoyo para conocer las diferencias entre los distintos métodos, sin embargo, esto no sustituye al análisis numérico de <em>wss</em>, <em>silhouette</em> o algún otro.</p>
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="clustering-no-jerárquico.html#cb77-1" aria-hidden="true" tabindex="-1"></a>kmeans_plot <span class="sc">+</span> pam_plot <span class="sc">+</span> dbscan_plot</span></code></pre></div>
 <p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
+<p><strong>Ejercicio</strong></p>
+<p>Comparar el grado de marginación original de CONAPO con los distintos algoritmos de clustering revisados hasta el momento.</p>
 
 <div class="watermark">
 <img src="img/header.png" width="400">
