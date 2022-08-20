@@ -90,7 +90,7 @@ Mientras que el algoritmo DIANA es del tipo **top-down**, funcionando de la sigu
 
 * Clustering aglomerativo es bueno en identificar pequeños clusters
 
-* Clustering divisivo es bueno para detectar los glusters grandes. 
+* Clustering divisivo es bueno para detectar los clusters grandes. 
 :::
 
 ## Implementación en R
@@ -399,6 +399,9 @@ corrplot(
  method = "ellipse"
  )
 ```
+**Ejercicio:**
+
+Comparar clusters de Marginación de entidades con clusters de CONAPO y comparar interpretaciones de cada grupo
 
 
 ## Heatmaps

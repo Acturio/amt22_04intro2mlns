@@ -432,8 +432,7 @@ Donde:</p>
 ##  8 08      Bajo   Chihua… -0.520  -1.34   1.05   -1.27    0.633  -0.646  -0.387 
 ##  9 09      Muy b… Distri… -1.48   -3.81   0.110   0.159  -0.453   0.205  -0.355 
 ## 10 10      Medio  Durango  0.0525  0.135  0.675  -1.50    0.929  -0.448   0.146 
-## # … with 22 more rows, and 3 more variables: PC7 &lt;dbl&gt;, PC8 &lt;dbl&gt;, PC9 &lt;dbl&gt;
-## # ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
+## # … with 22 more rows, and 3 more variables: PC7 &lt;dbl&gt;, PC8 &lt;dbl&gt;, PC9 &lt;dbl&gt;</code></pre>
 <p>Veamos los pasos de esta receta:</p>
 <ul>
 <li><p>Primero, debemos decirle a la receta qué datos se usan para predecir la variable de respuesta.</p></li>
@@ -521,8 +520,7 @@ primera componente principal.</p>
 ##  8 08      Bajo     Chihuahua            -0.520  -1.34   1.05  
 ##  9 09      Muy bajo Distrito Federal     -1.48   -3.81   0.110 
 ## 10 10      Medio    Durango               0.0525  0.135  0.675 
-## # … with 22 more rows
-## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+## # … with 22 more rows</code></pre>
 <p><strong>Caso 2:</strong></p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="análisis-de-componentes-principales.html#cb14-1" aria-hidden="true" tabindex="-1"></a>pca_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(IM <span class="sc">~</span> ., <span class="at">data =</span> indice_marg) <span class="sc">%&gt;%</span></span>
 <span id="cb14-2"><a href="análisis-de-componentes-principales.html#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">update_role</span>(NOM_ENT, GM, <span class="at">new_role =</span> <span class="st">&quot;id&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -545,8 +543,7 @@ primera componente principal.</p>
 ##  8 08      Bajo     Chihuahua            -0.520  -1.34   1.05   -1.27    0.633 
 ##  9 09      Muy bajo Distrito Federal     -1.48   -3.81   0.110   0.159  -0.453 
 ## 10 10      Medio    Durango               0.0525  0.135  0.675  -1.50    0.929 
-## # … with 22 more rows
-## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+## # … with 22 more rows</code></pre>
 <p>Así es como usaremos el análisis de componentes principales para mejorar la estructura de variables que sirven de input para cualquiera de los modelos posteriores. Continuaremos con un paso más de pre-procesamiento antes de comenzar a aprender nuevos modelos.</p>
 </div>
 <div id="representación-gráfica" class="section level2 hasAnchor" number="3.5">
