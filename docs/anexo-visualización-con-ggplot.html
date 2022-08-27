@@ -249,6 +249,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html"><i class="fa fa-check"></i><b>6</b> Evaluación de clusters</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html#tendencia-de-factibilidad"><i class="fa fa-check"></i><b>6.1</b> Tendencia de factibilidad</a></li>
+<li class="chapter" data-level="6.2" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html#medidas-internas-de-ajuste"><i class="fa fa-check"></i><b>6.2</b> Medidas internas de ajuste</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html#inercia-1"><i class="fa fa-check"></i><b>6.2.1</b> Inercia</a></li>
+<li class="chapter" data-level="6.2.2" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html#silhouette-1"><i class="fa fa-check"></i><b>6.2.2</b> Silhouette</a></li>
+<li class="chapter" data-level="6.2.3" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html#índice-de-dunn"><i class="fa fa-check"></i><b>6.2.3</b> Índice de Dunn</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html#selección-de-algoritmo"><i class="fa fa-check"></i><b>6.3</b> Selección de algoritmo</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html#métricas-para-comparar-algoritmos"><i class="fa fa-check"></i><b>6.3.1</b> Métricas para comparar algoritmos</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html"><i class="fa fa-check"></i><b>7</b> Anexo: Visualización con Ggplot</a>
 <ul>
@@ -296,27 +306,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Usa un sistema diferente para añadir elementos al gráfico.</li>
 </ul>
 <p>Histograma con los gráficos base:</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="anexo-visualización-con-ggplot.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
-<span id="cb117-2"><a href="anexo-visualización-con-ggplot.html#cb117-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(iris<span class="sc">$</span>Sepal.Length)</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-142-1.png" width="672" /></p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="anexo-visualización-con-ggplot.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb121-2"><a href="anexo-visualización-con-ggplot.html#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(iris<span class="sc">$</span>Sepal.Length)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-144-1.png" width="672" /></p>
 <p>Histograma con ggplot2:</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="anexo-visualización-con-ggplot.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb118-2"><a href="anexo-visualización-con-ggplot.html#cb118-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length)) <span class="sc">+</span></span>
-<span id="cb118-3"><a href="anexo-visualización-con-ggplot.html#cb118-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&#39;white&#39;</span>, <span class="at">bins=</span><span class="dv">8</span>)</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-143-1.png" width="672" /></p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="anexo-visualización-con-ggplot.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb122-2"><a href="anexo-visualización-con-ggplot.html#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length)) <span class="sc">+</span></span>
+<span id="cb122-3"><a href="anexo-visualización-con-ggplot.html#cb122-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&#39;white&#39;</span>, <span class="at">bins=</span><span class="dv">8</span>)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-145-1.png" width="672" /></p>
 <p>Ahora vamos a ver un gráfico con colores y varias series de datos.</p>
 <p>Con los gráficos base:</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="anexo-visualización-con-ggplot.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Sepal.Length <span class="sc">~</span> Sepal.Width,</span>
-<span id="cb119-2"><a href="anexo-visualización-con-ggplot.html#cb119-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">factor</span>(Species),</span>
-<span id="cb119-3"><a href="anexo-visualización-con-ggplot.html#cb119-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">data =</span> iris)</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-144-1.png" width="672" /></p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="anexo-visualización-con-ggplot.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Sepal.Length <span class="sc">~</span> Sepal.Width,</span>
+<span id="cb123-2"><a href="anexo-visualización-con-ggplot.html#cb123-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">factor</span>(Species),</span>
+<span id="cb123-3"><a href="anexo-visualización-con-ggplot.html#cb123-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">data =</span> iris)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-146-1.png" width="672" /></p>
 <p>Con ggplot2:</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="anexo-visualización-con-ggplot.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, </span>
-<span id="cb120-2"><a href="anexo-visualización-con-ggplot.html#cb120-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>Sepal.Width , </span>
-<span id="cb120-3"><a href="anexo-visualización-con-ggplot.html#cb120-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y=</span> Sepal.Length,</span>
-<span id="cb120-4"><a href="anexo-visualización-con-ggplot.html#cb120-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">color=</span>Species))<span class="sc">+</span></span>
-<span id="cb120-5"><a href="anexo-visualización-con-ggplot.html#cb120-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-145-1.png" width="672" /></p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="anexo-visualización-con-ggplot.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, </span>
+<span id="cb124-2"><a href="anexo-visualización-con-ggplot.html#cb124-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>Sepal.Width , </span>
+<span id="cb124-3"><a href="anexo-visualización-con-ggplot.html#cb124-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y=</span> Sepal.Length,</span>
+<span id="cb124-4"><a href="anexo-visualización-con-ggplot.html#cb124-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">color=</span>Species))<span class="sc">+</span></span>
+<span id="cb124-5"><a href="anexo-visualización-con-ggplot.html#cb124-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-147-1.png" width="672" /></p>
 <div id="objetos-aesteticos" class="section level3 hasAnchor" number="7.1.1">
 <h3><span class="header-section-number">7.1.1</span> Objetos aesteticos<a href="anexo-visualización-con-ggplot.html#objetos-aesteticos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>En ggplot2, aestético significa “algo que puedes ver”.</p>
@@ -345,23 +355,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Un gráfico debe tener al menos un geom, pero no hay limite. Puedes añadir más <em>geom</em> usando el signo +.</li>
 </ul>
 <p>Si queremos conocer la lista de objetos geométricos podemos ejecutar el siguiente código:</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="anexo-visualización-con-ggplot.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help.search</span>(<span class="st">&quot;geom_&quot;</span>, <span class="at">package =</span> <span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="anexo-visualización-con-ggplot.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help.search</span>(<span class="st">&quot;geom_&quot;</span>, <span class="at">package =</span> <span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
 <p>Una vez añadida una capa al gráfico a este pueden agregarse nuevas capas</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="anexo-visualización-con-ggplot.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Petal.Length, <span class="at">y =</span> Petal.Width, <span class="at">colour =</span> Species)) <span class="sc">+</span> </span>
-<span id="cb122-2"><a href="anexo-visualización-con-ggplot.html#cb122-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-147-1.png" width="672" /></p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="anexo-visualización-con-ggplot.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Petal.Length, <span class="at">y =</span> Petal.Width, <span class="at">colour =</span> Species)) <span class="sc">+</span> </span>
-<span id="cb123-2"><a href="anexo-visualización-con-ggplot.html#cb123-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
-<span id="cb123-3"><a href="anexo-visualización-con-ggplot.html#cb123-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-148-1.png" width="672" /></p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="anexo-visualización-con-ggplot.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Petal.Length, <span class="at">y =</span> Petal.Width, <span class="at">colour =</span> Species)) <span class="sc">+</span> </span>
+<span id="cb126-2"><a href="anexo-visualización-con-ggplot.html#cb126-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-149-1.png" width="672" /></p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="anexo-visualización-con-ggplot.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Petal.Length, <span class="at">y =</span> Petal.Width, <span class="at">colour =</span> Species)) <span class="sc">+</span> </span>
+<span id="cb127-2"><a href="anexo-visualización-con-ggplot.html#cb127-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb127-3"><a href="anexo-visualización-con-ggplot.html#cb127-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-150-1.png" width="672" /></p>
 </div>
 <div id="facetas" class="section level3 hasAnchor" number="7.1.3">
 <h3><span class="header-section-number">7.1.3</span> Facetas<a href="anexo-visualización-con-ggplot.html#facetas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Muchos de los gráficos que pueden generarse con los elementos anteriores pueden reproducirse usando los gráficos tradicionales de R, pero no los que usan facetas, que pueden permitirnos explorar las variables de diferente forma, por ejemplo:</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="anexo-visualización-con-ggplot.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Petal.Length, <span class="at">y =</span> Petal.Width)) <span class="sc">+</span> </span>
-<span id="cb124-2"><a href="anexo-visualización-con-ggplot.html#cb124-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>() <span class="sc">+</span> </span>
-<span id="cb124-3"><a href="anexo-visualización-con-ggplot.html#cb124-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> Species)</span></code></pre></div>
-<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-149-1.png" width="672" /></p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="anexo-visualización-con-ggplot.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Petal.Length, <span class="at">y =</span> Petal.Width)) <span class="sc">+</span> </span>
+<span id="cb128-2"><a href="anexo-visualización-con-ggplot.html#cb128-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>() <span class="sc">+</span> </span>
+<span id="cb128-3"><a href="anexo-visualización-con-ggplot.html#cb128-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> Species)</span></code></pre></div>
+<p><img src="amt22_04intro2mlns_files/figure-html/unnamed-chunk-151-1.png" width="672" /></p>
 <p>crea tres gráficos dispuestos horizontalmente que comparan la relación entre la anchura y la longitud del pétalo de las tres especies de iris. Una característica de estos gráficos, que es crítica para poder hacer comparaciones adecuadas, es que comparten ejes.</p>
 </div>
 <div id="más-sobre-estéticas" class="section level3 hasAnchor" number="7.1.4">

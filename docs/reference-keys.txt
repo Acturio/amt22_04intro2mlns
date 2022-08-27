@@ -57,6 +57,12 @@ comparación-de-dendogramas
 heatmaps
 evaluación-de-clusters
 tendencia-de-factibilidad
+medidas-internas-de-ajuste
+inercia-1
+silhouette-1
+índice-de-dunn
+selección-de-algoritmo
+métricas-para-comparar-algoritmos
 anexo-visualización-con-ggplot
 ggplot2
 objetos-aesteticos

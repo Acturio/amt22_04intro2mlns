@@ -249,6 +249,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html"><i class="fa fa-check"></i><b>6</b> Evaluación de clusters</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html#tendencia-de-factibilidad"><i class="fa fa-check"></i><b>6.1</b> Tendencia de factibilidad</a></li>
+<li class="chapter" data-level="6.2" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html#medidas-internas-de-ajuste"><i class="fa fa-check"></i><b>6.2</b> Medidas internas de ajuste</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html#inercia-1"><i class="fa fa-check"></i><b>6.2.1</b> Inercia</a></li>
+<li class="chapter" data-level="6.2.2" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html#silhouette-1"><i class="fa fa-check"></i><b>6.2.2</b> Silhouette</a></li>
+<li class="chapter" data-level="6.2.3" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html#índice-de-dunn"><i class="fa fa-check"></i><b>6.2.3</b> Índice de Dunn</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html#selección-de-algoritmo"><i class="fa fa-check"></i><b>6.3</b> Selección de algoritmo</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html#métricas-para-comparar-algoritmos"><i class="fa fa-check"></i><b>6.3.1</b> Métricas para comparar algoritmos</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html"><i class="fa fa-check"></i><b>7</b> Anexo: Visualización con Ggplot</a>
 <ul>
@@ -397,7 +407,119 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Realizar una evaluación de tendencia de conglomeración con los datos de clientes</p></li>
 <li><p>Realizar una evaluación de tendencia de conglomeración con los datos de entidades</p></li>
 </ul>
+</div>
+<div id="medidas-internas-de-ajuste" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Medidas internas de ajuste<a href="evaluación-de-clusters.html#medidas-internas-de-ajuste" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="inercia-1" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Inercia<a href="evaluación-de-clusters.html#inercia-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La idea detrás de la agrupación de k-medias consiste en definir agrupaciones de modo que se minimice la variación total dentro de la agrupación (conocida como <em>within cluster variation</em> o <em>inertia</em>).</p>
+<p>Existen distintos algoritmos de k-medias, el algoritmo estándar es el algoritmo de Hartigan-Wong, que define <em>within cluster variation</em> como la suma de las distancias euclidianas entre los elementos y el centroide correspondiente al cuadrado:</p>
+<p><span class="math display">\[W(C_k)=\sum_{x_i \in C_k}(x_i-\mu_k)²\]</span></p>
+<p>donde <span class="math inline">\(x_i\)</span> es una observación que pertenece al <em>cluster</em> <span class="math inline">\(C_k\)</span> y <span class="math inline">\(\mu_k\)</span> es la media del <em>cluster</em> <span class="math inline">\(C_k\)</span></p>
+<p>Cada observación <span class="math inline">\(x_i\)</span> se asigna a un grupo de modo que la suma de cuadrados de la distancia de la observación a sus centroide del grupo asignado <span class="math inline">\(\mu_k\)</span> es mínima.</p>
+<p>Definimos la <em>total within cluster variation</em> total de la siguiente manera:</p>
+<p><span class="math display">\[total \quad within = \sum_{k=1}^{K}W(C_k) = \sum_{k=1}^{K}\sum_{x_i \in C_k}(x_i-\mu_k)²\]</span></p>
+</div>
+<div id="silhouette-1" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> Silhouette<a href="evaluación-de-clusters.html#silhouette-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El índice de <strong>Silhouette</strong> hace referencia al método de <strong>interpretación y validación de la consistencia dentro de los conglomerados</strong>. La medida de Silhouette es una medida de <strong>qué tan similar es un elemento al interior del cluster en comparación con otros.</strong></p>
+<p>El rango del índice va de -1 a 1, donde un alto valor del índice indica que el objeto es consistente dentro de su cluster y pobremente asociado a otro conglomerado. Si muchos elementos presentan un valor bajo o negativo, entonces la configuración del cluster puede que tenga muy pocos o demasiados conglomerados.</p>
+<p>El índice de Silhouette puede ser calculado con cualquier métrica de distancia, tal como la distancia Euclidiana, Manhattan u otro.</p>
+<p>Se define al índice de <strong>Silhouette</strong> como:</p>
+<p><span class="math display">\[s(i)=\frac{b(i)-a(i)}{max\left\{a(i), b(i)\right\}}; \quad si \quad|C_i|&gt;1; \quad -1 \le s(i) \le 1\]</span></p>
+<p><span class="math display">\[s(i)=0; \quad si \quad|C_i|=1\]</span></p>
+<p>Asumiendo que cada elemento ha sido asignado a un cluster, para cada punto <em>i</em> en <span class="math inline">\(C_i\)</span>, entonces:</p>
+<p><span class="math display">\[a(i)=\frac{1}{|C_i|-1}\sum_{j\in C_i, i \neq j}d(i,j)\]</span></p>
+<ul>
+<li><p><span class="math inline">\(a(i)\)</span> = Es la distancia promedio entre <em>i</em> y el resto de elementos dentro del conglomerado <em>i</em>.</p></li>
+<li><p><span class="math inline">\(|C_i|\)</span> = Es el número de elementos dentro del i-ésimo conglomerado.</p></li>
+<li><p><span class="math inline">\(d(i,j)\)</span> = Es la distancia entre los elementos <em>i</em> y <em>j</em> en el cluster <span class="math inline">\(C_i\)</span>.</p></li>
+</ul>
+<p>Se puede interpretar a <span class="math inline">\(a(i)\)</span> como una métrica de qué tan bien asignado está el elemento <em>i</em> al conglomerado. Entre más pequeño sea el valor, mejor asignado se encuentra.</p>
+<p>Posteriormente, se calcula la <strong>medida de disimilaridad del punto <em>i</em> a algún conglomerado <span class="math inline">\(C_k\)</span></strong> como el promedio de la distancia del punto <em>i</em> a todos los puntos en <span class="math inline">\(C_k\)</span> <span class="math inline">\((C_k \neq C_i)\)</span>.</p>
+<p>Para cada punto <span class="math inline">\(i \in C_i\)</span>, se define:</p>
+<p><span class="math display">\[b(i)=min_{k\neq i}\frac{1}{|C_k|}\sum_{j\in C_k}d(i,j)\]</span></p>
+<p>ser la distancia media más pequeña (de ahí el operador <em>min</em> en la fórmula) de <em>i</em> a todos los puntos en cualquier otro grupo, del cual <em>i</em> no es miembro. Se dice que el conglomerado con esta disimilitud media más pequeña es el “conglomerado vecino” de <em>i</em> porque es el siguiente conglomerado que mejor se ajusta para el punto <em>i</em>.</p>
+</div>
+<div id="índice-de-dunn" class="section level3 hasAnchor" number="6.2.3">
+<h3><span class="header-section-number">6.2.3</span> Índice de Dunn<a href="evaluación-de-clusters.html#índice-de-dunn" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El índice de Dunn es otra medida de validación interna de conglomeración que puede calculada como sigue:</p>
+<ol style="list-style-type: decimal">
+<li><p>En cada cluster, se calcula la distancia entre cada uno de los elementos en el cluster y los objetos en otros clusters.</p></li>
+<li><p>Usar la mínima de las distancias (uno a uno) como la separación inter-cluster (min-separation).</p></li>
+<li><p>Para cada cluster, se calcula la distancia entre los elementos dentro del mismo cluster.</p></li>
+<li><p>Se usa la distancia intra-cluster máxima (max-diameter) como la compactividad intra-cluster.</p></li>
+<li><p>Se calcula el índice de <em>Dunn (D)</em> como sigue:</p></li>
+</ol>
+<p><span class="math display">\[D=\frac{min-separation}{max-diameter}\]</span></p>
+</div>
+</div>
+<div id="selección-de-algoritmo" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Selección de algoritmo<a href="evaluación-de-clusters.html#selección-de-algoritmo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Elegir el mejor algoritmo puede ser una tarea difícil para cualquier analista. EN esta sección se mostrará la paquetería <em>clValid</em>, la cual puede ser usada para comparar simultáneamente múltiples algoritmos de clustering en una simple función que ayuda a identificar el mejor enfoque de aglomeración y el número óptimo de clusters.</p>
+<p>Comencemos por definir algunas métricas…</p>
+<div id="métricas-para-comparar-algoritmos" class="section level3 hasAnchor" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Métricas para comparar algoritmos<a href="evaluación-de-clusters.html#métricas-para-comparar-algoritmos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La librería <em>clValid</em> compara los algoritmos de clustering mediante dos métricas de validación de aglomeración.</p>
+<ol style="list-style-type: lower-alpha">
+<li><strong>Medida interna:</strong> Esta medida usa información intrínseca en los datos para evaluar la calidad de la aglomeración. La medida interna incluye la <em>conectividad</em>, el coeficiente de <em>silhouette</em> y el índice de <em>Dunn</em>.</li>
+</ol>
+<p>Las medidas de validación interna reflejan a menudo la <em>compacidad</em>, <em>conectividad</em> y <em>separación</em> de las particiones de clusters.</p>
+<ul>
+<li><p>Compacidad: También conocida como cohesión de cluster. Mide qué tan cercanos están los objetos dentro del mismo cluster.</p></li>
+<li><p>Conectividad: Corresponde a la medida en que los elementos se colocan en el mismo grupo que sus vecinos más cercanos en el espacio de datos.</p></li>
+<li><p>Separación: Miden qué tan bien separado un cluster está de otro cluster. Este índice incluye: distancias entre centro de clusters y parejas de distancias mínimas entre elementos de diferentes clusters.</p></li>
+</ul>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="evaluación-de-clusters.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(clValid)</span>
+<span id="cb117-2"><a href="evaluación-de-clusters.html#cb117-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-3"><a href="evaluación-de-clusters.html#cb117-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">scale</span>(USArrests)</span>
+<span id="cb117-4"><a href="evaluación-de-clusters.html#cb117-4" aria-hidden="true" tabindex="-1"></a>clmethods <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;hierarchical&quot;</span>, <span class="st">&quot;kmeans&quot;</span>, <span class="st">&quot;pam&quot;</span>)</span>
+<span id="cb117-5"><a href="evaluación-de-clusters.html#cb117-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-6"><a href="evaluación-de-clusters.html#cb117-6" aria-hidden="true" tabindex="-1"></a>stab <span class="ot">&lt;-</span> <span class="fu">clValid</span>(</span>
+<span id="cb117-7"><a href="evaluación-de-clusters.html#cb117-7" aria-hidden="true" tabindex="-1"></a> df, </span>
+<span id="cb117-8"><a href="evaluación-de-clusters.html#cb117-8" aria-hidden="true" tabindex="-1"></a> <span class="at">nClust =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">9</span>, </span>
+<span id="cb117-9"><a href="evaluación-de-clusters.html#cb117-9" aria-hidden="true" tabindex="-1"></a> <span class="at">clMethods =</span> clmethods, </span>
+<span id="cb117-10"><a href="evaluación-de-clusters.html#cb117-10" aria-hidden="true" tabindex="-1"></a> <span class="at">validation =</span> <span class="st">&quot;internal&quot;</span></span>
+<span id="cb117-11"><a href="evaluación-de-clusters.html#cb117-11" aria-hidden="true" tabindex="-1"></a> )</span>
+<span id="cb117-12"><a href="evaluación-de-clusters.html#cb117-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-13"><a href="evaluación-de-clusters.html#cb117-13" aria-hidden="true" tabindex="-1"></a><span class="fu">optimalScores</span>(stab)</span></code></pre></div>
+<pre><code>##                  Score       Method Clusters
+## Connectivity 6.6436508 hierarchical        2
+## Dunn         0.2622835 hierarchical        9
+## Silhouette   0.4084890 hierarchical        2</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><strong>Medida de estabilidad:</strong> Es una versión especial de las medidas internas, la cual evalúa la consistencia de una resultado de aglomeración al compararla con los clusters obtenidos después de que cada columna es removida, una a la vez.</li>
+</ol>
+<p>Las medidas de estabilidad de clusters incluyen:</p>
+<blockquote>
+<p>Proporción promedio de no-sobrelape (APN)</p>
+<p>Distancia promedio (AD)</p>
+<p>Distancia promedio entre medias (ADM)</p>
+<p>Figura de mérito (FOM)</p>
+</blockquote>
+<p>estas medidas están basadas en la tabla de clasificación cruzada de la aglomeración original en los datos completos y la aglomeración basada en la eliminación de una columna.</p>
+<ul>
+<li><p>La medida <em>APN</em> mide la proporción promedio de observaciones no puestas en el mismo cluster al aglomerar basado en los datos completos y la aglomeración basada en los datos con una única columna removida.</p></li>
+<li><p>La medida <em>AD</em> mide la distancia promedio entre observaciones puestas en el mismo cluster bajo ambos casos (datos completos y removiendo una columna)</p></li>
+<li><p>La medida <em>AD</em> mide la distancia promedio entre los centros de clusters para observaciones puestas en el mismo cluster bajo ambos casos.</p></li>
+</ul>
+<p>La medida <em>FOM</em> mide el promedio de varianza intra-cluster de la columna removida, donde la aglomeración está basada en las columnas remanentes (no eliminadas)</p>
+<p>Los valores de las medidas APN, ADM y FOM tienen un rango entre 0 y 1, en donde un valor pequeño corresponde a resultados de aglomeración con más alta consistencia. La métrica AD tiene valores entre 0 e infinito, donde nuevamente son preferidos los valores más pequeños.</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="evaluación-de-clusters.html#cb119-1" aria-hidden="true" tabindex="-1"></a>stab <span class="ot">&lt;-</span> <span class="fu">clValid</span>(</span>
+<span id="cb119-2"><a href="evaluación-de-clusters.html#cb119-2" aria-hidden="true" tabindex="-1"></a> df, </span>
+<span id="cb119-3"><a href="evaluación-de-clusters.html#cb119-3" aria-hidden="true" tabindex="-1"></a> <span class="at">nClust =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">9</span>, </span>
+<span id="cb119-4"><a href="evaluación-de-clusters.html#cb119-4" aria-hidden="true" tabindex="-1"></a> <span class="at">clMethods =</span> clmethods, </span>
+<span id="cb119-5"><a href="evaluación-de-clusters.html#cb119-5" aria-hidden="true" tabindex="-1"></a> <span class="at">validation =</span> <span class="st">&quot;stability&quot;</span></span>
+<span id="cb119-6"><a href="evaluación-de-clusters.html#cb119-6" aria-hidden="true" tabindex="-1"></a> )</span>
+<span id="cb119-7"><a href="evaluación-de-clusters.html#cb119-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-8"><a href="evaluación-de-clusters.html#cb119-8" aria-hidden="true" tabindex="-1"></a><span class="fu">optimalScores</span>(stab)</span></code></pre></div>
+<pre><code>##          Score Method Clusters
+## APN 0.05333333 kmeans        2
+## AD  1.17826405    pam        9
+## ADM 0.16520029 kmeans        2
+## FOM 0.65343054 kmeans        5</code></pre>
 
+</div>
 </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

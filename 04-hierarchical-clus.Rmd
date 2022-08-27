@@ -658,12 +658,146 @@ La técnica *VAT* detecta la tendencia de clustering de forma visual al contar e
 
 * Realizar una evaluación de tendencia de conglomeración con los datos de entidades
 
+## Medidas internas de ajuste
+
+### Inercia
+
+La idea detrás de la agrupación de k-medias consiste en definir agrupaciones de modo que se minimice la variación total dentro de la agrupación (conocida como *within cluster variation* o *inertia*).
+
+Existen distintos algoritmos de k-medias, el algoritmo estándar es el algoritmo de Hartigan-Wong, que define *within cluster variation* como la suma de las distancias euclidianas entre los elementos y el centroide correspondiente al cuadrado:
+
+$$W(C_k)=\sum_{x_i \in C_k}(x_i-\mu_k)²$$
+
+donde $x_i$ es una observación que pertenece al *cluster* $C_k$ y $\mu_k$ es la media del *cluster* $C_k$
+
+Cada observación $x_i$ se asigna a un grupo de modo que la suma de cuadrados de la distancia de la observación a sus centroide del grupo asignado $\mu_k$ es mínima.
+
+Definimos la *total within cluster variation* total  de la siguiente manera:
+
+$$total \quad within = \sum_{k=1}^{K}W(C_k) = \sum_{k=1}^{K}\sum_{x_i \in C_k}(x_i-\mu_k)²$$
+
+### Silhouette
+
+El índice de **Silhouette** hace referencia al método de **interpretación y validación de la consistencia dentro de los conglomerados**.  La medida de Silhouette es una medida de **qué tan similar es un elemento al interior del cluster en comparación con otros.** 
+
+El rango del índice va de -1 a 1, donde un alto valor del índice indica que el objeto es consistente dentro de su cluster y pobremente asociado a otro conglomerado. Si muchos elementos presentan un valor bajo o negativo, entonces la configuración del cluster puede que tenga muy pocos o demasiados conglomerados.
+
+El índice de Silhouette puede ser calculado con cualquier métrica de distancia, tal como la distancia Euclidiana, Manhattan u otro.
+
+Se define al índice de **Silhouette** como:
+
+$$s(i)=\frac{b(i)-a(i)}{max\left\{a(i), b(i)\right\}}; \quad si \quad|C_i|>1; \quad -1 \le s(i) \le 1$$
+
+$$s(i)=0; \quad si \quad|C_i|=1$$
+
+Asumiendo que cada elemento ha sido asignado a un cluster, para cada punto *i* en $C_i$, entonces:
+
+$$a(i)=\frac{1}{|C_i|-1}\sum_{j\in C_i, i \neq j}d(i,j)$$
+
+* $a(i)$ = Es la distancia promedio entre *i* y el resto de elementos dentro del conglomerado *i*.
+
+* $|C_i|$ = Es el número de elementos dentro del i-ésimo conglomerado. 
+
+* $d(i,j)$ = Es la distancia entre los elementos *i* y *j* en el cluster $C_i$. 
+
+Se puede interpretar a $a(i)$ como una métrica de qué tan bien asignado está el elemento *i* al conglomerado. Entre más pequeño sea el valor, mejor asignado se encuentra. 
+
+Posteriormente, se calcula la **medida de disimilaridad del punto *i* a algún conglomerado $C_k$** como el promedio de la distancia del punto *i* a todos los puntos en $C_k$ $(C_k \neq C_i)$.
+
+Para cada punto $i \in C_i$, se define:
+
+$$b(i)=min_{k\neq i}\frac{1}{|C_k|}\sum_{j\in C_k}d(i,j)$$
+
+ser la distancia media más pequeña (de ahí el operador *min* en la fórmula) de *i* a todos los puntos en cualquier otro grupo, del cual *i* no es miembro. Se dice que el conglomerado con esta disimilitud media más pequeña es el "conglomerado vecino" de *i* porque es el siguiente conglomerado que mejor se ajusta para el punto *i*.
 
 
+### Índice de Dunn
 
+El índice de Dunn es otra medida de validación interna de conglomeración que puede calculada como sigue:
 
+1. En cada cluster, se calcula la distancia entre cada uno de los elementos en el cluster y los objetos en otros clusters.
 
+2. Usar la mínima de las distancias (uno a uno) como la separación inter-cluster (min-separation).
 
+3. Para cada cluster, se calcula la distancia entre los elementos dentro del mismo cluster.
+
+4. Se usa la distancia intra-cluster máxima (max-diameter) como la compactividad intra-cluster.
+
+5. Se calcula el índice de *Dunn (D)* como sigue:
+
+$$D=\frac{min-separation}{max-diameter}$$
+
+## Selección de algoritmo
+
+Elegir el mejor algoritmo puede ser una tarea difícil para cualquier analista. EN esta sección se mostrará la paquetería *clValid*, la cual puede ser usada para comparar simultáneamente múltiples algoritmos de clustering en una simple función que ayuda a identificar el mejor enfoque de aglomeración y el número óptimo de clusters.
+
+Comencemos por definir algunas métricas...
+
+### Métricas para comparar algoritmos
+
+La librería *clValid* compara los algoritmos de clustering mediante dos métricas de validación de aglomeración.
+
+a) **Medida interna:** Esta medida usa información intrínseca en los datos para evaluar la calidad de la aglomeración. La medida interna incluye la *conectividad*, el coeficiente de *silhouette* y el índice de *Dunn*.
+
+Las medidas de validación interna reflejan a menudo la *compacidad*, *conectividad* y *separación* de las particiones de clusters.
+
+* Compacidad: También conocida como cohesión de cluster. Mide qué tan cercanos están los objetos dentro del mismo cluster.
+
+* Conectividad: Corresponde a la medida en que los elementos se colocan en el mismo grupo que sus vecinos más cercanos en el espacio de datos.
+
+* Separación: Miden qué tan bien separado un cluster está de otro cluster. Este índice incluye: distancias entre centro de clusters y parejas de distancias mínimas entre elementos de diferentes clusters.
+
+```{r, warning=FALSE}
+library(clValid)
+
+df <- scale(USArrests)
+clmethods <- c("hierarchical", "kmeans", "pam")
+
+stab <- clValid(
+ df, 
+ nClust = 2:9, 
+ clMethods = clmethods, 
+ validation = "internal"
+ )
+
+optimalScores(stab)
+```
+
+b) **Medida de estabilidad:** Es una versión especial de las medidas internas, la cual evalúa la consistencia de una resultado de aglomeración al compararla con los clusters obtenidos después de que cada columna es removida, una a la vez.
+
+Las medidas de estabilidad de clusters incluyen:
+
+> Proporción promedio de no-sobrelape (APN)
+>
+> Distancia promedio (AD)
+>
+> Distancia promedio entre medias (ADM)
+>
+> Figura de mérito (FOM)
+
+estas medidas están basadas en la tabla de clasificación cruzada de la aglomeración original en los datos completos y la aglomeración basada en la eliminación de una columna.
+
+* La medida *APN* mide la proporción promedio de observaciones no puestas en el mismo cluster al aglomerar basado en los datos completos y la aglomeración basada en los datos con una única columna removida.
+
+* La medida *AD* mide la distancia promedio entre observaciones puestas en el mismo cluster bajo ambos casos (datos completos y removiendo una columna)
+
+* La medida *AD* mide la distancia promedio entre los centros de clusters para observaciones puestas en el mismo cluster bajo ambos casos.
+
+La medida *FOM* mide el promedio de varianza intra-cluster de la columna removida, donde la aglomeración está basada en las columnas remanentes (no eliminadas)
+
+Los valores de las medidas APN, ADM y FOM tienen un rango entre 0 y 1, en donde un valor pequeño corresponde a resultados de aglomeración con más alta consistencia. La métrica AD tiene valores entre 0 e infinito, donde nuevamente son preferidos los valores más pequeños.
+
+```{r, warning=FALSE}
+
+stab <- clValid(
+ df, 
+ nClust = 2:9, 
+ clMethods = clmethods, 
+ validation = "stability"
+ )
+
+optimalScores(stab)
+```
 
 
 

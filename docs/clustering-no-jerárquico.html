@@ -249,6 +249,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html"><i class="fa fa-check"></i><b>6</b> Evaluación de clusters</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html#tendencia-de-factibilidad"><i class="fa fa-check"></i><b>6.1</b> Tendencia de factibilidad</a></li>
+<li class="chapter" data-level="6.2" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html#medidas-internas-de-ajuste"><i class="fa fa-check"></i><b>6.2</b> Medidas internas de ajuste</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html#inercia-1"><i class="fa fa-check"></i><b>6.2.1</b> Inercia</a></li>
+<li class="chapter" data-level="6.2.2" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html#silhouette-1"><i class="fa fa-check"></i><b>6.2.2</b> Silhouette</a></li>
+<li class="chapter" data-level="6.2.3" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html#índice-de-dunn"><i class="fa fa-check"></i><b>6.2.3</b> Índice de Dunn</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html#selección-de-algoritmo"><i class="fa fa-check"></i><b>6.3</b> Selección de algoritmo</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="evaluación-de-clusters.html"><a href="evaluación-de-clusters.html#métricas-para-comparar-algoritmos"><i class="fa fa-check"></i><b>6.3.1</b> Métricas para comparar algoritmos</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="anexo-visualización-con-ggplot.html"><a href="anexo-visualización-con-ggplot.html"><i class="fa fa-check"></i><b>7</b> Anexo: Visualización con Ggplot</a>
 <ul>
@@ -515,17 +525,17 @@ Cuando la distancia es cero, el color es rojo puro y cuando la distancia es ampl
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="clustering-no-jerárquico.html#cb46-1" aria-hidden="true" tabindex="-1"></a>k6 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(df, <span class="at">centers =</span> <span class="dv">6</span>, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
 <span id="cb46-2"><a href="clustering-no-jerárquico.html#cb46-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(k6)</span></code></pre></div>
 <pre><code>## List of 9
-##  $ cluster     : Named int [1:50] 2 3 5 4 3 3 1 1 5 2 ...
+##  $ cluster     : Named int [1:50] 1 5 2 4 5 5 6 4 2 1 ...
 ##   ..- attr(*, &quot;names&quot;)= chr [1:50] &quot;Alabama&quot; &quot;Alaska&quot; &quot;Arizona&quot; &quot;Arkansas&quot; ...
-##  $ centers     : num [1:6, 1:4] -0.629 1.58 0.456 -0.164 0.867 ...
+##  $ centers     : num [1:6, 1:4] 1.58 0.867 -1.103 -0.216 0.456 ...
 ##   ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. ..$ : chr [1:6] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
 ##   .. ..$ : chr [1:4] &quot;Murder&quot; &quot;Assault&quot; &quot;UrbanPop&quot; &quot;Rape&quot;
 ##  $ totss       : num 196
-##  $ withinss    : num [1:6] 9.33 6.13 6.26 7.79 5.89 ...
-##  $ tot.withinss: num 42.8
+##  $ withinss    : num [1:6] 6.13 5.89 8.5 10.86 6.26 ...
+##  $ tot.withinss: num 42.9
 ##  $ betweenss   : num 153
-##  $ size        : int [1:6] 10 7 4 11 8 10
+##  $ size        : int [1:6] 7 8 11 13 4 7
 ##  $ iter        : int 3
 ##  $ ifault      : int 0
 ##  - attr(*, &quot;class&quot;)= chr &quot;kmeans&quot;</code></pre>
